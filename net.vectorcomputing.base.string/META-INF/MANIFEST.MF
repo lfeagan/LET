@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: String Base
+Bundle-SymbolicName: net.vectorcomputing.base.string
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: VectorComputing.net
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: net.vectorcomputing.base.string,
+ net.vectorcomputing.base.string.constraint,
+ net.vectorcomputing.base.string.split,
+ net.vectorcomputing.base.string.transform

@@ -1,0 +1,12 @@
+# Ignore all Java class files
+*.class
+
+# Ignore everything in Eclipse's bin directory
+bin
+
+# Generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out

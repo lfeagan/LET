@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: base.string tests
+Bundle-SymbolicName: net.vectorcomputing.base.string.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.vectorcomputing.base.string.test.Activator
+Bundle-Vendor: VectorComputing.net
+Require-Bundle: org.eclipse.core.runtime,
+ net.vectorcomputing.base.string;bundle-version="1.0.0",
+ org.junit;bundle-version="4.8.1"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

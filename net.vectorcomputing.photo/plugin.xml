@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="photoFactory" name="Photo Factory" schema="schema/photoFactory.exsd"/>
+   <extension
+         point="net.vectorcomputing.photo.photoFactory">
+      <factory
+            class="net.vectorcomputing.photo.internal.factory.JPEGPhotoFactory"
+            id="net.vectorcomputing.photo.internal.factory.JPEGPhotoFactory"
+            name="JPEG Photo Factory">
+      </factory>
+      <factory
+            class="net.vectorcomputing.photo.internal.factory.PNGPhotoFactory"
+            id="net.vectorcomputing.photo.internal.factory.PNGPhotoFactory"
+            name="PNG Photo Factory">
+      </factory>
+   </extension>
+
+</plugin>

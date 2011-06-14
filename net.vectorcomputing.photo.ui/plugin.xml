@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="net.vectorcomputing.photo.ui.category"
+            class="net.vectorcomputing.photo.ui.viewers.PhotoCatalogManager"
+            id="net.vectorcomputing.photo.ui.viewers.PhotoCatalogManager"
+            name="Photo Catalog Manager">
+      </view>
+      <category
+            id="net.vectorcomputing.photo.ui.category"
+            name="Photo">
+      </category>
+      <view
+            category="net.vectorcomputing.photo.ui.category"
+            class="net.vectorcomputing.photo.ui.viewers.PhotoFactoriesViewer"
+            id="net.vectorcomputing.photo.ui.viewers.PhotoFactoriesViewer"
+            name="Photo Factories">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.viewActions">
+      <viewContribution
+            id="net.vectorcomputing.photo.ui.viewContribution1"
+            targetID="net.vectorcomputing.photo.ui.viewers.PhotoCatalogManager">
+         <action
+               class="net.vectorcomputing.photo.ui.RemovePhotoCatalogActionDelegate"
+               id="net.vectorcomputing.photo.ui.action1"
+               label="label"
+               style="push">
+         </action>
+      </viewContribution>
+   </extension>
+</plugin>

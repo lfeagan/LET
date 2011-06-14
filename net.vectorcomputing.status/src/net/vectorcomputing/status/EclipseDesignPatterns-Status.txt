@@ -1,0 +1,21 @@
+Eclipse Design Patterns
+Chapter 1 - Status
+
+The IStatus class is used extensively in Eclipse. The first place you encounter Eclipse's IStatus is when writing to a plug-in's PDE ILog.
+Another common place status is encountered is in dialog's requesting user data input to indicate if the data
+the user has provided is incorrect, valid but not ideal, or correct.
+
+Eclipse has a reasonable dose of Model-View-Controller (MVC) style design in it. The examples above of PDE's ILog and dialog status
+it makes sense that the model and potentially the controller objects should be able to provide
+their current status so that UI and logging elements can focus on how the information is presented and not
+be bothered with details of how to obtain the information about the status of the model.
+
+The first step is to create an interface that allows an object to be queried for its current status. The interface
+only needs a single method
+	getStatus() : IStatus
+
+The method takes no arguments as a model-type object should not depend on any information from a viewer to determine
+the it's status. 
+
+2: Making other objects aware of changes in the status of the model
+IStatusPublisher

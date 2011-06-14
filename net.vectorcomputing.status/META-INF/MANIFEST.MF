@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Status
+Bundle-SymbolicName: net.vectorcomputing.status
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.vectorcomputing.status.StatusPlugin
+Bundle-Vendor: VectorComputing.net
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.4.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: net.vectorcomputing.status,
+ net.vectorcomputing.status.forwarders,
+ net.vectorcomputing.status.listeners,
+ net.vectorcomputing.status.publishers,
+ net.vectorcomputing.status.publishers.group
