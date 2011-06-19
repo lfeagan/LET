@@ -22,8 +22,8 @@ import org.eclipse.core.filesystem.IFileStore;
 
 public abstract class AbstractPhoto implements IPhoto {
 
-	private IFileStore fileStore;
-	private IPhotoCatalog catalog;
+	protected IFileStore fileStore;
+	protected IPhotoCatalog catalog;
 	
 	public AbstractPhoto(IFileStore fileStore, IPhotoCatalog catalog) {
 		this.fileStore = fileStore;
