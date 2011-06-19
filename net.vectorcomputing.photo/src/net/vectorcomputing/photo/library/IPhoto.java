@@ -18,12 +18,14 @@ package net.vectorcomputing.photo.library;
 import net.vectorcomputing.photo.catalog.IPhotoCatalog;
 
 import org.eclipse.core.filesystem.IFileStore;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.swt.graphics.ImageData;
 
 public interface IPhoto {
 	
 	public IFileStore getFileStore();
 	
-	public void getImage();
+	public ImageData getImageData() throws CoreException;
 
 	public IPhotoCatalog getCatalog();
 	
