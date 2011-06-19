@@ -20,17 +20,23 @@ import net.vectorcomputing.photo.internal.library.AbstractPhoto;
 import net.vectorcomputing.photo.library.IPhoto;
 
 import org.eclipse.core.filesystem.IFileStore;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.swt.graphics.ImageData;
 
 public class JPEGPhoto extends AbstractPhoto implements IPhoto {
+
+	private ImageData imageData;
 
 	public JPEGPhoto(IFileStore fileStore, IPhotoCatalog catalog) {
 		super(fileStore, catalog);
 	}
 	
 	@Override
-	public void getImage() {
-		// TODO Auto-generated method stub
-
+	public ImageData getImageData() throws CoreException {
+		if (imageData != null) {
+			imageData = EclipseSupportedImageDataLoader.read(fileStore);
+		}
+		return imageData;
 	}
 
 }
