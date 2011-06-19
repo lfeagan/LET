@@ -32,4 +32,13 @@ public class StringTransformRemoveDuplicateWhitepaceBetweenWords implements IStr
 		return input.replaceAll("\\b\\s{2,}\\b", " "); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<");
+		sb.append(StringTransformRemoveDuplicateWhitepaceBetweenWords.class.getSimpleName());
+		sb.append("/>");
+		return sb.toString();
+	}
+	
 }

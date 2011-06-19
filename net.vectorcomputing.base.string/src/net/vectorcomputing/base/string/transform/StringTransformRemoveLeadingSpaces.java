@@ -25,5 +25,14 @@ public class StringTransformRemoveLeadingSpaces implements IStringTransformer {
 	public String transform(String input) {
 		return input.replaceAll("^\\s+", ""); //$NON-NLS-1$ //$NON-NLS-2$
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<");
+		sb.append(StringTransformRemoveLeadingSpaces.class.getSimpleName());
+		sb.append("/>");
+		return sb.toString();
+	}
 
 }

@@ -32,4 +32,13 @@ public class StringTransformEncloseInSingleQuotes implements IStringTransformer 
 		return sb.toString();
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<");
+		sb.append(StringTransformEncloseInSingleQuotes.class.getSimpleName());
+		sb.append("/>");
+		return sb.toString();
+	}
+	
 }

@@ -25,5 +25,14 @@ public class StringTransformContiguousWhitespaceToSingleSpace implements IString
 	public String transform(String input) {
 		return input.replaceAll("\\s{1,}", " "); //$NON-NLS-1$ //$NON-NLS-2$
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<");
+		sb.append(StringTransformContiguousWhitespaceToSingleSpace.class.getSimpleName());
+		sb.append("/>");
+		return sb.toString();
+	}
 
 }

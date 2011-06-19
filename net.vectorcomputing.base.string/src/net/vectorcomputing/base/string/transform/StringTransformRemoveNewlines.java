@@ -28,4 +28,13 @@ public class StringTransformRemoveNewlines implements IStringTransformer {
 		return input.replaceAll("^\\n", ""); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<");
+		sb.append(StringTransformRemoveNewlines.class.getSimpleName());
+		sb.append("/>");
+		return sb.toString();
+	}
+	
 }

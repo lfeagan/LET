@@ -57,4 +57,15 @@ public class StringTransformAddSuffix implements IStringTransformer {
 		return input + suffix;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<");
+		sb.append(StringTransformAddSuffix.class.getSimpleName());
+		sb.append(" suffix=\"");
+		sb.append(suffix);
+		sb.append("\">");
+		return sb.toString();
+	}
+	
 }

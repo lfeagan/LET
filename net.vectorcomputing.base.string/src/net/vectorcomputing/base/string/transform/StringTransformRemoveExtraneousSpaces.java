@@ -33,5 +33,14 @@ public class StringTransformRemoveExtraneousSpaces implements IStringTransformer
 	public String transform(String input) {
 		return pipeline.transform(input);
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<");
+		sb.append(StringTransformRemoveExtraneousSpaces.class.getSimpleName());
+		sb.append("/>");
+		return sb.toString();
+	}
 
 }
