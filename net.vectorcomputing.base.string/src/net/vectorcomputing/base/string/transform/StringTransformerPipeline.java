@@ -15,8 +15,6 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
-import net.vectorcomputing.base.string.constraint.IStringConstraint;
-
 /**
  * Chains string transformers together to create a transformation pipeline.
  */
@@ -40,11 +38,11 @@ public class StringTransformerPipeline implements IStringTransformer {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<StringTransformerPipeline>");
+		sb.append("<StringTransformerPipeline>"); //$NON-NLS-1$
 		for (IStringTransformer transformer : stringTransformers) {
 			sb.append(transformer.toString());
 		}
-		sb.append("</StringTransformerPipeline>");
+		sb.append("</StringTransformerPipeline>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 

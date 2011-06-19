@@ -56,11 +56,11 @@ public class StringsTransformDelimitElements implements IStringsTransformer {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<");
+		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringsTransformDelimitElements.class.getSimpleName());
-		sb.append(" delimiter=\"");
+		sb.append(" delimiter=\""); //$NON-NLS-1$
 		sb.append(delimiter);
-		sb.append("\">");
+		sb.append("\">"); //$NON-NLS-1$
 		return sb.toString();
 	}
 	

@@ -29,9 +29,9 @@ public class StringTransformContiguousWhitespaceToSingleSpace implements IString
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<");
+		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringTransformContiguousWhitespaceToSingleSpace.class.getSimpleName());
-		sb.append("/>");
+		sb.append("/>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 

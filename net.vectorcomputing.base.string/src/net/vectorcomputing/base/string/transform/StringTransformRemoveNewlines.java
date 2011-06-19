@@ -31,9 +31,9 @@ public class StringTransformRemoveNewlines implements IStringTransformer {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<");
+		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringTransformRemoveNewlines.class.getSimpleName());
-		sb.append("/>");
+		sb.append("/>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 	

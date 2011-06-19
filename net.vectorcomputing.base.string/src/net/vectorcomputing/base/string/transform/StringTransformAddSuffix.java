@@ -60,11 +60,11 @@ public class StringTransformAddSuffix implements IStringTransformer {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<");
+		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringTransformAddSuffix.class.getSimpleName());
-		sb.append(" suffix=\"");
+		sb.append(" suffix=\""); //$NON-NLS-1$
 		sb.append(suffix);
-		sb.append("\">");
+		sb.append("\">"); //$NON-NLS-1$
 		return sb.toString();
 	}
 	

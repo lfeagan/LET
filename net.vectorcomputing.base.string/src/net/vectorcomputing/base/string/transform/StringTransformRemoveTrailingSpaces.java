@@ -29,9 +29,9 @@ public class StringTransformRemoveTrailingSpaces implements IStringTransformer {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<");
+		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringTransformRemoveTrailingSpaces.class.getSimpleName());
-		sb.append("/>");
+		sb.append("/>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 
