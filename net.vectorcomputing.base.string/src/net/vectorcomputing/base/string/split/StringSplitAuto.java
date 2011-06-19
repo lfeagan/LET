@@ -71,7 +71,7 @@ public class StringSplitAuto implements IStringSplitter {
 	
 	@Override
 	public String toString() {
-		return "<StringSplitAuto/>";
+		return "<StringSplitAuto/>"; //$NON-NLS-1$
 	}
 
 }

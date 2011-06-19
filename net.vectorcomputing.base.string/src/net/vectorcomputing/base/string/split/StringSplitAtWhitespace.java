@@ -36,7 +36,7 @@ public class StringSplitAtWhitespace implements IStringSplitter {
 
 	@Override
 	public String toString() {
-		return "<StringSplitAtWhitespace/>";
+		return "<StringSplitAtWhitespace/>"; //$NON-NLS-1$
 	}
 	
 }

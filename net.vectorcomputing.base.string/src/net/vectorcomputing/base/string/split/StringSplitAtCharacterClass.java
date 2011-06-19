@@ -43,9 +43,9 @@ public class StringSplitAtCharacterClass implements IStringSplitter {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<StringSplitAtCharacterClass characterClass=\"");
+		sb.append("<StringSplitAtCharacterClass characterClass=\""); //$NON-NLS-1$
 		sb.append(characterClass);
-		sb.append("\"/>");
+		sb.append("\"/>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 

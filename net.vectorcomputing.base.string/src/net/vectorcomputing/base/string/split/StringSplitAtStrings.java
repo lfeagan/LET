@@ -56,9 +56,9 @@ public class StringSplitAtStrings implements IStringSplitter {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<StringSplitAtStrings delimiters=\"");
+		sb.append("<StringSplitAtStrings delimiters=\""); //$NON-NLS-1$
 		sb.append(delimiters);
-		sb.append("\"/>");
+		sb.append("\"/>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 
