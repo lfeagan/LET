@@ -59,8 +59,8 @@ public class StringConstraintXor implements IStringConstraint {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<Xor>");
-		for (IStringConstraint sc : stringConstraints) {
-			sb.append(sb.toString());
+		for (IStringConstraint stringConstraint : stringConstraints) {
+			sb.append(stringConstraint.toString());
 		}
 		sb.append("</Xor>");
 		return sb.toString();

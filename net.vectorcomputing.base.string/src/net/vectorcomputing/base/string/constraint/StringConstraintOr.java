@@ -54,8 +54,8 @@ public class StringConstraintOr implements IStringConstraint {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<Or>");
-		for (IStringConstraint sc : stringConstraints) {
-			sb.append(sb.toString());
+		for (IStringConstraint stringConstraint : stringConstraints) {
+			sb.append(stringConstraint.toString());
 		}
 		sb.append("</Or>");
 		return sb.toString();

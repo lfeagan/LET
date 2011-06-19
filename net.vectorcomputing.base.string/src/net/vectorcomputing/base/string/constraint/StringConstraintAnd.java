@@ -52,8 +52,8 @@ public class StringConstraintAnd implements IStringConstraint {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<And>");
-		for (IStringConstraint sc : stringConstraints) {
-			sb.append(sb.toString());
+		for (IStringConstraint stringConstraint : stringConstraints) {
+			sb.append(stringConstraint.toString());
 		}
 		sb.append("</And>");
 		return sb.toString();
