@@ -55,4 +55,15 @@ public class StringTransformerAddPrefix implements IStringTransformer {
 		return prefix + input;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<");
+		sb.append(StringTransformerAddPrefix.class.getSimpleName());
+		sb.append(" prefix=\"");
+		sb.append(prefix);
+		sb.append("\">");
+		return sb.toString();
+	}
+
 }
