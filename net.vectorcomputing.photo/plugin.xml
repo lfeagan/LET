@@ -5,6 +5,11 @@
    <extension
          point="net.vectorcomputing.photo.photoFactory">
       <factory
+            class="net.vectorcomputing.photo.internal.factory.BMPPhotoFactory"
+            id="net.vectorcomputing.photo.internal.factory.BMPPhotoFactory"
+            name="BMP Photo Factory">
+      </factory>
+      <factory
             class="net.vectorcomputing.photo.internal.factory.JPEGPhotoFactory"
             id="net.vectorcomputing.photo.internal.factory.JPEGPhotoFactory"
             name="JPEG Photo Factory">
@@ -13,6 +18,11 @@
             class="net.vectorcomputing.photo.internal.factory.PNGPhotoFactory"
             id="net.vectorcomputing.photo.internal.factory.PNGPhotoFactory"
             name="PNG Photo Factory">
+      </factory>
+      <factory
+            class="net.vectorcomputing.photo.internal.factory.TIFFPhotoFactory"
+            id="net.vectorcomputing.photo.internal.factory.TIFFPhotoFactory"
+            name="TIFF Photo Factory">
       </factory>
    </extension>
 
