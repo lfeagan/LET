@@ -50,4 +50,15 @@ public class StringConstraintOr implements IStringConstraint {
 		return false;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<Or>");
+		for (IStringConstraint sc : stringConstraints) {
+			sb.append(sb.toString());
+		}
+		sb.append("</Or>");
+		return sb.toString();
+	}
+	
 }

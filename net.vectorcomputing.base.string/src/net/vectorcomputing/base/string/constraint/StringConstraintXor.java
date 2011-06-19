@@ -55,4 +55,15 @@ public class StringConstraintXor implements IStringConstraint {
 		return satisfiedByCount == 1;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<Xor>");
+		for (IStringConstraint sc : stringConstraints) {
+			sb.append(sb.toString());
+		}
+		sb.append("</Xor>");
+		return sb.toString();
+	}
+	
 }

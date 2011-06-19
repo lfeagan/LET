@@ -70,4 +70,13 @@ public class StringConstrainIsInteger implements IStringConstraint {
 		}
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<IsInteger radix=\"");
+		sb.append(radix);
+		sb.append("\"/>");
+		return sb.toString();
+	}
+	
 }

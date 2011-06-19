@@ -28,4 +28,9 @@ public class StringConstrainContainsSpaces implements IStringConstraint {
 		return (input.indexOf(' ') >= 0); 
 	}
 
+	@Override
+	public String toString() {
+		return("<ContainsSpaces/>");
+	}
+	
 }

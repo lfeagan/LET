@@ -36,4 +36,10 @@ public class StringConstrainIsEmpty implements IStringConstraint {
 		return (input == null || input.trim().length() == 0);
 	}
 
+	
+	@Override
+	public String toString() {
+		return "<IsEmpty/>";
+	}
+	
 }

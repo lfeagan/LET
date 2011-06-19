@@ -29,4 +29,9 @@ public class StringConstraintFalse implements IStringConstraint {
 		return false;
 	}
 	
+	@Override
+	public String toString() {
+		return "<False>";
+	}
+	
 }

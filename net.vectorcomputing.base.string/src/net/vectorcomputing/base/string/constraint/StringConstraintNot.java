@@ -60,4 +60,13 @@ public class StringConstraintNot implements IStringConstraint {
 		return !this.underlyingConstraint.satisfiedBy(input);
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<Not>");
+		sb.append(underlyingConstraint.toString());
+		sb.append("</Not>");
+		return sb.toString();
+	}
+	
 }

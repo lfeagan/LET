@@ -43,4 +43,13 @@ public class StringConstrainEquals implements IStringConstraint {
 		return reference.equals(input);
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<Equals reference=\"");
+		sb.append(reference);
+		sb.append("\"/>");
+		return sb.toString();
+	}
+	
 }

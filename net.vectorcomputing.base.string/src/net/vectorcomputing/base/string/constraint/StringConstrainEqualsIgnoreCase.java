@@ -43,4 +43,13 @@ public class StringConstrainEqualsIgnoreCase implements IStringConstraint {
 		return reference.equalsIgnoreCase(input);
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<EqualsIgnoreCase reference=\"");
+		sb.append(reference);
+		sb.append("\"/>");
+		return sb.toString();
+	}
+	
 }

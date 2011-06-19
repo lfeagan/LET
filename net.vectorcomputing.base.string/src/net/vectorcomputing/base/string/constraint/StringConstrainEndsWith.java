@@ -45,4 +45,13 @@ public class StringConstrainEndsWith implements IStringConstraint {
 		return input.endsWith(suffix);
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<EndsWith suffix=\"");
+		sb.append(suffix);
+		sb.append("\"/>");
+		return sb.toString();
+	}
+	
 }

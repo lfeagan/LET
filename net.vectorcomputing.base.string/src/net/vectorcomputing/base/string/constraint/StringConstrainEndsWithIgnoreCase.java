@@ -51,4 +51,13 @@ public class StringConstrainEndsWithIgnoreCase implements IStringConstraint {
 		}
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<EndsWithIgnoreCase suffix=\"");
+		sb.append(suffix);
+		sb.append("\"/>");
+		return sb.toString();
+	}
+	
 }

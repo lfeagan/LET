@@ -29,5 +29,10 @@ public class StringConstrainHasLeadingSpaces implements IStringConstraint {
 	public boolean satisfiedBy(String input) {
 		return input.matches("^\\s+.*"); //$NON-NLS-1$
 	}
+	
+	@Override
+	public String toString() {
+		return "<HasLeadingSpaces/>";
+	}
 
 }

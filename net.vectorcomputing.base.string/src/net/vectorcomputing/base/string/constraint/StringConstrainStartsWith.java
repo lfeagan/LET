@@ -45,4 +45,13 @@ public class StringConstrainStartsWith implements IStringConstraint {
 		return input.startsWith(prefix);
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<BeginsWith prefix=\"");
+		sb.append(prefix);
+		sb.append("\"/>");
+		return sb.toString();
+	}
+	
 }

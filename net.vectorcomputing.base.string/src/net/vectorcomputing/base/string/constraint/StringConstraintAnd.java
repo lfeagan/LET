@@ -48,4 +48,15 @@ public class StringConstraintAnd implements IStringConstraint {
 		return true;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<And>");
+		for (IStringConstraint sc : stringConstraints) {
+			sb.append(sb.toString());
+		}
+		sb.append("</And>");
+		return sb.toString();
+	}
+	
 }

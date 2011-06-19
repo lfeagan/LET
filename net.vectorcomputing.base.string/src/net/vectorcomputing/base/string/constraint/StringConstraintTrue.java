@@ -29,4 +29,9 @@ public class StringConstraintTrue implements IStringConstraint {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "<True>";
+	}
+	
 }

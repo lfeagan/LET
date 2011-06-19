@@ -67,4 +67,13 @@ public class StringConstrainMatchesPattern implements IStringConstraint {
 		return matcher.matches();
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<MatchesPattern pattern=\"");
+		sb.append(pattern);
+		sb.append("\"/>");
+		return sb.toString();
+	}
+	
 }

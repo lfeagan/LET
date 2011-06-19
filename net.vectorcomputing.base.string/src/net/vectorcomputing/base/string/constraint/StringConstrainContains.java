@@ -45,4 +45,13 @@ public class StringConstrainContains implements IStringConstraint {
 		return (input.indexOf(reference) >= 0);
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<Contains reference=\"");
+		sb.append(reference);
+		sb.append("\"/>");
+		return sb.toString();
+	}
+	
 }
