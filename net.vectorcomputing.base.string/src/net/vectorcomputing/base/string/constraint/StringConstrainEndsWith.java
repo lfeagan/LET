@@ -48,9 +48,9 @@ public class StringConstrainEndsWith implements IStringConstraint {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<EndsWith suffix=\"");
+		sb.append("<EndsWith suffix=\""); //$NON-NLS-1$
 		sb.append(suffix);
-		sb.append("\"/>");
+		sb.append("\"/>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 	

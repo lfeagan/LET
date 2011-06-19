@@ -63,9 +63,9 @@ public class StringConstraintNot implements IStringConstraint {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<Not>");
+		sb.append("<StringConstraintNot>"); //$NON-NLS-1$
 		sb.append(underlyingConstraint.toString());
-		sb.append("</Not>");
+		sb.append("</StringConstraintNot>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 	

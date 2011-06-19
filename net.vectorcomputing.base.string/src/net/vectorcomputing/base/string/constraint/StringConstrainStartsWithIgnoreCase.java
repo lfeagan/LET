@@ -54,9 +54,9 @@ public class StringConstrainStartsWithIgnoreCase implements IStringConstraint {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<BeginsWithIgnoreCase prefix=\"");
+		sb.append("<BeginsWithIgnoreCase prefix=\""); //$NON-NLS-1$
 		sb.append(prefix);
-		sb.append("\"/>");
+		sb.append("\"/>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 	

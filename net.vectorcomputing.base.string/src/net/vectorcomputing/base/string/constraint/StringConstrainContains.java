@@ -48,9 +48,9 @@ public class StringConstrainContains implements IStringConstraint {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<Contains reference=\"");
+		sb.append("<Contains reference=\""); //$NON-NLS-1$
 		sb.append(reference);
-		sb.append("\"/>");
+		sb.append("\"/>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 	

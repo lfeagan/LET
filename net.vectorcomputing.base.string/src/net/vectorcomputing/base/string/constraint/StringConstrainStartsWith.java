@@ -48,9 +48,9 @@ public class StringConstrainStartsWith implements IStringConstraint {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<BeginsWith prefix=\"");
+		sb.append("<BeginsWith prefix=\""); //$NON-NLS-1$
 		sb.append(prefix);
-		sb.append("\"/>");
+		sb.append("\"/>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 	

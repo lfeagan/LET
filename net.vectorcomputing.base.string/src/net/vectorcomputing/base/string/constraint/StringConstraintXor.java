@@ -58,11 +58,11 @@ public class StringConstraintXor implements IStringConstraint {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<Xor>");
+		sb.append("<StringConstraintXor>"); //$NON-NLS-1$
 		for (IStringConstraint stringConstraint : stringConstraints) {
 			sb.append(stringConstraint.toString());
 		}
-		sb.append("</Xor>");
+		sb.append("</StringConstraintXor>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 	

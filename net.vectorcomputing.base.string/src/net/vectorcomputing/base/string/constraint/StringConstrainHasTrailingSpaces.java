@@ -32,7 +32,7 @@ public class StringConstrainHasTrailingSpaces implements IStringConstraint {
 	
 	@Override
 	public String toString() {
-		return "<HasTrailingSpaces/>";
+		return "<HasTrailingSpaces/>"; //$NON-NLS-1$
 	}
 
 }

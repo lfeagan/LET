@@ -39,7 +39,7 @@ public class StringConstrainIsEmpty implements IStringConstraint {
 	
 	@Override
 	public String toString() {
-		return "<IsEmpty/>";
+		return "<IsEmpty/>"; //$NON-NLS-1$
 	}
 	
 }

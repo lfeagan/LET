@@ -70,9 +70,9 @@ public class StringConstrainMatchesPattern implements IStringConstraint {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<MatchesPattern pattern=\"");
+		sb.append("<MatchesPattern pattern=\""); //$NON-NLS-1$
 		sb.append(pattern);
-		sb.append("\"/>");
+		sb.append("\"/>"); //$NON-NLS-1$
 		return sb.toString();
 	}
 	

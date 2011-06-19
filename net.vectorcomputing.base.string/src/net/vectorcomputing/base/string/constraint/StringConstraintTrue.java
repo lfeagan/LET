@@ -31,7 +31,7 @@ public class StringConstraintTrue implements IStringConstraint {
 
 	@Override
 	public String toString() {
-		return "<True>";
+		return "<StringConstraintTrue/>"; //$NON-NLS-1$
 	}
 	
 }

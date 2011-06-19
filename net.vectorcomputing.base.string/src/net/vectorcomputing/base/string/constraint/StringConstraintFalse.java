@@ -31,7 +31,7 @@ public class StringConstraintFalse implements IStringConstraint {
 	
 	@Override
 	public String toString() {
-		return "<False>";
+		return "<StringConstraintFalse/>"; //$NON-NLS-1$
 	}
 	
 }

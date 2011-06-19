@@ -30,7 +30,7 @@ public class StringConstrainContainsSpaces implements IStringConstraint {
 
 	@Override
 	public String toString() {
-		return("<ContainsSpaces/>");
+		return("<ContainsSpaces/>"); //$NON-NLS-1$
 	}
 	
 }
