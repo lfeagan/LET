@@ -45,7 +45,7 @@ public abstract class AbstractPhotoLibrary implements IPhotoLibrary {
 		return book;
 	}
 	
-	public IPhotoBook getExistingBook(String name) {
+	protected IPhotoBook getExistingBook(String name) {
 		for (IPhotoBook photoBook: photoBooks) {
 			if (photoBook.getName().equals(name)) {
 				return photoBook;
