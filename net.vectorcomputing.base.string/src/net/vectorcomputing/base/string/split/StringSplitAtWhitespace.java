@@ -25,7 +25,7 @@ public class StringSplitAtWhitespace implements IStringSplitter {
 
 	private final Pattern pattern;
 	
-	public StringSplitAtWhitespace(char characterToSplitAt) {
+	public StringSplitAtWhitespace() {
 		pattern = Pattern.compile("\\s{1,}+"); //$NON-NLS-1$
 	}
 	
@@ -34,4 +34,9 @@ public class StringSplitAtWhitespace implements IStringSplitter {
 		return pattern.split(input);
 	}
 
+	@Override
+	public String toString() {
+		return "<StringSplitAtWhitespace/>";
+	}
+	
 }
