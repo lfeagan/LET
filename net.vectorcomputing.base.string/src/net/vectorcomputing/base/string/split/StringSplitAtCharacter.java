@@ -40,4 +40,13 @@ public class StringSplitAtCharacter implements IStringSplitter {
 		return pattern.split(input);
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<StringSplitAtCharacter character=\"");
+		sb.append(characterToSplitAt);
+		sb.append("\"/>");
+		return sb.toString();
+	}
+	
 }

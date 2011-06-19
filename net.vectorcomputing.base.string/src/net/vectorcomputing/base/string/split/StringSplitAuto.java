@@ -68,5 +68,10 @@ public class StringSplitAuto implements IStringSplitter {
 			return InputDelimiter.NONE;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "<StringSplitAuto/>";
+	}
 
 }

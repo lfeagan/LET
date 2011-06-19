@@ -52,5 +52,14 @@ public class StringSplitAtStrings implements IStringSplitter {
 		}
 		return splitStrings;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<StringSplitAtStrings delimiters=\"");
+		sb.append(delimiters);
+		sb.append("\"/>");
+		return sb.toString();
+	}
 
 }

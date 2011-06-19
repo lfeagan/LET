@@ -39,5 +39,14 @@ public class StringSplitAtCharacterClass implements IStringSplitter {
 	public String[] split(String input) {
 		return pattern.split(input);
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<StringSplitAtCharacterClass characterClass=\"");
+		sb.append(characterClass);
+		sb.append("\"/>");
+		return sb.toString();
+	}
 
 }
