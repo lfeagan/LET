@@ -24,6 +24,11 @@
             id="net.vectorcomputing.photo.internal.factory.TIFFPhotoFactory"
             name="TIFF Photo Factory">
       </factory>
+      <factory
+            class="net.vectorcomputing.photo.internal.factory.NEFPhotoFactory"
+            id="net.vectorcomputing.photo.internal.factory.NEFPhotoFactory"
+            name="NEF Photo Factory">
+      </factory>
    </extension>
 
 </plugin>
