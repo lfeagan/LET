@@ -13,22 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package net.vectorcomputing.base.string.test;
+package net.vectorcomputing.base.string;
 
-import static org.junit.Assert.assertArrayEquals;
-import net.vectorcomputing.base.string.split.IStringSplitter;
-import net.vectorcomputing.base.string.split.StringSplitAtCharacterClass;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
-import org.junit.Test;
+public class Messages {
+	
+	private static final String BUNDLE_NAME = "net.vectorcomputing.base.string.messages"; //$NON-NLS-1$
 
-public class StringSplitAtCharacterClassTest {
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
-	@Test
-	public void parseKernelVersion() {
-		final String kernelVersion = "2.6.24-24-generic";
-		IStringSplitter splitter = new StringSplitAtCharacterClass(".-");
-		final String[] reference = new String[] { "2", "6", "24", "24", "generic" };
-		assertArrayEquals(reference, splitter.split(kernelVersion));
+	private Messages() {
 	}
 
+	public static String getString(String key) {
+		try {
+			return RESOURCE_BUNDLE.getString(key);
+		} catch (MissingResourceException e) {
+			return '!' + key + '!';
+		}
+	}
+	
 }

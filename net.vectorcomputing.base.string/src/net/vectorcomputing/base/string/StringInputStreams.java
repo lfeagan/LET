@@ -94,7 +94,7 @@ public class StringInputStreams {
 		if (DEFAULT_FILE_ENCODING != null) {
 			return toInputStream(str, DEFAULT_FILE_ENCODING);
 		} else {
-			throw new RuntimeException("No default file encoding exists in the current runtime environment");
+			throw new RuntimeException(Messages.getString("StringInputStreams_NoDefaultFileEncoding")); //$NON-NLS-1$
 		}
 	}
 	
