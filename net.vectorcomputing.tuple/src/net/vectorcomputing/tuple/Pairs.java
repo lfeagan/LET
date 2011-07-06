@@ -19,31 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Utility functions for working with pairs.
+ * Utility functions for casting a list of mutable pairs to a list of immutable
+ * pairs and vice-a-versa.
  */
 public final class Pairs {
-
-	/**
-	 * Creates and returns a new {@link ImmutablePair} that has the same first
-	 * and second as this pair.
-	 * 
-	 * @return the new {@link ImmutablePair}
-	 */
-	public static <T1,T2> ImmutablePair<T1,T2> immutablePair(Pair<T1,T2> pair) {
-		ImmutablePair<T1,T2> immutablePair = new ImmutablePair<T1,T2>(pair.getFirst(), pair.getSecond());
-		return immutablePair;
-	}
-	
-	/**
-	 * Creates and returns a new {@link MutablePair} that has the same first and
-	 * second as this pair.
-	 * 
-	 * @return the new {@link MutablePair}
-	 */
-	public static <T1,T2> MutablePair<T1,T2> mutablePair(Pair<T1,T2> pair) {
-		MutablePair<T1,T2> mutablePair = new MutablePair<T1,T2>(pair.getFirst(), pair.getSecond());
-		return mutablePair;
-	}
 	
 	/**
 	 * Converts a list of mutable pairs into a list of immutable pairs
@@ -56,7 +35,7 @@ public final class Pairs {
 	public static <T1,T2> List<ImmutablePair<T1,T2>> copyToImmutableList(List<MutablePair<T1,T2>> original) {
 		List<ImmutablePair<T1,T2>> immutableList = new ArrayList<ImmutablePair<T1,T2>>();
 		for (MutablePair<T1,T2> element : original) {
-			immutableList.add(Pairs.immutablePair(element));
+			immutableList.add(new ImmutablePair<T1, T2>(element));
 		}
 		return immutableList;
 	}

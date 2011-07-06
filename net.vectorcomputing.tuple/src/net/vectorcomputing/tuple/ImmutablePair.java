@@ -46,6 +46,17 @@ public class ImmutablePair<T1, T2> implements Pair<T1, T2> {
 		this.second = second;
 		this.hashcode = generateHashCode();
 	}
+
+	/**
+	 * Constructor for an immutable pair that uses the first and second values
+	 * from an existing pair.
+	 * 
+	 * @param pair
+	 *            the pair to read the first and second values from
+	 */
+	public ImmutablePair(Pair<T1,T2> pair) {
+		this(pair.getFirst(), pair.getSecond());
+	}
 	
 	@Override
 	public final Object[] entries() {

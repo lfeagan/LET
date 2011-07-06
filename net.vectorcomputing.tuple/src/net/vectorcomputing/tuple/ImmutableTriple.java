@@ -16,7 +16,7 @@
 package net.vectorcomputing.tuple;
 
 /**
- * A {@link Triple} that cannot be modified after constructed.
+ * A {@link Triple} that <b>cannot</b> be modified after constructed.
  * 
  * @param <T1>
  *            the type constraint to place on the first element of the triple

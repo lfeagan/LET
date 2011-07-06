@@ -16,7 +16,7 @@
 package net.vectorcomputing.tuple;
 
 /**
- * A {@link Quad} that cannot be modified after constructed.
+ * A {@link Quad} that <b>cannot</b> be modified after constructed.
  * 
  * @param <T1>
  *            the type constraint to place on the first element of the quad
