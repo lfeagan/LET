@@ -20,6 +20,11 @@ package net.vectorcomputing.tuple;
  */
 public interface Tuple {
 
+	/**
+	 * Returns an array containing the entries stored in this tuple.
+	 * 
+	 * @return an array containing the entries stored in this tuple.
+	 */
 	public Object[] entries();
 
 	/**
