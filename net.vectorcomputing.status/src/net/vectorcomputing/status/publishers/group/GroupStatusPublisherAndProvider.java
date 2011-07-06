@@ -43,7 +43,7 @@ public class GroupStatusPublisherAndProvider extends GroupStatusPublisher implem
 		if (publisher instanceof IStatusProvider) {
 			return super.addStatusPublisher(publisher);
 		} else {
-			throw new IllegalArgumentException("specified IStatusPublisher is not an IStatusProvider");
+			throw new IllegalArgumentException("The specified IStatusPublisher is not an IStatusProvider");
 		}
 	}
 		
