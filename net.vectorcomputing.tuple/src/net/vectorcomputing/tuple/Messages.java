@@ -17,6 +17,9 @@ package net.vectorcomputing.tuple;
 
 import org.eclipse.osgi.util.NLS;
 
+/**
+ * Externalized strings.
+ */
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "net.vectorcomputing.tuples.messages"; //$NON-NLS-1$
 	public static String Pair_GetEntryFailedIndexConstraint;

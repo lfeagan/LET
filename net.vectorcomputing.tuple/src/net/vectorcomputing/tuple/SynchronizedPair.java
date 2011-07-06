@@ -15,6 +15,14 @@
  ******************************************************************************/
 package net.vectorcomputing.tuple;
 
+/**
+ * A synchronized version of {@link MutablePair}.
+ * 
+ * @param <T1>
+ *            the type constraint to place on the first element of the pair
+ * @param <T2>
+ *            the type constraint to place on the second element of the pair
+ */
 public class SynchronizedPair<T1, T2> extends MutablePair<T1, T2> {
 
 	public SynchronizedPair(T1 first, T2 second) {

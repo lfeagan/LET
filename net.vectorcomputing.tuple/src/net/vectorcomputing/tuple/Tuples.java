@@ -15,6 +15,10 @@
  ******************************************************************************/
 package net.vectorcomputing.tuple;
 
+/**
+ * Utility function for converting any tuple to a standardized string
+ * representation.
+ */
 public final class Tuples {
 
 	/**
@@ -27,7 +31,7 @@ public final class Tuples {
 	 *            the label to give to the pair, typically the class name
 	 * @return the string representation of the pair
 	 */
-	public static final <T1,T2> String toString(Tuple tuple, String label) {
+	public static final <T1, T2> String toString(Tuple tuple, String label) {
 		final StringBuilder classNames = new StringBuilder();
 		final StringBuilder strings = new StringBuilder();
 		classNames.append(label);
@@ -35,7 +39,7 @@ public final class Tuples {
 		strings.append('(');
 		final Object[] entries = tuple.entries();
 		Object obj = null;
-		for (int i=0; i < entries.length; ++i) {
+		for (int i = 0; i < entries.length; ++i) {
 			obj = entries[i];
 			if (obj == null) {
 				classNames.append('?');
@@ -45,7 +49,7 @@ public final class Tuples {
 				strings.append(obj);
 			}
 
-			if (i < entries.length -1) {
+			if (i < entries.length - 1) {
 				classNames.append(',');
 				strings.append(',');
 			}
@@ -54,8 +58,8 @@ public final class Tuples {
 		strings.append(')');
 
 		classNames.append(strings.toString());
-		
+
 		return classNames.toString();
 	}
-	
+
 }
