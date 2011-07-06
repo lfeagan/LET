@@ -17,10 +17,12 @@ package net.vectorcomputing.base.string;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -29,7 +31,7 @@ import java.nio.charset.Charset;
  * Utility class providing static methods to read strings from input streams and
  * convert strings to an input stream.
  */
-public final class StringInputStreams {
+public final class StringIO {
 
 	private static final int DEFAULT_BUFFER_SIZE = 1<<14;
 	
@@ -44,8 +46,8 @@ public final class StringInputStreams {
 	 * @return the data read from the input stream as a string
 	 * @throws IOException
 	 */
-	public static final String toString(InputStream input) throws IOException {
-		return toString(input, DEFAULT_FILE_ENCODING, DEFAULT_BUFFER_SIZE);
+	public static final String read(InputStream input) throws IOException {
+		return read(input, DEFAULT_FILE_ENCODING, DEFAULT_BUFFER_SIZE);
 	}
 
 	/**
@@ -60,7 +62,7 @@ public final class StringInputStreams {
 	 * @return the data read from the input stream as a string
 	 * @throws IOException
 	 */
-	public static final String toString(InputStream input, String fileEncoding, int bufferSize) throws IOException {
+	public static final String read(InputStream input, String fileEncoding, int bufferSize) throws IOException {
 		final char[] buffer = new char[bufferSize];
 		final InputStreamReader isr = new InputStreamReader(input, fileEncoding);
 		final BufferedReader br = new BufferedReader(isr, bufferSize);
@@ -85,6 +87,27 @@ public final class StringInputStreams {
 			sw.close();
 		}
 	}
+	
+	public static final String read(final File file) throws IOException {
+		return read(file, DEFAULT_BUFFER_SIZE);
+	}
+	
+	public static final String read(final File file, final int bufferSize) throws IOException {
+		if (file.length() != 0) {
+			final StringBuffer contents = new StringBuffer();
+			final char[] buffer = new char[bufferSize];
+			final FileReader reader = new FileReader(file);
+			int charsRead;
+			while ((charsRead = reader.read(buffer)) > 0) {
+				contents.append(buffer, 0, charsRead);
+			}
+			reader.close();
+			return contents.toString();
+		} else {
+			return Strings.EMPTY_STRING;
+		}	
+	}
+	
 
 	/**
 	 * Converts a string to a byte representation using the default file
@@ -94,9 +117,9 @@ public final class StringInputStreams {
 	 *            the string to be encoded
 	 * @return an input stream that contains the encoded string
 	 */
-	public static final InputStream toInputStream(String str) {
+	public static final void write(final String str, final OutputStream outputStream, final boolean closeStream) throws IOException {
 		if (DEFAULT_FILE_ENCODING != null) {
-			return toInputStream(str, DEFAULT_FILE_ENCODING);
+			write(str, outputStream, closeStream, DEFAULT_FILE_ENCODING);
 		} else {
 			throw new RuntimeException(Messages.getString("StringInputStreams_NoDefaultFileEncoding")); //$NON-NLS-1$
 		}
@@ -113,10 +136,20 @@ public final class StringInputStreams {
 	 *            representation
 	 * @return an input stream that contains the encoded string
 	 */
-	public static final InputStream toInputStream(String str, String fileEncoding) {
-		ByteBuffer buffer = Charset.forName(fileEncoding).encode(str);
-		InputStream is = new ByteArrayInputStream(buffer.array(), 0, buffer.limit());
-		return is;
+	public static final void write(final String str, final OutputStream outputStream, final boolean closeStream, final String fileEncoding) throws IOException {
+		final ByteBuffer encodedString = Charset.forName(fileEncoding).encode(str);
+		
+		try {
+			outputStream.write(encodedString.array());
+		} finally {
+			if (closeStream) {
+				try {
+					outputStream.close();
+				} catch (IOException e) {
+					// do nothing
+				}
+			}
+		}
 	}
 	
 }

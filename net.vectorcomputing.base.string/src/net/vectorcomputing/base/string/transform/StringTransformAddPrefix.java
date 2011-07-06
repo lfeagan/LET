@@ -37,8 +37,9 @@ public class StringTransformAddPrefix implements IStringTransformer {
 	}
 
 	/**
-	 * Returns the prefix string that is prepended a input string
-	 * @return
+	 * Returns the prefix string that is prepended to an input string.
+	 * 
+	 * @return the prefix string that is prepended to an input string
 	 */
 	public String getPrefix() {
 		return this.prefix;
