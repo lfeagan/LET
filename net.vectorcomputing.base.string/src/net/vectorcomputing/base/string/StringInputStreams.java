@@ -25,7 +25,11 @@ import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-public class StringInputStreams {
+/**
+ * Utility class providing static methods to read strings from input streams and
+ * convert strings to an input stream.
+ */
+public final class StringInputStreams {
 
 	private static final int DEFAULT_BUFFER_SIZE = 1<<14;
 	

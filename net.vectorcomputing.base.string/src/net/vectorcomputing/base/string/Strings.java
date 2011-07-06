@@ -15,7 +15,10 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string;
 
-public class Strings {
+/**
+ * Utility class providing static empty strings.
+ */
+public final class Strings {
 
 	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
 	

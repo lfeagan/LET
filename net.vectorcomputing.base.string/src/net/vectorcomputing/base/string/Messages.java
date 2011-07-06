@@ -18,6 +18,9 @@ package net.vectorcomputing.base.string;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * Externalized strings.
+ */
 public class Messages {
 	
 	private static final String BUNDLE_NAME = "net.vectorcomputing.base.string.messages"; //$NON-NLS-1$
