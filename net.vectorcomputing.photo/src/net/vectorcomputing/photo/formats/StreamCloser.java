@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import net.vectorcomputing.photo.PhotoMessages;
 import net.vectorcomputing.photo.PhotoPlugin;
 
 import org.eclipse.core.runtime.CoreException;
@@ -54,7 +55,7 @@ public final class StreamCloser {
 			try {
 				is.close();
 			} catch (IOException e) {
-				throw new CoreException(new Status(IStatus.ERROR, PhotoPlugin.PLUGIN_ID, "Exception occurred while closing input stream", e));
+				throw new CoreException(new Status(IStatus.ERROR, PhotoPlugin.PLUGIN_ID, PhotoMessages.ExceptionWhileClosingInputStream, e));
 			}
 		}
 	}
@@ -64,7 +65,7 @@ public final class StreamCloser {
 			try {
 				os.close();
 			} catch (IOException e) {
-				throw new CoreException(new Status(IStatus.ERROR, PhotoPlugin.PLUGIN_ID, "Exception occurred while closing output stream", e));
+				throw new CoreException(new Status(IStatus.ERROR, PhotoPlugin.PLUGIN_ID, PhotoMessages.ExceptionWhileClosingOutputStream, e));
 			}
 		}
 	}

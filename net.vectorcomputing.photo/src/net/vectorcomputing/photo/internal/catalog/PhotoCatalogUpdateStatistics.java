@@ -77,6 +77,14 @@ public class PhotoCatalogUpdateStatistics implements IPhotoCatalogUpdateStatisti
 		++filesRead;
 	}
 	
+	public void incrementPhotosRead() {
+		++photosRead;
+	}
+	
+	public int getNumberOfPhotosRead() {
+		return photosRead;
+	}
+	
 	public void incrementPhotosAdded() {
 		++photosAdded;
 	}

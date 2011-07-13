@@ -19,6 +19,7 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.text.MessageFormat;
 
+import net.vectorcomputing.photo.PhotoMessages;
 import net.vectorcomputing.photo.PhotoPlugin;
 
 import org.eclipse.core.filesystem.IFileStore;
@@ -37,7 +38,7 @@ public final class EclipseSupportedImageDataLoader {
 			bis = new BufferedInputStream(is, 2<<13);
 			return new ImageData(bis);
 		} catch (Exception e) {
-			final String message = MessageFormat.format("Unable to read image data from {0}", fileStore.getName());
+			final String message = MessageFormat.format(PhotoMessages.UnableToReadImageData, fileStore.getName());
 			throw new CoreException(new Status(IStatus.ERROR, PhotoPlugin.PLUGIN_ID, message, e));
 		} finally {
 			StreamCloser.closeWithoutExceptions(bis);

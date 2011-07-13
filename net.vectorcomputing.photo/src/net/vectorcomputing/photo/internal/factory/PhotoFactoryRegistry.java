@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import net.vectorcomputing.photo.PhotoMessages;
 import net.vectorcomputing.photo.PhotoPlugin;
 import net.vectorcomputing.photo.factory.IPhotoFactory;
 import net.vectorcomputing.photo.factory.IPhotoFactoryDescriptor;
@@ -91,7 +92,7 @@ public class PhotoFactoryRegistry implements IPhotoFactoryRegistry, IExtensionCh
 	private final List<IConfigurationElement> getElements() {
 		IExtensionRegistry reg = RegistryFactory.getRegistry();
 		if (reg == null) {
-			throw new RuntimeException("Unable to locate Eclipse platform extension registry");
+			throw new RuntimeException(PhotoMessages.PhotoFactoryRegistry_UnableToLocateEclipseExtensionRegistry);
 		}
 		
 		IConfigurationElement[] elements = reg.getConfigurationElementsFor(IPhotoFactory.POINT_ID);
@@ -125,7 +126,7 @@ public class PhotoFactoryRegistry implements IPhotoFactoryRegistry, IExtensionCh
 			try {
 				descriptors.add(new PhotoFactoryDescriptor(element));
 			} catch (Exception e) {
-				getLog().log(new Status(IStatus.ERROR, PhotoPlugin.PLUGIN_ID, "Unable to construct PhotoFactoryDescriptor", e));
+				getLog().log(new Status(IStatus.ERROR, PhotoPlugin.PLUGIN_ID, PhotoMessages.PhotoFactoryRegistry_UnableToConstructPhotoFactoryDescriptor, e));
 			}
 		}
 		

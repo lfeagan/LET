@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import net.vectorcomputing.photo.PhotoMessages;
 import net.vectorcomputing.photo.PhotoPlugin;
 import net.vectorcomputing.photo.catalog.IPhotoCatalog;
 import net.vectorcomputing.photo.catalog.IPhotoCatalogUpdateStatistics;
@@ -63,7 +64,7 @@ public class PhotoCatalog implements IPhotoCatalog {
 		try {
 			return new URI("file", path.toOSString(), null); //$NON-NLS-1$
 		} catch (URISyntaxException e) {
-			String message = MessageFormat.format("Unable to create photo catalog from path {0}", path.toOSString());
+			String message = MessageFormat.format(PhotoMessages.PhotoCatalog_UnableToCreateFromPath, path.toOSString());
 			throw new CoreException(new Status(IStatus.ERROR, PhotoPlugin.PLUGIN_ID, message, e));
 		}
 	}

@@ -15,6 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.photo.internal.factory;
 
+import net.vectorcomputing.photo.PhotoMessages;
 import net.vectorcomputing.photo.PhotoPlugin;
 import net.vectorcomputing.photo.factory.IPhotoFactory;
 import net.vectorcomputing.photo.factory.IPhotoFactoryDescriptor;
@@ -41,7 +42,7 @@ public class PhotoFactoryDescriptor implements IPhotoFactoryDescriptor {
 	}
 	
 	private static final CoreException buildFactoryCreationException(Exception e, String id) {
-		return new CoreException(new Status(IStatus.ERROR, PhotoPlugin.PLUGIN_ID, "Unable to create photo factory for id " + id, e));
+		return new CoreException(new Status(IStatus.ERROR, PhotoPlugin.PLUGIN_ID, PhotoMessages.PhotoFactoryDescriptor_UnableToCreatePhotoFactory + id, e));
 	}
 	
 	@Override

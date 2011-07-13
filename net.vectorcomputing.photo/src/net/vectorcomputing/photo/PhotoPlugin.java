@@ -44,10 +44,7 @@ public class PhotoPlugin extends Plugin {
 		return context;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-	 */
+	@Override
 	public void start(BundleContext bundleContext) throws Exception {
 		super.start(bundleContext);
 		PhotoPlugin.context = bundleContext;
@@ -57,10 +54,7 @@ public class PhotoPlugin extends Plugin {
 		PhotoPlugin.factoryRegistry = new PhotoFactoryRegistry();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-	 */
+	@Override
 	public void stop(BundleContext bundleContext) throws Exception {
 		PhotoPlugin.context = null;
 		PhotoPlugin.plugin = null;
@@ -83,14 +77,14 @@ public class PhotoPlugin extends Plugin {
 	 */
 	public static IPhotoLibrary getLibrary() {
 		if (library == null) {
-			throw new IllegalStateException("Photo library is closed");
+			throw new IllegalStateException(PhotoMessages.PhotoLibraryIsClosed);
 		}
 		return library;
 	}
 	
 	public static IPhotoFactoryRegistry getFactoryRegistry() {
 		if (factoryRegistry == null) {
-			throw new IllegalStateException("Photo factory registry is closed");
+			throw new IllegalStateException(PhotoMessages.PhotoFactoryRegistryIsClosed);
 		}
 		return factoryRegistry;
 	}
