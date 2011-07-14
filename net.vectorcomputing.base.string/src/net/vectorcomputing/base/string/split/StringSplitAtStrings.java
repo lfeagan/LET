@@ -40,7 +40,9 @@ public class StringSplitAtStrings implements IStringSplitter {
 
 	@Override
 	public String[] split(final String input) {
-		Assert.isNotNull(input, "input"); //$NON-NLS-1$
+		if (input == null) {
+			return new String[0];
+		}
 		List<String> result = Arrays.asList(new String[] {input});
 		for (String delimiter : delimiters) {
 			result = split(result, delimiter);

@@ -26,7 +26,6 @@ public class StringSplitAuto implements IStringSplitter {
 
 	@Override
 	public String[] split(final String input) {
-		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		InputDelimiter delimiterType = determineDelimiterType(input);
 		switch (delimiterType) {
 		case COMMA:
