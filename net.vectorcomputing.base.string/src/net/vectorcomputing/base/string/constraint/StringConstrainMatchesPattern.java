@@ -18,6 +18,8 @@ package net.vectorcomputing.base.string.constraint;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.vectorcomputing.base.string.Assert;
+
 /**
  * A string constraint that determines if a string matches a regular expression
  * or pattern.
@@ -34,7 +36,8 @@ public class StringConstrainMatchesPattern implements IStringConstraint {
 	 * @param pattern
 	 *            the {@link Pattern} a string must match
 	 */
-	public StringConstrainMatchesPattern(Pattern pattern) {
+	public StringConstrainMatchesPattern(final Pattern pattern) {
+		Assert.isNotNull(pattern, "pattern"); //$NON-NLS-1$
 		this.pattern = pattern;
 	}
 
@@ -45,7 +48,8 @@ public class StringConstrainMatchesPattern implements IStringConstraint {
 	 * @param regex
 	 *            the regular expression a string must match
 	 */
-	public StringConstrainMatchesPattern(String regex) {
+	public StringConstrainMatchesPattern(final String regex) {
+		Assert.isNotNull(regex, "regex"); //$NON-NLS-1$
 		this.pattern = Pattern.compile(regex);
 	}
 
@@ -62,14 +66,14 @@ public class StringConstrainMatchesPattern implements IStringConstraint {
 	 * @return <code>true</code> if the string matches the pattern
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
-		Matcher matcher = pattern.matcher(input);
+	public boolean satisfiedBy(final String input) {
+		final Matcher matcher = pattern.matcher(input);
 		return matcher.matches();
 	}
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<MatchesPattern pattern=\""); //$NON-NLS-1$
 		sb.append(pattern);
 		sb.append("\"/>"); //$NON-NLS-1$

@@ -24,7 +24,7 @@ public class StringConstrainContainsSpaces implements IStringConstraint {
 	 * @return <code>true</code> if the input string contains spaces
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		return (input.indexOf(' ') >= 0); 
 	}
 

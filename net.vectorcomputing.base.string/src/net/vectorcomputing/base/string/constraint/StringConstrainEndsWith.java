@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
+import net.vectorcomputing.base.string.Assert;
+
 /**
  * A string constraint that does a case-sensitive comparison of the end
  * (suffix) of a string with a reference string.
@@ -28,7 +30,8 @@ public class StringConstrainEndsWith implements IStringConstraint {
 	 *            the string that the input string must end with
 	 *            (case-sensitive)
 	 */
-	public StringConstrainEndsWith(String suffix) {
+	public StringConstrainEndsWith(final String suffix) {
+		Assert.isNotNull(suffix, "suffix"); //$NON-NLS-1$
 		this.suffix = suffix;
 	}
 	
@@ -41,13 +44,13 @@ public class StringConstrainEndsWith implements IStringConstraint {
 	 *         string (case-sensitive)
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		return input.endsWith(suffix);
 	}
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<EndsWith suffix=\""); //$NON-NLS-1$
 		sb.append(suffix);
 		sb.append("\"/>"); //$NON-NLS-1$

@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
+import net.vectorcomputing.base.string.Assert;
+
 /**
  * A string constraint that determines if an input string contains a reference
  * string.
@@ -27,7 +29,8 @@ public class StringConstrainContains implements IStringConstraint {
 	 * @param reference
 	 *            the {@link String} that the input string must contain
 	 */
-	public StringConstrainContains(String reference) {
+	public StringConstrainContains(final String reference) {
+		Assert.isNotNull(reference, "reference"); //$NON-NLS-1$
 		this.reference = reference;
 	}
 	
@@ -41,13 +44,13 @@ public class StringConstrainContains implements IStringConstraint {
 	 * @return <code>true</code> if the string contains the reference string
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		return (input.indexOf(reference) >= 0);
 	}
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<Contains reference=\""); //$NON-NLS-1$
 		sb.append(reference);
 		sb.append("\"/>"); //$NON-NLS-1$

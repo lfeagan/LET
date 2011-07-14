@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
+import net.vectorcomputing.base.string.Assert;
+
 /**
  * A string constraint that does a case-insensitive comparison of the beginning
  * (prefix) of a string with a reference string.
@@ -28,7 +30,8 @@ public class StringConstrainBeginsWithIgnoreCase implements IStringConstraint {
 	 *            the string that the input string must start with
 	 *            (case-insensitive)
 	 */
-	public StringConstrainBeginsWithIgnoreCase(String prefix) {
+	public StringConstrainBeginsWithIgnoreCase(final String prefix) {
+		Assert.isNotNull(prefix, "prefix"); //$NON-NLS-1$
 		this.prefix = prefix;
 	}
 	
@@ -41,19 +44,19 @@ public class StringConstrainBeginsWithIgnoreCase implements IStringConstraint {
 	 *         prefix string (case-insensitive)
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		// the input must be at least at long as the prefix for them to match
 		if (input.length() < prefix.length()) {
 			return false;
 		} else {
-			String inputBeginning = input.substring(0, prefix.length());
+			final String inputBeginning = input.substring(0, prefix.length());
 			return inputBeginning.equalsIgnoreCase(prefix);
 		}
 	}
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<BeginsWithIgnoreCase prefix=\""); //$NON-NLS-1$
 		sb.append(prefix);
 		sb.append("\"/>"); //$NON-NLS-1$

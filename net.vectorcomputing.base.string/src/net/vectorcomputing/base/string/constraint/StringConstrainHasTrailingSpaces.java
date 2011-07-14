@@ -26,7 +26,7 @@ public class StringConstrainHasTrailingSpaces implements IStringConstraint {
 	 *         (trailing = on the right-hand side)
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		return input.matches(".*\\s+$"); //$NON-NLS-1$
 	}
 	

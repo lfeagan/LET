@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
+import net.vectorcomputing.base.string.Assert;
+
 /**
  * A string constraint that does a case-insensitive comparison of the end
  * (suffix) of a string with a reference string.
@@ -28,7 +30,8 @@ public class StringConstrainEndsWithIgnoreCase implements IStringConstraint {
 	 *            the string that the input string must end with
 	 *            (case-insensitive)
 	 */
-	public StringConstrainEndsWithIgnoreCase(String suffix) {
+	public StringConstrainEndsWithIgnoreCase(final String suffix) {
+		Assert.isNotNull(suffix, "suffix"); //$NON-NLS-1$
 		this.suffix = suffix;
 	}
 	
@@ -41,19 +44,19 @@ public class StringConstrainEndsWithIgnoreCase implements IStringConstraint {
 	 *         string (case-insensitive)
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		// the input must be at least at long as the suffix for them to match
 		if (input.length() < suffix.length()) {
 			return false;
 		} else {
-			String inputEnd = input.substring(input.length() - suffix.length());
+			final String inputEnd = input.substring(input.length() - suffix.length());
 			return inputEnd.equalsIgnoreCase(suffix);
 		}
 	}
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<EndsWithIgnoreCase suffix=\""); //$NON-NLS-1$
 		sb.append(suffix);
 		sb.append("\"/>"); //$NON-NLS-1$

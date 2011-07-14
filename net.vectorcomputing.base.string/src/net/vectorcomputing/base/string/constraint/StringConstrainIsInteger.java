@@ -40,7 +40,7 @@ public class StringConstrainIsInteger implements IStringConstraint {
 	 *            the radix to use when determining if the string represents an
 	 *            integer
 	 */
-	public StringConstrainIsInteger(int radix) {
+	public StringConstrainIsInteger(final int radix) {
 		this.radix = radix;
 	}
 
@@ -61,7 +61,7 @@ public class StringConstrainIsInteger implements IStringConstraint {
 	 * @return <code>true</code> if the string represents an integer value
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		try {
 			Integer.parseInt(input, radix);
 			return true;
@@ -72,7 +72,7 @@ public class StringConstrainIsInteger implements IStringConstraint {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<IsInteger radix=\""); //$NON-NLS-1$
 		sb.append(radix);
 		sb.append("\"/>"); //$NON-NLS-1$

@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
+import net.vectorcomputing.base.string.Assert;
+
 /**
  * A string constraint that returns the opposite (logical 'NOT') of an
  * underlying string constraint.
@@ -38,8 +40,9 @@ public class StringConstraintNot implements IStringConstraint {
 	 * @param underlyingConstraint
 	 *            the string constraint the negate the result of satisfiedBy on
 	 */
-	public StringConstraintNot(IStringConstraint underlyingConstraint) {
-		this.underlyingConstraint = underlyingConstraint;		
+	public StringConstraintNot(final IStringConstraint underlyingConstraint) {
+		Assert.isNotNull(underlyingConstraint, "underlyingConstraint"); //$NON-NLS-1$
+		this.underlyingConstraint = underlyingConstraint;
 	}
 
 	/**
@@ -56,17 +59,17 @@ public class StringConstraintNot implements IStringConstraint {
 	 *         <code>false</code> and vice-a-versa
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		return !this.underlyingConstraint.satisfiedBy(input);
 	}
-	
+
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<StringConstraintNot>"); //$NON-NLS-1$
 		sb.append(underlyingConstraint.toString());
 		sb.append("</StringConstraintNot>"); //$NON-NLS-1$
 		return sb.toString();
 	}
-	
+
 }

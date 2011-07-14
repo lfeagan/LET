@@ -32,7 +32,7 @@ public class StringConstrainIsEmpty implements IStringConstraint {
 	 *         length of zero
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		return (input == null || input.trim().length() == 0);
 	}
 

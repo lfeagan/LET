@@ -15,12 +15,14 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
+import net.vectorcomputing.base.string.Assert;
+
 /**
  * Implementation of {@link IStringConstraint} that XORs multiple
  * {@link IStringConstraint}s together.
  */
 public class StringConstraintXor implements IStringConstraint {
-	
+
 	private final IStringConstraint[] stringConstraints;
 
 	/**
@@ -31,7 +33,8 @@ public class StringConstraintXor implements IStringConstraint {
 	 *            the string constraints of which a input must satisfy one and
 	 *            only one
 	 */
-	public StringConstraintXor(IStringConstraint...stringConstraints) {
+	public StringConstraintXor(final IStringConstraint... stringConstraints) {
+		Assert.isNotNull(stringConstraints, "stringConstraints"); //$NON-NLS-1$
 		this.stringConstraints = stringConstraints;
 	}
 
@@ -41,12 +44,12 @@ public class StringConstraintXor implements IStringConstraint {
 	 *         satisfies zero or more than one of the string constraints
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		int satisfiedByCount = 0;
 		for (IStringConstraint constraint : stringConstraints) {
 			if (constraint.satisfiedBy(input)) {
 				++satisfiedByCount;
-				// Early termination if satisfiedByCount exceeds 1 
+				// Early termination if satisfiedByCount exceeds 1
 				if (satisfiedByCount > 1) {
 					return false;
 				}
@@ -54,10 +57,10 @@ public class StringConstraintXor implements IStringConstraint {
 		}
 		return satisfiedByCount == 1;
 	}
-	
+
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<StringConstraintXor>"); //$NON-NLS-1$
 		for (IStringConstraint stringConstraint : stringConstraints) {
 			sb.append(stringConstraint.toString());
@@ -65,5 +68,5 @@ public class StringConstraintXor implements IStringConstraint {
 		sb.append("</StringConstraintXor>"); //$NON-NLS-1$
 		return sb.toString();
 	}
-	
+
 }

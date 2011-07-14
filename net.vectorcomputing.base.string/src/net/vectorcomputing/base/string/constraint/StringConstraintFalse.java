@@ -25,7 +25,7 @@ public class StringConstraintFalse implements IStringConstraint {
 	 * @return <code>false</code> regardless of the input string
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		return false;
 	}
 	

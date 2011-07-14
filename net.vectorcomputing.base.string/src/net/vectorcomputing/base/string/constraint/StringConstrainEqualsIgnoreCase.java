@@ -15,41 +15,46 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
+import net.vectorcomputing.base.string.Assert;
+
 /**
- * A string constraint that does a case-insensitive equality check of
- * a string against a reference string.
+ * A string constraint that does a case-insensitive equality check of a string
+ * against a reference string.
  */
 public class StringConstrainEqualsIgnoreCase implements IStringConstraint {
 
 	private final String reference;
-	
+
 	/**
-	 * @param reference the string that the input string be equal to (case-insensitive)
+	 * @param reference
+	 *            the string that the input string be equal to
+	 *            (case-insensitive)
 	 */
-	public StringConstrainEqualsIgnoreCase(String reference) {
+	public StringConstrainEqualsIgnoreCase(final String reference) {
+		Assert.isNotNull(reference, "reference"); //$NON-NLS-1$
 		this.reference = reference;
 	}
-	
+
 	public String getReference() {
 		return reference;
 	}
-	
+
 	/**
 	 * @return <code>true</code> if the string is equal to the reference string
 	 *         (case-insensitive)
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		return reference.equalsIgnoreCase(input);
 	}
-	
+
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<EqualsIgnoreCase reference=\""); //$NON-NLS-1$
 		sb.append(reference);
 		sb.append("\"/>"); //$NON-NLS-1$
 		return sb.toString();
 	}
-	
+
 }

@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
+import net.vectorcomputing.base.string.Assert;
+
 /**
  *  A {@link IStringConstraint} that ANDs multiple {@link IStringConstraint}s together.
  */
@@ -28,7 +30,8 @@ public class StringConstraintAnd implements IStringConstraint {
 	 * 
 	 * @param stringConstraints the string constraints a input string must satisfy
 	 */
-	public StringConstraintAnd(IStringConstraint...stringConstraints) {
+	public StringConstraintAnd(final IStringConstraint...stringConstraints) {
+		Assert.isNotNull(stringConstraints, "stringConstraints"); //$NON-NLS-1$
 		this.stringConstraints = stringConstraints;
 	}
 
@@ -39,7 +42,7 @@ public class StringConstraintAnd implements IStringConstraint {
 	 *         {@link IStringConstraint}s.
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		for (IStringConstraint stringMatcher : stringConstraints) {
 			if (!stringMatcher.satisfiedBy(input)) {
 				return false;
@@ -50,7 +53,7 @@ public class StringConstraintAnd implements IStringConstraint {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<StringConstraintAnd>"); //$NON-NLS-1$
 		for (IStringConstraint stringConstraint : stringConstraints) {
 			sb.append(stringConstraint.toString());

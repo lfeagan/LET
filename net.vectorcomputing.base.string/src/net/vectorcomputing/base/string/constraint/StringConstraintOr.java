@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
+import net.vectorcomputing.base.string.Assert;
+
 /**
  * Implementation of {@link IStringConstraint} that ORs multiple
  * {@link IStringConstraint} together.
@@ -31,7 +33,8 @@ public class StringConstraintOr implements IStringConstraint {
 	 *            the string constraints of which a input must satisfy at least
 	 *            one
 	 */
-	public StringConstraintOr(IStringConstraint...stringConstraints) {
+	public StringConstraintOr(final IStringConstraint...stringConstraints) {
+		Assert.isNotNull(stringConstraints, "stringConstraints"); //$NON-NLS-1$
 		this.stringConstraints = stringConstraints;
 	}
 	
@@ -41,7 +44,7 @@ public class StringConstraintOr implements IStringConstraint {
 	 *         string does not satisfy any of the {@link IStringConstraint}s.
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		for (IStringConstraint stringConstraint : stringConstraints) {
 			if (stringConstraint.satisfiedBy(input)) {
 				return true;
@@ -52,7 +55,7 @@ public class StringConstraintOr implements IStringConstraint {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<StringConstraintOr>"); //$NON-NLS-1$
 		for (IStringConstraint stringConstraint : stringConstraints) {
 			sb.append(stringConstraint.toString());

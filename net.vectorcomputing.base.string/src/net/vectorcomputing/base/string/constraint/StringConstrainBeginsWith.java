@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
+import net.vectorcomputing.base.string.Assert;
+
 /**
  * A string constraint that does a case-sensitive comparison of the beginning
  * (prefix) of a string with a reference string.
@@ -28,7 +30,8 @@ public class StringConstrainBeginsWith implements IStringConstraint {
 	 *            the string that the input string must begin with
 	 *            (case-sensitive)
 	 */
-	public StringConstrainBeginsWith(String prefix) {
+	public StringConstrainBeginsWith(final String prefix) {
+		Assert.isNotNull(prefix);
 		this.prefix = prefix;
 	}
 	
@@ -41,7 +44,7 @@ public class StringConstrainBeginsWith implements IStringConstraint {
 	 *         prefix string (case-sensitive)
 	 */
 	@Override
-	public boolean satisfiedBy(String input) {
+	public boolean satisfiedBy(final String input) {
 		return input.startsWith(prefix);
 	}
 	
