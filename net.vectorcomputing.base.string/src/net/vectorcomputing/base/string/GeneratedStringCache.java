@@ -28,12 +28,12 @@ import org.eclipse.core.runtime.Assert;
  * The string for a level is built only once and the cached value is used for
  * all subsequent requests to get that level's indent string.
  */
-public class IndentStringCache {
+public class GeneratedStringCache {
 	
 	private final String indentString;
 	private final ArrayList<String> cache = new ArrayList<String>();
 	
-	public IndentStringCache(final String indentString) {
+	public GeneratedStringCache(final String indentString) {
 		Assert.isNotNull(indentString, "indentString"); //$NON-NLS-1$
 		this.indentString = indentString;
 	}
