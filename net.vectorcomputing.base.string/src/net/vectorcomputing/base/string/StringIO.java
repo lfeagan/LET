@@ -134,9 +134,9 @@ public final class StringIO {
 	 *            the string to be encoded
 	 * @return an input stream that contains the encoded string
 	 */
-	public static final void write(final String str, final OutputStream outputStream, final boolean closeStream) throws IOException {
+	public static final void write(final String string, final OutputStream outputStream, final boolean closeStream) throws IOException {
 		if (DEFAULT_FILE_ENCODING != null) {
-			write(str, outputStream, closeStream, DEFAULT_FILE_ENCODING);
+			write(string, outputStream, closeStream, DEFAULT_FILE_ENCODING);
 		} else {
 			throw new RuntimeException(Messages.getString("StringInputStreams_NoDefaultFileEncoding")); //$NON-NLS-1$
 		}
