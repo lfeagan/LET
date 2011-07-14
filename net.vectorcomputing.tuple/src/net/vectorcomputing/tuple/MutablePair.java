@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.tuple;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * A {@link Pair} that <b>can</b> be modified after constructed.
  * 
@@ -42,6 +44,19 @@ public class MutablePair<T1, T2> implements IMutablePair<T1, T2> {
 	 *            the second element of the pair
 	 */
 	public MutablePair(T1 first, T2 second) {
+		this.first = first;
+		this.second = second;
+	}
+	
+	protected MutablePair(T1 first, T2 second, boolean assertFirstNotNull, boolean assertSecondNotNull) {
+		if (assertFirstNotNull) {
+			Assert.isNotNull(first, "first"); //$NON-NLS-1$
+		}
+		
+		if (assertSecondNotNull) {
+			Assert.isNotNull(second, "second"); //$NON-NLS-1$
+		}
+		
 		this.first = first;
 		this.second = second;
 	}

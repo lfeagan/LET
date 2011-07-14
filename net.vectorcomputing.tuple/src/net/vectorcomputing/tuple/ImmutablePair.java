@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.tuple;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * A {@link Pair} that <b>cannot</b> be modified after constructed.
  * 
@@ -47,6 +49,20 @@ public class ImmutablePair<T1, T2> implements Pair<T1, T2> {
 		this.hashcode = generateHashCode();
 	}
 
+	protected ImmutablePair(T1 first, T2 second, boolean assertFirstNotNull, boolean assertSecondNotNull) {
+		if (assertFirstNotNull) {
+			Assert.isNotNull(first, "first"); //$NON-NLS-1$
+		}
+		
+		if (assertSecondNotNull) {
+			Assert.isNotNull(second, "second"); //$NON-NLS-1$
+		}
+		
+		this.first = first;
+		this.second = second;
+		this.hashcode = generateHashCode();		
+	}
+	
 	/**
 	 * Constructor for an immutable pair that uses the first and second values
 	 * from an existing pair.

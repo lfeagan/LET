@@ -6,4 +6,4 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: VectorComputing.net
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: net.vectorcomputing.tuple
-Require-Bundle: org.eclipse.osgi;bundle-version="3.6.0"
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.4.0"
