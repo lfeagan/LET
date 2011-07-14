@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * A string splitter that makes multiple passes over an input string with an
  * order list of delimiters and splits it up at each of the delimiters.
@@ -31,12 +33,14 @@ public class StringSplitAtStrings implements IStringSplitter {
 	 * 
 	 * @param strings the strings to split an input string at
 	 */
-	public StringSplitAtStrings(String...strings) {
+	public StringSplitAtStrings(final String...strings) {
+		Assert.isNotNull(strings, "strings"); //$NON-NLS-1$
 		this.delimiters = strings;
 	}
 
 	@Override
-	public String[] split(String input) {
+	public String[] split(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		List<String> result = Arrays.asList(new String[] {input});
 		for (String delimiter : delimiters) {
 			result = split(result, delimiter);
@@ -44,7 +48,7 @@ public class StringSplitAtStrings implements IStringSplitter {
 		return result.toArray(new String[result.size()]);
 	}
 
-	private static final List<String> split(List<String> unsplitStrings, String currentDelimiter) {
+	private static final List<String> split(final List<String> unsplitStrings, final String currentDelimiter) {
 		final List<String> splitStrings = new ArrayList<String>(unsplitStrings.size());
 		for (String unsplitString : unsplitStrings) {
 			final String[] ssa = unsplitString.split(currentDelimiter);
@@ -55,7 +59,7 @@ public class StringSplitAtStrings implements IStringSplitter {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<StringSplitAtStrings delimiters=\""); //$NON-NLS-1$
 		sb.append(delimiters);
 		sb.append("\"/>"); //$NON-NLS-1$

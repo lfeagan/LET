@@ -17,6 +17,8 @@ package net.vectorcomputing.base.string.transform;
 
 import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * A string transformer that removes all whitespace characters.
  */
@@ -27,13 +29,14 @@ public class StringTransformRemoveAllWhitespace implements IStringTransformer {
 	 * @see Pattern
 	 */
 	@Override
-	public String transform(String input) {
+	public String transform(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		return input.replaceAll("\\s", ""); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringTransformRemoveAllWhitespace.class.getSimpleName());
 		sb.append("/>"); //$NON-NLS-1$

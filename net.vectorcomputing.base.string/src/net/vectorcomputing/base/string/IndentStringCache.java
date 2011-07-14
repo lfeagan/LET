@@ -17,6 +17,8 @@ package net.vectorcomputing.base.string;
 
 import java.util.ArrayList;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * An indent string cache provides a way of caching indent strings at various
  * levels (depths). An indent string cache is typically used when formatting
@@ -31,18 +33,19 @@ public class IndentStringCache {
 	private final String indentString;
 	private final ArrayList<String> cache = new ArrayList<String>();
 	
-	public IndentStringCache(String indentString) {
+	public IndentStringCache(final String indentString) {
+		Assert.isNotNull(indentString, "indentString"); //$NON-NLS-1$
 		this.indentString = indentString;
 	}
 
-	public String getIndentString(int level) {
+	public String getIndentString(final int level) {
 		if (level+1 > cache.size()) {
 			increaseCachedLevels(level);
 		}
 		return cache.get(level);
 	}
 	
-	private String createLevel(int level) {
+	private String createLevel(final int level) {
 		final StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < level; ++i) {
 			sb.append(indentString);
@@ -51,7 +54,7 @@ public class IndentStringCache {
 		return sb.toString();
 	}
 	
-	private void increaseCachedLevels(int desiredLevel) {
+	private void increaseCachedLevels(final int desiredLevel) {
 		int desiredSize = desiredLevel+1;
 		for (int i=cache.size(); i < desiredSize; ++i) {
 			cache.add(createLevel(i));

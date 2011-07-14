@@ -17,6 +17,8 @@ package net.vectorcomputing.base.string.transform;
 
 import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * A string transformer that removes duplicated whitespace characters between
  * words.
@@ -27,14 +29,15 @@ public class StringTransformRemoveDuplicateWhitepaceBetweenWords implements IStr
 	 * @see Pattern
 	 */
 	@Override
-	public String transform(String input) {
+	public String transform(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		// "\\b" matches a word boundary
 		return input.replaceAll("\\b\\s{2,}\\b", " "); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringTransformRemoveDuplicateWhitepaceBetweenWords.class.getSimpleName());
 		sb.append("/>"); //$NON-NLS-1$

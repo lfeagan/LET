@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * A string transformer that removes all newline characters from an input string.
  */
@@ -24,13 +26,14 @@ public class StringTransformRemoveNewlines implements IStringTransformer {
 	 * @return a new string with all newline characters removed
 	 */
 	@Override
-	public String transform(String input) {
+	public String transform(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		return input.replaceAll("^\\n", ""); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringTransformRemoveNewlines.class.getSimpleName());
 		sb.append("/>"); //$NON-NLS-1$

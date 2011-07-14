@@ -17,6 +17,8 @@ package net.vectorcomputing.base.string.split;
 
 import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * A string splitter that splits an input string at any contiguous block of one
  * or more whitespace characters.
@@ -30,7 +32,8 @@ public class StringSplitAtWhitespace implements IStringSplitter {
 	}
 	
 	@Override
-	public String[] split(String input) {
+	public String[] split(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		return pattern.split(input);
 	}
 

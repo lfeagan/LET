@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * A strings transformer that takes an array of input strings and concatenates
  * them together with a delimiter separating each element of the array 
@@ -32,6 +34,7 @@ public class StringsTransformDelimitElements implements IStringsTransformer {
 	 *            strings
 	 */
 	public StringsTransformDelimitElements(final String delimiter) {
+		Assert.isNotNull(delimiter, "delimiter"); //$NON-NLS-1$
 		this.delimiter = delimiter;
 	}
 	
@@ -42,6 +45,7 @@ public class StringsTransformDelimitElements implements IStringsTransformer {
 	 */
 	@Override
 	public String transform(String[] input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		final StringBuilder sb = new StringBuilder();
 		for (int i=0; i < input.length; ) {
 			sb.append(input[i]);
@@ -55,7 +59,7 @@ public class StringsTransformDelimitElements implements IStringsTransformer {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringsTransformDelimitElements.class.getSimpleName());
 		sb.append(" delimiter=\""); //$NON-NLS-1$

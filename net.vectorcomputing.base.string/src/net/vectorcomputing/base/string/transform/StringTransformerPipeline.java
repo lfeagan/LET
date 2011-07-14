@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * Chains string transformers together to create a transformation pipeline.
  */
@@ -22,12 +24,14 @@ public class StringTransformerPipeline implements IStringTransformer {
 
 	private final IStringTransformer[] stringTransformers;
 	
-	public StringTransformerPipeline(IStringTransformer...stringTransformers) {
+	public StringTransformerPipeline(final IStringTransformer...stringTransformers) {
+		Assert.isNotNull(stringTransformers, "stringTransformers"); //$NON-NLS-1$
 		this.stringTransformers = stringTransformers;
 	}
 	
 	@Override
-	public String transform(String input) {
+	public String transform(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		String target = input;
 		for (IStringTransformer stringTransformer : stringTransformers) {
 			target = stringTransformer.transform(target);
@@ -37,7 +41,7 @@ public class StringTransformerPipeline implements IStringTransformer {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<StringTransformerPipeline>"); //$NON-NLS-1$
 		for (IStringTransformer transformer : stringTransformers) {
 			sb.append(transformer.toString());

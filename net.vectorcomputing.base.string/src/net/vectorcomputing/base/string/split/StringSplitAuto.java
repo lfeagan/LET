@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.split;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * A string splitter that attempts to automatically determine the delimiter in
  * use by searching for various common delimiters. At present it searches for
@@ -23,7 +25,8 @@ package net.vectorcomputing.base.string.split;
 public class StringSplitAuto implements IStringSplitter {
 
 	@Override
-	public String[] split(String input) {
+	public String[] split(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		InputDelimiter delimiterType = determineDelimiterType(input);
 		switch (delimiterType) {
 		case COMMA:
@@ -55,7 +58,7 @@ public class StringSplitAuto implements IStringSplitter {
 		}
 	}
 
-	private static InputDelimiter determineDelimiterType(String input) {
+	private static InputDelimiter determineDelimiterType(final String input) {
 		if (input == null || input.equals(InputDelimiter.EMPTY_INPUT)) {
 			return InputDelimiter.EMPTY_INPUT;
 		} else if(input.contains(InputDelimiter.COMMA.getDelimiter())){

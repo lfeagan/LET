@@ -9,3 +9,4 @@ Export-Package: net.vectorcomputing.base.string,
  net.vectorcomputing.base.string.constraint,
  net.vectorcomputing.base.string.split,
  net.vectorcomputing.base.string.transform
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.4.0"

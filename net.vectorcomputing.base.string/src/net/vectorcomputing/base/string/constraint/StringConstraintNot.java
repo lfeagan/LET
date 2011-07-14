@@ -15,7 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
-import net.vectorcomputing.base.string.Assert;
+import org.eclipse.core.runtime.Assert;
 
 /**
  * A string constraint that returns the opposite (logical 'NOT') of an

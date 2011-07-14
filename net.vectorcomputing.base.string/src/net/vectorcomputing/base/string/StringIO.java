@@ -27,6 +27,9 @@ import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
+import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.AssertionFailedException;
+
 /**
  * Utility class providing static methods to read strings from input streams and
  * convert strings to an input stream.
@@ -46,7 +49,8 @@ public final class StringIO {
 	 * @return the data read from the input stream as a string
 	 * @throws IOException
 	 */
-	public static final String read(InputStream input) throws IOException {
+	public static final String read(final InputStream input) throws IOException {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		return read(input, DEFAULT_FILE_ENCODING, DEFAULT_BUFFER_SIZE);
 	}
 
@@ -62,7 +66,10 @@ public final class StringIO {
 	 * @return the data read from the input stream as a string
 	 * @throws IOException
 	 */
-	public static final String read(InputStream input, String fileEncoding, int bufferSize) throws IOException {
+	public static final String read(final InputStream input, final String fileEncoding, final int bufferSize) throws IOException {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
+		assertIsBufferSizeValid(bufferSize);
+		
 		final char[] buffer = new char[bufferSize];
 		final InputStreamReader isr = new InputStreamReader(input, fileEncoding);
 		final BufferedReader br = new BufferedReader(isr, bufferSize);
@@ -87,12 +94,22 @@ public final class StringIO {
 			sw.close();
 		}
 	}
+
+	private static void assertIsBufferSizeValid(final int bufferSize) {
+		if (bufferSize <= 0) {
+			throw new AssertionFailedException("buffer size > 0"); //$NON-NLS-1$
+		}
+	}
 	
 	public static final String read(final File file) throws IOException {
+		Assert.isNotNull(file, "file"); //$NON-NLS-1$
 		return read(file, DEFAULT_BUFFER_SIZE);
 	}
 	
 	public static final String read(final File file, final int bufferSize) throws IOException {
+		Assert.isNotNull(file, "file"); //$NON-NLS-1$
+		assertIsBufferSizeValid(bufferSize);
+		
 		if (file.length() != 0) {
 			final StringBuffer contents = new StringBuffer();
 			final char[] buffer = new char[bufferSize];
@@ -137,6 +154,9 @@ public final class StringIO {
 	 * @return an input stream that contains the encoded string
 	 */
 	public static final void write(final String str, final OutputStream outputStream, final boolean closeStream, final String fileEncoding) throws IOException {
+		Assert.isNotNull(str, "str"); //$NON-NLS-1$
+		Assert.isNotNull(outputStream, "outputStream"); //$NON-NLS-1$
+		
 		final ByteBuffer encodedString = Charset.forName(fileEncoding).encode(str);
 		
 		try {

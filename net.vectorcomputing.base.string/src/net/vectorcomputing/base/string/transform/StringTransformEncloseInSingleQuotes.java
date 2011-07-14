@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * A string transformer that encloses a input string in single quotes (').
  */
@@ -24,8 +26,9 @@ public class StringTransformEncloseInSingleQuotes implements IStringTransformer 
 	 * @return a new string with the input string enclosed in single quotes
 	 */
 	@Override
-	public String transform(String input) {
-		StringBuilder sb = new StringBuilder();
+	public String transform(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
+		final StringBuilder sb = new StringBuilder();
 		sb.append('\'');
 		sb.append(input);
 		sb.append('\'');
@@ -34,7 +37,7 @@ public class StringTransformEncloseInSingleQuotes implements IStringTransformer 
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringTransformEncloseInSingleQuotes.class.getSimpleName());
 		sb.append("/>"); //$NON-NLS-1$

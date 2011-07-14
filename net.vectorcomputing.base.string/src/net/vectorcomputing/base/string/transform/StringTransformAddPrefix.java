@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * Transforms a string by prepending (placing in front) a prefix string.
  */
@@ -32,7 +34,8 @@ public class StringTransformAddPrefix implements IStringTransformer {
 	 * @param prefix
 	 *            the string to prepend in front of a input string
 	 */
-	public StringTransformAddPrefix(String prefix) {
+	public StringTransformAddPrefix(final String prefix) {
+		Assert.isNotNull(prefix, "prefix"); //$NON-NLS-1$
 		this.prefix = prefix;
 	}
 
@@ -52,13 +55,14 @@ public class StringTransformAddPrefix implements IStringTransformer {
 	 *         input string
 	 */
 	@Override
-	public String transform(String input) {
+	public String transform(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		return prefix + input;
 	}
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringTransformAddPrefix.class.getSimpleName());
 		sb.append(" prefix=\""); //$NON-NLS-1$

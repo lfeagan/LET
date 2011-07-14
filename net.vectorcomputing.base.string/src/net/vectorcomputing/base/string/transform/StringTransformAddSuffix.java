@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * Transforms a string by appending (placing at the end) a suffix string.
  */
@@ -32,8 +34,8 @@ public class StringTransformAddSuffix implements IStringTransformer {
 	 * @param suffix
 	 *            the string to append at the end of a input string
 	 */
-	public StringTransformAddSuffix(String suffix)
-	{
+	public StringTransformAddSuffix(final String suffix) {
+		Assert.isNotNull(suffix, "suffix"); //$NON-NLS-1$
 		this.suffix = suffix;
 	}
 
@@ -53,13 +55,14 @@ public class StringTransformAddSuffix implements IStringTransformer {
 	 *         the input string
 	 */
 	@Override
-	public String transform(String input) {
+	public String transform(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		return input + suffix;
 	}
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringTransformAddSuffix.class.getSimpleName());
 		sb.append(" suffix=\""); //$NON-NLS-1$

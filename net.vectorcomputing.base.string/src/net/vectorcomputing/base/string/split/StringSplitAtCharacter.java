@@ -17,6 +17,8 @@ package net.vectorcomputing.base.string.split;
 
 import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * A string splitter that splits up an input string at a particular character.
  */
@@ -25,7 +27,8 @@ public class StringSplitAtCharacter implements IStringSplitter {
 	private final char characterToSplitAt;
 	private final Pattern pattern;
 	
-	public StringSplitAtCharacter(char characterToSplitAt) {
+	public StringSplitAtCharacter(final char characterToSplitAt) {
+		Assert.isNotNull(characterToSplitAt, "characterToSplitAt"); //$NON-NLS-1$
 		this.characterToSplitAt = characterToSplitAt;
 		pattern = Pattern.compile("[" + characterToSplitAt + "]+"); //$NON-NLS-1$ //$NON-NLS-2$
 		// reference Pattern.compile("[,\\s]+");
@@ -36,13 +39,14 @@ public class StringSplitAtCharacter implements IStringSplitter {
 	}
 	
 	@Override
-	public String[] split(String input) {
+	public String[] split(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		return pattern.split(input);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<StringSplitAtCharacter character=\""); //$NON-NLS-1$
 		sb.append(characterToSplitAt);
 		sb.append("\"/>"); //$NON-NLS-1$

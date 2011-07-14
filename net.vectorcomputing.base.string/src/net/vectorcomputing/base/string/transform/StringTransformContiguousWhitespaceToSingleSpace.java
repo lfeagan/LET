@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * A string transformer that converts any contiguous block of whitespace
  * characters into a single space.
@@ -22,13 +24,14 @@ package net.vectorcomputing.base.string.transform;
 public class StringTransformContiguousWhitespaceToSingleSpace implements IStringTransformer {
 
 	@Override
-	public String transform(String input) {
+	public String transform(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		return input.replaceAll("\\s{1,}", " "); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringTransformContiguousWhitespaceToSingleSpace.class.getSimpleName());
 		sb.append("/>"); //$NON-NLS-1$

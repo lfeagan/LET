@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
+import org.eclipse.core.runtime.Assert;
+
 /**
  * Removes all leading and trailing whitespace and reduces multiple spaces
  * between words to a single space.
@@ -30,13 +32,14 @@ public class StringTransformRemoveExtraneousSpaces implements IStringTransformer
 	 * @see StringTransformerPipeline
 	 */
 	@Override
-	public String transform(String input) {
+	public String transform(final String input) {
+		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		return pipeline.transform(input);
 	}
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("<"); //$NON-NLS-1$
 		sb.append(StringTransformRemoveExtraneousSpaces.class.getSimpleName());
 		sb.append("/>"); //$NON-NLS-1$
