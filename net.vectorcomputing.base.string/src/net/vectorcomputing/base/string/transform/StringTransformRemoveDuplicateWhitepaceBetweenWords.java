@@ -17,7 +17,7 @@ package net.vectorcomputing.base.string.transform;
 
 import java.util.regex.Pattern;
 
-import net.vectorcomputing.base.string.Assert;
+import net.vectorcomputing.base.Assert;
 
 /**
  * A string transformer that removes duplicated whitespace characters between

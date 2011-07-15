@@ -17,6 +17,8 @@ package net.vectorcomputing.base.string;
 
 import java.util.ArrayList;
 
+import net.vectorcomputing.base.Assert;
+
 /**
  * An indent string cache provides a way of caching indent strings at various
  * levels (depths). An indent string cache is typically used when formatting

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
-import net.vectorcomputing.base.string.Assert;
+import net.vectorcomputing.base.Assert;
 
 /**
  * A string constraint that returns the opposite (logical 'NOT') of an

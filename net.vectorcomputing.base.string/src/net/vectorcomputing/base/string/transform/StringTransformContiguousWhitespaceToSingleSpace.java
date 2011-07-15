@@ -15,7 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
-import net.vectorcomputing.base.string.Assert;
+import net.vectorcomputing.base.Assert;
 
 /**
  * A string transformer that converts any contiguous block of whitespace

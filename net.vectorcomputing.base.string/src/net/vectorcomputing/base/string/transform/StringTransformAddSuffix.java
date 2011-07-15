@@ -15,7 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
-import net.vectorcomputing.base.string.Assert;
+import net.vectorcomputing.base.Assert;
 
 /**
  * Transforms a string by appending (placing at the end) a suffix string.

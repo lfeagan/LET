@@ -15,7 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
-import net.vectorcomputing.base.string.Assert;
+import net.vectorcomputing.base.Assert;
 
 /**
  * Chains string transformers together to create a transformation pipeline.

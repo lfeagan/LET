@@ -9,4 +9,5 @@ Export-Package: net.vectorcomputing.base.string,
  net.vectorcomputing.base.string.constraint,
  net.vectorcomputing.base.string.split,
  net.vectorcomputing.base.string.transform
-Require-Bundle: org.eclipse.osgi;bundle-version="3.3.0"
+Require-Bundle: org.eclipse.osgi;bundle-version="3.3.0",
+ net.vectorcomputing.base;bundle-version="1.0.0"

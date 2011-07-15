@@ -27,6 +27,8 @@ import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
+import net.vectorcomputing.base.Assert;
+
 /**
  * Utility class providing static methods to read strings from input streams and
  * convert strings to an input stream.

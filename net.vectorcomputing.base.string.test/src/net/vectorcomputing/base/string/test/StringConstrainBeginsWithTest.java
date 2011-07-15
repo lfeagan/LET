@@ -2,7 +2,6 @@ package net.vectorcomputing.base.string.test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import net.vectorcomputing.base.string.Assert;
 import net.vectorcomputing.base.string.constraint.IStringConstraint;
 import net.vectorcomputing.base.string.constraint.StringConstrainBeginsWith;
 

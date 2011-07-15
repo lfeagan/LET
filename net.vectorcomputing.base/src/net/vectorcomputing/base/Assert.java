@@ -1,4 +1,4 @@
-package net.vectorcomputing.base.string;
+package net.vectorcomputing.base;
 
 public class Assert {
 

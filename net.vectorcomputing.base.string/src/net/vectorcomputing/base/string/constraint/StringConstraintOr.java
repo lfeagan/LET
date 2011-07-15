@@ -15,7 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
-import net.vectorcomputing.base.string.Assert;
+import net.vectorcomputing.base.Assert;
 
 /**
  * Implementation of {@link IStringConstraint} that ORs multiple

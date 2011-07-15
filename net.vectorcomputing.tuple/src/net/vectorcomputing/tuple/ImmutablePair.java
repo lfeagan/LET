@@ -15,7 +15,8 @@
  ******************************************************************************/
 package net.vectorcomputing.tuple;
 
-import org.eclipse.core.runtime.Assert;
+import net.vectorcomputing.base.Assert;
+
 
 /**
  * A {@link Pair} that <b>cannot</b> be modified after constructed.

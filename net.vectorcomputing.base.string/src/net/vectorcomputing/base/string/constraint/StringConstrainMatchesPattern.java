@@ -18,7 +18,7 @@ package net.vectorcomputing.base.string.constraint;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.vectorcomputing.base.string.Assert;
+import net.vectorcomputing.base.Assert;
 
 /**
  * A string constraint that determines if a string matches a regular expression
