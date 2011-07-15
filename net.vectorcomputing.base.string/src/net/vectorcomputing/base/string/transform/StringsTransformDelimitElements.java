@@ -15,7 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
-import org.eclipse.core.runtime.Assert;
+import net.vectorcomputing.base.string.Assert;
 
 /**
  * A strings transformer that takes an array of input strings and concatenates

@@ -27,9 +27,6 @@ import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.AssertionFailedException;
-
 /**
  * Utility class providing static methods to read strings from input streams and
  * convert strings to an input stream.
@@ -97,7 +94,7 @@ public final class StringIO {
 
 	private static void assertIsBufferSizeValid(final int bufferSize) {
 		if (bufferSize <= 0) {
-			throw new AssertionFailedException("buffer size > 0"); //$NON-NLS-1$
+			throw new AssertionError("buffer size > 0"); //$NON-NLS-1$
 		}
 	}
 	

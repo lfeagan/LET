@@ -15,7 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.constraint;
 
-import org.eclipse.core.runtime.Assert;
+import net.vectorcomputing.base.string.Assert;
 
 /**
  * A string constraint that determines if an input string contains a reference

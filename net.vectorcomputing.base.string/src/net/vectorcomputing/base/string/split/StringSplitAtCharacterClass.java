@@ -17,7 +17,7 @@ package net.vectorcomputing.base.string.split;
 
 import java.util.regex.Pattern;
 
-import org.eclipse.core.runtime.Assert;
+import net.vectorcomputing.base.string.Assert;
 
 /**
  * A string splitter that splits an input string at any character from a

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
-import org.eclipse.core.runtime.Assert;
+import net.vectorcomputing.base.string.Assert;
 
 /**
  * A string transformer that removes all leading spaces (on the left-hand side)

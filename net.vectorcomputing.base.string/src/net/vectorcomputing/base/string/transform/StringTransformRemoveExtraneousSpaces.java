@@ -15,7 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
-import org.eclipse.core.runtime.Assert;
+import net.vectorcomputing.base.string.Assert;
 
 /**
  * Removes all leading and trailing whitespace and reduces multiple spaces

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
-import org.eclipse.core.runtime.Assert;
+import net.vectorcomputing.base.string.Assert;
 
 /**
  * Transforms a string by prepending (placing in front) a prefix string.

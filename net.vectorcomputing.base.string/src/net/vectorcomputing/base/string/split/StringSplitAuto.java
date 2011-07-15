@@ -15,7 +15,6 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.split;
 
-import org.eclipse.core.runtime.Assert;
 
 /**
  * A string splitter that attempts to automatically determine the delimiter in

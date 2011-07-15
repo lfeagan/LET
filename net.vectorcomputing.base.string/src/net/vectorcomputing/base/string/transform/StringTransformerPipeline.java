@@ -15,7 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.base.string.transform;
 
-import org.eclipse.core.runtime.Assert;
+import net.vectorcomputing.base.string.Assert;
 
 /**
  * Chains string transformers together to create a transformation pipeline.
