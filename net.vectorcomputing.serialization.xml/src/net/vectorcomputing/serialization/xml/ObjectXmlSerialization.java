@@ -94,9 +94,6 @@ public final class ObjectXmlSerialization {
 	 *            the object to be converted
 	 * @param file
 	 *            the file to write the converted object to
-	 * @param registry
-	 *            the {@link IXmlSerializerRegistry} to use when finding
-	 *            {@link XmlSerializer}s and tags during conversion
 	 * @throws CoreException
 	 *             if an error occurs during the conversion
 	 */

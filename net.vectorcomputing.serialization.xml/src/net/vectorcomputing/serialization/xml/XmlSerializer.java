@@ -27,14 +27,33 @@ public interface XmlSerializer {
 
 	public static final String POINT_ID = XmlSerializationPlugin.PLUGIN_ID + ".xmlSerializers"; //$NON-NLS-1$
 
+	/**
+	 * Converts the specified property node to an object. (De-serializes it into
+	 * an object).
+	 * 
+	 * @param pnode
+	 *            the property node to convert to an object
+	 * @param descriptor
+	 *            the container of additional information necessary to perform
+	 *            the conversion
+	 * @return the object read from the property node
+	 * @throws CoreException
+	 *             if unable to convert the property node to an object
+	 */
 	public Object read(PropertyNode pnode, IXmlSerializerDescriptor descriptor) throws CoreException;
 
 	/**
+	 * Converts the specified object to a property node using the descriptor for
+	 * information such as the tag and registry to use.
 	 * 
 	 * @param object
+	 *            the object to convert to a property node
 	 * @param descriptor
-	 * @return
+	 *            the container of additional information necessary to perform
+	 *            the conversion
+	 * @return the converted object
 	 * @throws CoreException
+	 *             if unable to convert the object to a property node
 	 */
 	public PropertyNode toPropertyNode(Object object, IXmlSerializerDescriptor descriptor) throws CoreException;
 	

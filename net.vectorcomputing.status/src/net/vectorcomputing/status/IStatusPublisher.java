@@ -40,8 +40,6 @@ public interface IStatusPublisher {
 	 * 
 	 * @param listener
 	 *            the status listener to be added to the set of status listeners
-	 * @return <code>true</code> if the set of status listeners changed as a
-	 *         result of invoking this method.
 	 */
 	public abstract void addStatusListener(IStatusListener listener);
 
@@ -51,8 +49,6 @@ public interface IStatusPublisher {
 	 * @param listener
 	 *            the status listener to remove from the set of registered
 	 *            status listeners
-	 * @return <code>true</code> if the set of status listeners is changed as a
-	 *         result of invoking this method
 	 */
 	public abstract void removeStatusListener(IStatusListener listener);
 

@@ -129,9 +129,8 @@ public final class StringIO {
 	 * Converts a string to a byte representation using the default file
 	 * encoding and returns an input stream that will read this encoded form.
 	 * 
-	 * @param str
+	 * @param string
 	 *            the string to be encoded
-	 * @return an input stream that contains the encoded string
 	 */
 	public static final void write(final String string, final OutputStream outputStream, final boolean closeStream) throws IOException {
 		if (DEFAULT_FILE_ENCODING != null) {
@@ -150,7 +149,6 @@ public final class StringIO {
 	 * @param fileEncoding
 	 *            the encoding to use when converting the string to its byte
 	 *            representation
-	 * @return an input stream that contains the encoded string
 	 */
 	public static final void write(final String str, final OutputStream outputStream, final boolean closeStream, final String fileEncoding) throws IOException {
 		Assert.isNotNull(str, "str"); //$NON-NLS-1$
