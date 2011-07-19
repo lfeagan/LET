@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Node JUnit Tests
+Bundle-SymbolicName: net.vectorcomputing.property.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: VectorComputing.net
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.junit;bundle-version="4.8.1",
+ net.vectorcomputing.base.string;bundle-version="1.0.0",
+ net.vectorcomputing.node;bundle-version="1.0.0",
+ net.vectorcomputing.property;bundle-version="1.0.0"

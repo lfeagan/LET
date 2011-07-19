@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Unit Tests of XML Serialization for java.lang.*
+Bundle-SymbolicName: net.vectorcomputing.serialization.xml.java.lang.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: VectorComputing.net
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.6.0",
+ org.junit,
+ net.vectorcomputing.serialization.xml;bundle-version="1.0.0"

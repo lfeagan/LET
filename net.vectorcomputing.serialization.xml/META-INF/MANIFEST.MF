@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: XML Serialization
+Bundle-SymbolicName: net.vectorcomputing.serialization.xml;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.vectorcomputing.serialization.xml.XmlSerializationPlugin
+Bundle-Vendor: VectorComputing.Net
+Require-Bundle: org.eclipse.core.runtime,
+ net.vectorcomputing.base.string;bundle-version="1.0.0",
+ net.vectorcomputing.node;bundle-version="1.0.0",
+ net.vectorcomputing.property;bundle-version="1.0.0";visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: net.vectorcomputing.serialization.xml
+Eclipse-BuddyPolicy: dependent

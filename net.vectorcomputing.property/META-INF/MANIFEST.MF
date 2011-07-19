@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Property
+Bundle-SymbolicName: net.vectorcomputing.property
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.vectorcomputing.property.PropertyPlugin
+Require-Bundle: org.eclipse.core.runtime,
+ net.vectorcomputing.base.string;bundle-version="1.0.0",
+ net.vectorcomputing.node;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: net.vectorcomputing.property,
+ net.vectorcomputing.property.constraint,
+ net.vectorcomputing.property.node,
+ net.vectorcomputing.property.node.constraint
+Bundle-Vendor: VectorComputing.net
