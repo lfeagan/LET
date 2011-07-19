@@ -26,32 +26,29 @@ import org.xml.sax.InputSource;
 public interface IPropertyNodeXmlConverter {
 
 	/**
-	 * Transforms the content read from the reader into a property node
-	 * hierarchy.
+	 * Transforms the content read from the reader into a property node tree.
 	 * 
 	 * @param reader
 	 *            the reader to read XML content from
-	 * @return a property node hierarchy that represents the contents of the
+	 * @return a property node that represents the contents of the
 	 *         reader
 	 * @throws CoreException
 	 */
 	public PropertyNode read(Reader reader) throws CoreException;
 
 	/**
-	 * Transforms the content read from the input source into a property node
-	 * hierarchy.
+	 * Transforms the content read from the input source into a property node.
 	 * 
 	 * @param source
 	 *            the source to read XML content from
-	 * @return a property node hierarchy that represents the contents of the
+	 * @return a property node that represents the contents of the
 	 *         input source
 	 * @throws CoreException
 	 */
 	public PropertyNode read(InputSource source) throws CoreException;
 
 	/**
-	 * Transforms the content read from the string into a property node
-	 * hierarchy.
+	 * Transforms the content read from the string into a property node.
 	 * 
 	 * @param string
 	 *            the stream to read the property node from
@@ -61,18 +58,18 @@ public interface IPropertyNodeXmlConverter {
 	public PropertyNode read(String string) throws CoreException;
 
 	/**
-	 * Transforms the content read from the file into a property node hierarchy.
+	 * Transforms the content read from the file into a property node.
 	 * 
 	 * @param file
 	 *            the file to read XML content from
-	 * @return a property node hierarchy that represents the contents of the
+	 * @return a property node that represents the contents of the
 	 *         file
 	 * @throws CoreException
 	 */
 	public PropertyNode read(File file) throws CoreException;
 
 	/**
-	 * Transforms the content read from source into a property node hierarchy.
+	 * Transforms the content read from source into a property node.
 	 * 
 	 * @param stream
 	 *            the input stream to read the property node from
@@ -84,7 +81,8 @@ public interface IPropertyNodeXmlConverter {
 	/**
 	 * Transforms the property node tree to its string representation using XML.
 	 * 
-	 * @param pnode the property node to be transformed
+	 * @param pnode
+	 *            the property node to be transformed
 	 * @return a string that uses XML to represent the property node tree
 	 * @throws CoreException
 	 */
@@ -106,10 +104,12 @@ public interface IPropertyNodeXmlConverter {
 	 * Transforms the property node into an XML representation and writes that
 	 * to a writer.
 	 * 
-	 * @param pnode the property node to transform
-	 * @param writer the writer to write the transformed representation to
+	 * @param pnode
+	 *            the property node to transform
+	 * @param writer
+	 *            the writer to write the transformed representation to
 	 * @throws CoreException
 	 */
 	public void write(PropertyNode pnode, Writer writer) throws CoreException;
-				
+
 }
