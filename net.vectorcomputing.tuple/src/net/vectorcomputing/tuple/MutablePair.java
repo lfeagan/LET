@@ -94,7 +94,7 @@ public class MutablePair<T1, T2> implements IMutablePair<T1, T2> {
 		case 1:
 			return second;
 		default:
-			throw new IndexOutOfBoundsException(Messages.Pair_GetEntryFailedIndexConstraint);
+			throw new IndexOutOfBoundsException(TupleMessages.Pair_GetEntryFailedIndexConstraint);
 		}
 	}
 

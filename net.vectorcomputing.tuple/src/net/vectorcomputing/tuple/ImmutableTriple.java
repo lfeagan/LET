@@ -67,7 +67,7 @@ public class ImmutableTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
 		case 2:
 			return third;
 		default:
-			throw new IndexOutOfBoundsException(Messages.Triple_GetEntryFailedIndexConstraint);
+			throw new IndexOutOfBoundsException(TupleMessages.Triple_GetEntryFailedIndexConstraint);
 		}
 	}
 

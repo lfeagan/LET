@@ -20,16 +20,16 @@ import org.eclipse.osgi.util.NLS;
 /**
  * Externalized strings.
  */
-public class Messages extends NLS {
+public class TupleMessages extends NLS {
 	private static final String BUNDLE_NAME = "net.vectorcomputing.tuples.messages"; //$NON-NLS-1$
 	public static String Pair_GetEntryFailedIndexConstraint;
 	public static String Triple_GetEntryFailedIndexConstraint;
 	public static String Quad_GetEntryFailedIndexConstraint;
 	static {
 		// initialize resource bundle
-		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
+		NLS.initializeMessages(BUNDLE_NAME, TupleMessages.class);
 	}
 
-	private Messages() {
+	private TupleMessages() {
 	}
 }

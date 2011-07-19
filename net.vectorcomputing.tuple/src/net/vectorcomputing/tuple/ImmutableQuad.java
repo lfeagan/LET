@@ -72,7 +72,7 @@ public class ImmutableQuad<T1, T2, T3, T4> implements Quad<T1, T2, T3, T4> {
 		case 2:
 			return third;
 		default:
-			throw new IndexOutOfBoundsException(Messages.Quad_GetEntryFailedIndexConstraint);
+			throw new IndexOutOfBoundsException(TupleMessages.Quad_GetEntryFailedIndexConstraint);
 		}
 	}
 
