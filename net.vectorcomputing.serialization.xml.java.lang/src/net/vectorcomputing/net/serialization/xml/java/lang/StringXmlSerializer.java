@@ -32,7 +32,12 @@ public class StringXmlSerializer implements XmlSerializer {
 
 	@Override
 	public Object read(final PropertyNode pnode, final IXmlSerializerDescriptor descriptor) {
-		return pnode.getValue();
+		final String value = pnode.getValue();
+		if (value == null) {
+			return new String();
+		} else {
+			return value;
+		}
 	}
 	
 	@Override
