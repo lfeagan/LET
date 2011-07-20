@@ -21,13 +21,13 @@ import java.util.ResourceBundle;
 /**
  * Externalized strings.
  */
-public class Messages {
+public class StringMessages {
 	
 	private static final String BUNDLE_NAME = "net.vectorcomputing.base.string.messages"; //$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
-	private Messages() {
+	private StringMessages() {
 	}
 
 	public static String getString(String key) {

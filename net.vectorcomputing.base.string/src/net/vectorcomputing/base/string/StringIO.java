@@ -136,7 +136,7 @@ public final class StringIO {
 		if (DEFAULT_FILE_ENCODING != null) {
 			write(string, outputStream, closeStream, DEFAULT_FILE_ENCODING);
 		} else {
-			throw new RuntimeException(Messages.getString("StringInputStreams_NoDefaultFileEncoding")); //$NON-NLS-1$
+			throw new RuntimeException(StringMessages.getString("StringInputStreams_NoDefaultFileEncoding")); //$NON-NLS-1$
 		}
 	}
 	
