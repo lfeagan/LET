@@ -21,6 +21,10 @@ import net.vectorcomputing.serialization.xml.XmlSerializer;
 
 import org.eclipse.core.runtime.CoreException;
 
+/**
+ * Converts a {@link java.lang.String} to and from a {@link PropertyNode} to
+ * perform XML serialization and de-serialization.
+ */
 public class StringXmlSerializer implements XmlSerializer {
 
 	@Override

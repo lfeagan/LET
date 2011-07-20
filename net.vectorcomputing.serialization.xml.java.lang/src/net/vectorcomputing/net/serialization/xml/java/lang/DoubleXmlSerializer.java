@@ -19,6 +19,10 @@ import net.vectorcomputing.property.node.PropertyNode;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
 
+/**
+ * Converts a {@link java.lang.Double} to and from a {@link PropertyNode} to
+ * perform XML serialization and de-serialization.
+ */
 public final class DoubleXmlSerializer implements XmlSerializer {
 	
 	@Override

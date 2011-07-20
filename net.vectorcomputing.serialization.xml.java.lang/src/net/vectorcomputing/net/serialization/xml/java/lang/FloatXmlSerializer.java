@@ -6,6 +6,10 @@ import net.vectorcomputing.serialization.xml.XmlSerializer;
 
 import org.eclipse.core.runtime.CoreException;
 
+/**
+ * Converts a {@link java.lang.Float} to and from a {@link PropertyNode} to
+ * perform XML serialization and de-serialization.
+ */
 public class FloatXmlSerializer implements XmlSerializer {
 
 	@Override
