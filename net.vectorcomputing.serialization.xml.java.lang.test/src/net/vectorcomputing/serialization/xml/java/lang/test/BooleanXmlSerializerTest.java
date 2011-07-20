@@ -33,7 +33,7 @@ public class BooleanXmlSerializerTest {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(TRUE.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(TRUE);
-		System.out.println(output);
+//		System.out.println(output);
 		assertTrue(output.endsWith("<java.lang.Boolean>true</java.lang.Boolean>\n")); //$NON-NLS-1$
 	}
 
@@ -51,7 +51,7 @@ public class BooleanXmlSerializerTest {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(FALSE.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(FALSE);
-		System.out.println(output);
+//		System.out.println(output);
 		assertTrue(output.endsWith("<java.lang.Boolean>false</java.lang.Boolean>\n")); //$NON-NLS-1$
 	}
 
