@@ -23,7 +23,7 @@ import net.vectorcomputing.base.Assert;
  */
 public class StringTransformRemoveExtraneousSpaces implements IStringTransformer {
 
-	private static final StringTransformerPipeline pipeline = new StringTransformerPipeline(
+	private static final StringTransformerPipeline PIPELINE = new StringTransformerPipeline(
 			new StringTransformRemoveLeadingSpaces(), 
 			new StringTransformRemoveDuplicateWhitepaceBetweenWords(), 
 			new StringTransformRemoveTrailingSpaces());
@@ -34,7 +34,7 @@ public class StringTransformRemoveExtraneousSpaces implements IStringTransformer
 	@Override
 	public String transform(final String input) {
 		Assert.isNotNull(input, "input"); //$NON-NLS-1$
-		return pipeline.transform(input);
+		return PIPELINE.transform(input);
 	}
 	
 	@Override

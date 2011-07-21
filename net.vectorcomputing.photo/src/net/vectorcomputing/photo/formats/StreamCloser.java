@@ -28,13 +28,17 @@ import org.eclipse.core.runtime.Status;
 
 public final class StreamCloser {
 
-	private StreamCloser() { }
+	/**
+	 * Make the constructor inaccessible
+	 */
+	private StreamCloser() {
+	}
 	
 	public static final void closeWithoutExceptions(InputStream is) {
 		if (is != null) {
 			try {
 				is.close();
-			} catch (IOException e) {
+			} catch (IOException e) { // $codepro.audit.disable emptyCatchClause
 				// do nothing
 			}			
 		}
@@ -44,7 +48,7 @@ public final class StreamCloser {
 		if (os != null) {
 			try {
 				os.close();
-			} catch (IOException e) {
+			} catch (IOException e) { // $codepro.audit.disable emptyCatchClause
 				// do nothing
 			}
 		}

@@ -43,7 +43,7 @@ public class MutableProperty extends MutablePair<String,String> implements IMuta
 	 *            the property to copy the key and value from
 	 */
 	public MutableProperty(final Property property) {
-		this(property == null ? null : property.getKey(), property == null ? null : property.getValue());
+		this((property == null) ? null : property.getKey(), (property == null) ? null : property.getValue());
 	}
 
 	@Override

@@ -37,12 +37,6 @@ import org.eclipse.core.runtime.Status;
 
 public class XmlSerializerDescriptor implements IXmlSerializerDescriptor {
 
-	private static final String ATTR_ID = "id"; //$NON-NLS-1$
-	private static final String ATTR_NAME = "name"; //$NON-NLS-1$
-	private static final String ATTR_TAG = "tag"; //$NON-NLS-1$
-	private static final String ATTR_CLASS = "class"; //$NON-NLS-1$
-	private static final String ATTR_HANDLES = "handles"; //$NON-NLS-1$
-	
 	private final IConfigurationElement element;
 	private final IXmlSerializerRegistry registry;
 	

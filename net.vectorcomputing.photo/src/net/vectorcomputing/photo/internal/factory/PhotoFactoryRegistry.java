@@ -42,7 +42,7 @@ import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 
 public class PhotoFactoryRegistry implements IPhotoFactoryRegistry, IExtensionChangeHandler {
 
-	private static final String elementName = "factory"; //$NON-NLS-1$
+	private static final String ELEMENT_NAME = "factory"; //$NON-NLS-1$
 	
 //	private static PhotoFactoryRegistry singleton;
 
@@ -116,13 +116,13 @@ public class PhotoFactoryRegistry implements IPhotoFactoryRegistry, IExtensionCh
 	 */
 	public static final boolean isFactoryElement(IConfigurationElement configurationElement) {
 		String name = configurationElement.getName();
-		return (name.equals(elementName));
+		return (name.equals(ELEMENT_NAME));
 	}
 
-	public static List<IPhotoFactoryDescriptor> convertFactoryElementsToDescriptors(List<IConfigurationElement> FactoryElements) {
+	public static List<IPhotoFactoryDescriptor> convertFactoryElementsToDescriptors(List<IConfigurationElement> factoryElements) {
 		List<IPhotoFactoryDescriptor> descriptors = new ArrayList<IPhotoFactoryDescriptor>();
 		
-		for (IConfigurationElement element : FactoryElements) {
+		for (IConfigurationElement element : factoryElements) {
 			try {
 				descriptors.add(new PhotoFactoryDescriptor(element));
 			} catch (Exception e) {

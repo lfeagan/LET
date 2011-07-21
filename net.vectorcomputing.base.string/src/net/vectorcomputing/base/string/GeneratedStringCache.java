@@ -39,7 +39,7 @@ public class GeneratedStringCache {
 	}
 
 	public String getIndentString(final int level) {
-		if (level+1 > cache.size()) {
+		if (level + 1 > cache.size()) {
 			increaseCachedLevels(level);
 		}
 		return cache.get(level);
@@ -55,7 +55,7 @@ public class GeneratedStringCache {
 	}
 	
 	private void increaseCachedLevels(final int desiredLevel) {
-		int desiredSize = desiredLevel+1;
+		int desiredSize = desiredLevel + 1;
 		for (int i=cache.size(); i < desiredSize; ++i) {
 			cache.add(createLevel(i));
 		}

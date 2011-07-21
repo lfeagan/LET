@@ -71,7 +71,7 @@ public class PhotoFactoryDescriptor implements IPhotoFactoryDescriptor {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) { // $codepro.audit.disable cyclomaticComplexity
 		if (this == obj) {
 			return true;
 		}

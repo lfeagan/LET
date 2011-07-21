@@ -28,7 +28,7 @@ package net.vectorcomputing.tuple;
 public class ImmutableTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
 
 	private static final String SIMPLE_CLASS_NAME = ImmutableTriple.class.getSimpleName();
-	private static final int size = 3;
+	private static final int SIZE = 3;
 
 	private final transient int hashcode;
 
@@ -54,7 +54,7 @@ public class ImmutableTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
 
 	@Override
 	public int size() {
-		return size;
+		return SIZE;
 	}
 
 	@Override

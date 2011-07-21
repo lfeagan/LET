@@ -26,15 +26,15 @@ import org.eclipse.core.filesystem.IFileStore;
 
 public class NEFPhotoFactory implements IPhotoFactory {
 
-	private static final IStringConstraint constraint;
+	private static final IStringConstraint CONSTRAINT;
 	
 	static {
-		constraint = new StringConstrainEndsWithIgnoreCase(".nef"); //$NON-NLS-1$
+		CONSTRAINT = new StringConstrainEndsWithIgnoreCase(".nef"); //$NON-NLS-1$
 	}
 	
 	@Override
 	public IStringConstraint fileNameConstraint() {
-		return constraint;
+		return CONSTRAINT;
 	}
 
 	@Override

@@ -45,33 +45,41 @@ public class LightLevelOrderTreeNodeIterator<T extends TreeNode<T>> extends
 	@Override
 	protected void nextNode() {
 		if (explorer.getDepth() == desiredDepth) {
-			debug("at desired depth"); //$NON-NLS-1$
-			if (explorer.goToNextSibling()) {
-				debug("node has more siblings"); //$NON-NLS-1$
-			} else {
-				debug("node has no more siblings, going to parent next sibling"); //$NON-NLS-1$
-				explorer.goToParentNextSibling();
-
-				if (explorer.hasParent()) {
-					// FIXME It is possible this will be called from a location
-					// where it is not possible to go to the desired depth
-					try {
-						explorer.goToDepth(desiredDepth);
-					} catch (IllegalArgumentException e) {
-						terminateOrMoveToNextLevel();
-					}
-				} else {
-					/*
-					 * After repeatedly calling hasParent, arrived back at the
-					 * root node
-					 */
-					debug("at root"); //$NON-NLS-1$
-					terminateOrMoveToNextLevel();
-				}
-			}
+			nextNodeAtCurrentDepth();
 		} else {
 			debug("going to desired depth"); //$NON-NLS-1$
 			explorer.goToDepth(desiredDepth);
+		}
+	}
+
+	private void nextNodeAtCurrentDepth() {
+		debug("at desired depth"); //$NON-NLS-1$
+		if (explorer.goToNextSibling()) {
+			debug("node has more siblings"); //$NON-NLS-1$
+		} else {
+			nextNodeAtDifferentParent();
+		}
+	}
+
+	private void nextNodeAtDifferentParent() {
+		debug("node has no more siblings, going to parent next sibling"); //$NON-NLS-1$
+		explorer.goToParentNextSibling();
+
+		if (explorer.hasParent()) {
+			// FIXME It is possible this will be called from a location
+			// where it is not possible to go to the desired depth
+			try {
+				explorer.goToDepth(desiredDepth);
+			} catch (IllegalArgumentException e) {
+				terminateOrMoveToNextLevel();
+			}
+		} else {
+			/*
+			 * After repeatedly calling hasParent, arrived back at the
+			 * root node
+			 */
+			debug("at root"); //$NON-NLS-1$
+			terminateOrMoveToNextLevel();
 		}
 	}
 

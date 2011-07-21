@@ -35,7 +35,7 @@ public final class EclipseSupportedImageDataLoader {
 		BufferedInputStream bis = null;
 		try {
 			is = fileStore.openInputStream(0, null);
-			bis = new BufferedInputStream(is, 2<<13);
+			bis = new BufferedInputStream(is, 2 << 13);
 			return new ImageData(bis);
 		} catch (Exception e) {
 			final String message = MessageFormat.format(PhotoMessages.UnableToReadImageData, fileStore.getName());

@@ -42,7 +42,8 @@ public final class TreeNodes {
 	/**
 	 * Make the constructor inaccessible
 	 */
-	private TreeNodes() { }
+	private TreeNodes() {
+	}
 
 	/**
 	 * Creates a list of tree nodes that represent the path from begin to the

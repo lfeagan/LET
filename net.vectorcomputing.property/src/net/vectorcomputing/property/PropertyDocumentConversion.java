@@ -25,7 +25,10 @@ import org.w3c.dom.Node;
 
 public class PropertyDocumentConversion {
 
-	private static final IStringTransformer removeLeadingAndTrailingSpaces = new StringTransformerPipeline(
+	/**
+	 * A string transformer that removes leading and trailing spaces.
+	 */
+	private static final IStringTransformer TRANSFORMER = new StringTransformerPipeline(
 			new StringTransformRemoveLeadingSpaces(),
 			new StringTransformRemoveTrailingSpaces());
 
@@ -52,7 +55,7 @@ public class PropertyDocumentConversion {
 			if (curNode != null) {
 				final String untrimmedValue = curNode.getNodeValue();
 				if (untrimmedValue != null) {
-					value = removeLeadingAndTrailingSpaces.transform(untrimmedValue);
+					value = TRANSFORMER.transform(untrimmedValue);
 					// if the value's length after trimming leading and trailing
 					// spaces is zero, treat as being effectively null
 					if (value.length() == 0) {

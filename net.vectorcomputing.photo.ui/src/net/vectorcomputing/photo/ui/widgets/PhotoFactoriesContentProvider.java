@@ -30,7 +30,6 @@ public class PhotoFactoriesContentProvider implements ITreeContentProvider {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -51,7 +50,8 @@ public class PhotoFactoriesContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		return EMPTY_ARRAY;	}
+		return EMPTY_ARRAY;
+	}
 
 	@Override
 	public Object getParent(Object element) {

@@ -42,7 +42,7 @@ public class ImmutableProperty extends ImmutablePair<String,String> implements P
 	 *            the property to copy the key and value from
 	 */
 	public ImmutableProperty(final Property property) {
-		this(property == null ? null : property.getKey(), property == null ? null : property.getValue());
+		this((property == null) ? null : property.getKey(), (property == null) ? null : property.getValue());
 	}
 
 	@Override

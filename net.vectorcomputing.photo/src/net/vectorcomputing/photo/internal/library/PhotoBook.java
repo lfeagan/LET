@@ -81,7 +81,7 @@ public class PhotoBook extends AbstractPhotoLibrary implements IPhotoBook {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) { // $codepro.audit.disable cyclomaticComplexity
 		if (this == obj) {
 			return true;
 		}

@@ -51,7 +51,8 @@ public class PhotoCatalogsContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		return EMPTY_ARRAY;	}
+		return EMPTY_ARRAY;
+	}
 
 	@Override
 	public Object getParent(Object element) {

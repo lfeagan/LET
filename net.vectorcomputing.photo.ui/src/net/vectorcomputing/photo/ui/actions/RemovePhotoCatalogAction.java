@@ -15,8 +15,6 @@
  ******************************************************************************/
 package net.vectorcomputing.photo.ui.actions;
 
-import net.vectorcomputing.photo.catalog.IPhotoCatalog;
-
 import org.eclipse.jface.action.Action;
 
 public class RemovePhotoCatalogAction extends Action {

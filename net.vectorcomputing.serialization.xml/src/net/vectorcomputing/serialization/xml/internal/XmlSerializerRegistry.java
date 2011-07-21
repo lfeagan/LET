@@ -42,7 +42,7 @@ import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 
 public final class XmlSerializerRegistry implements IXmlSerializerRegistry, IExtensionChangeHandler {
 	
-	private static final String elementName = "serializer"; //$NON-NLS-1$
+	private static final String ELEMENT_NAME = "serializer"; //$NON-NLS-1$
 
 	private List<IXmlSerializerDescriptor> descriptors;
 	
@@ -158,7 +158,7 @@ public final class XmlSerializerRegistry implements IXmlSerializerRegistry, IExt
 	public static final boolean isSerializerElement(IConfigurationElement configurationElement) {
 		Assert.isNotNull(configurationElement , "configurationElement"); //$NON-NLS-1$
 		String name = configurationElement.getName();
-		return (name.equals(elementName));
+		return (name.equals(ELEMENT_NAME));
 	}
 	
 	public List<IXmlSerializerDescriptor> convertSerializerElementsToDescriptors(List<IConfigurationElement> serializerElements) {

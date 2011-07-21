@@ -26,15 +26,15 @@ import org.eclipse.core.filesystem.IFileStore;
 
 public class JPEGPhotoFactory implements IPhotoFactory {
 
-	private static final IStringConstraint constraint;
+	private static final IStringConstraint CONSTRAINT;
 	
 	static {
-		constraint = new StringConstrainEndsWithIgnoreCase(".jpg"); //$NON-NLS-1$
+		CONSTRAINT = new StringConstrainEndsWithIgnoreCase(".jpg"); //$NON-NLS-1$
 	}
 	
 	@Override
 	public IStringConstraint fileNameConstraint() {
-		return constraint;
+		return CONSTRAINT;
 	}
 
 	@Override

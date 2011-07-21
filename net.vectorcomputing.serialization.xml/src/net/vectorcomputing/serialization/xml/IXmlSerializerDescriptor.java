@@ -27,6 +27,12 @@ import org.eclipse.core.runtime.CoreException;
  */
 public interface IXmlSerializerDescriptor {
 
+	public static final String ATTR_ID = "id";
+	public static final String ATTR_NAME = "name";
+	public static final String ATTR_TAG = "tag";
+	public static final String ATTR_CLASS = "class";
+	public static final String ATTR_HANDLES = "handles";
+
 	/**
 	 * Returns the XML serializers's ID in the extension registry
 	 * 

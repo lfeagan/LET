@@ -1,3 +1,4 @@
+// $codepro.audit.disable largeNumberOfFields
 /*******************************************************************************
  * Copyright 2011 Lance Feagan
  * 

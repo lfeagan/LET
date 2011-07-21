@@ -30,7 +30,7 @@ package net.vectorcomputing.tuple;
 public class ImmutableQuad<T1, T2, T3, T4> implements Quad<T1, T2, T3, T4> {
 
 	private static final String SIMPLE_CLASS_NAME = ImmutableQuad.class.getSimpleName();
-	private static final int size = 4;
+	private static final int SIZE = 4;
 
 	private final transient int hashcode;
 
@@ -59,7 +59,7 @@ public class ImmutableQuad<T1, T2, T3, T4> implements Quad<T1, T2, T3, T4> {
 
 	@Override
 	public int size() {
-		return size;
+		return SIZE;
 	}
 
 	@Override

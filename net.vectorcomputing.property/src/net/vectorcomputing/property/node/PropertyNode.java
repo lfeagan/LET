@@ -55,7 +55,7 @@ public final class PropertyNode extends AbstractModifiableTreeNode<PropertyNode>
 	}
 
 	public PropertyNode(final Property property, final PropertyNode parent) {
-		this(property == null ? null : property.getKey(), property == null ? null : property.getValue(), parent);
+		this((property == null) ? null : property.getKey(), (property == null) ? null : property.getValue(), parent);
 	}
 
 	@Override

@@ -35,7 +35,7 @@ import net.vectorcomputing.base.Assert;
  */
 public final class StringIO {
 
-	private static final int DEFAULT_BUFFER_SIZE = 1<<14;
+	private static final int DEFAULT_BUFFER_SIZE = 1 << 14;
 	
 	private static final String DEFAULT_FILE_ENCODING = System.getProperty("file.encoding"); //$NON-NLS-1$
 
@@ -162,7 +162,7 @@ public final class StringIO {
 			if (closeStream) {
 				try {
 					outputStream.close();
-				} catch (IOException e) {
+				} catch (IOException e) { // $codepro.audit.disable emptyCatchClause
 					// do nothing
 				}
 			}

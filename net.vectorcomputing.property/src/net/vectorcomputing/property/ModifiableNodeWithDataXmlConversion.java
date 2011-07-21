@@ -120,8 +120,7 @@ public class ModifiableNodeWithDataXmlConversion {
 
 			// Iterate over all documentNodeChildren
 			Node childDocumentNode;
-			for (int i = 0; i < childrenDocumentNodes.getLength(); ++i)
-			{
+			for (int i = 0; i < childrenDocumentNodes.getLength(); ++i) {
 				childDocumentNode = childrenDocumentNodes.item(i);
 				attachDocumentNodesToModifiableNodeWithData(childDocumentNode, currentModifiableNodeWithData);
 			}			

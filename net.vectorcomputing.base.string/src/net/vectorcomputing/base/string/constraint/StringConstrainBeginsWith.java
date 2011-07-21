@@ -20,9 +20,14 @@ import net.vectorcomputing.base.Assert;
 /**
  * A string constraint that does a case-sensitive comparison of the beginning
  * (prefix) of a string with a reference string.
+ * @author lfeagan
+ * @version $Revision: 1.0 $
  */
 public class StringConstrainBeginsWith implements IStringConstraint {
 
+	/**
+	 * Field prefix.
+	 */
 	private final String prefix;
 	
 	/**
@@ -35,19 +40,27 @@ public class StringConstrainBeginsWith implements IStringConstraint {
 		this.prefix = prefix;
 	}
 	
+	/**
+	 * Method getPrefix.
+	 * @return String
+	 */
 	public String getPrefix() {
 		return this.prefix;
 	}
 
 	/**
 	 * @return <code>true</code> if the beginning of the string is equal to the
-	 *         prefix string (case-sensitive)
+	 *         prefix string (case-sensitive) * @see net.vectorcomputing.base.string.constraint.IStringConstraint#satisfiedBy(String)
 	 */
 	@Override
 	public boolean satisfiedBy(final String input) {
 		return input.startsWith(prefix);
 	}
 	
+	/**
+	 * Method toString.
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
