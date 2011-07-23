@@ -16,14 +16,12 @@
 package net.vectorcomputing.base.string;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
@@ -68,29 +66,22 @@ public final class StringIO {
 	public static final String read(final InputStream input, final String fileEncoding, final int bufferSize) throws IOException {
 		Assert.isNotNull(input, "input"); //$NON-NLS-1$
 		assertIsBufferSizeValid(bufferSize);
-		
+
+		final StringBuffer contents = new StringBuffer();
 		final char[] buffer = new char[bufferSize];
 		final InputStreamReader isr = new InputStreamReader(input, fileEncoding);
 		final BufferedReader br = new BufferedReader(isr, bufferSize);
 
-		final StringWriter sw = new StringWriter();
-		final BufferedWriter bw = new BufferedWriter(sw, bufferSize);
-
 		try {			
 			int bytesRead;
 			while ((bytesRead = br.read(buffer)) != -1) {
-				bw.write(buffer, 0, bytesRead);
+				contents.append(buffer, 0, bytesRead);
 			}
-			return bw.toString();
+			return contents.toString();
 		} finally {
 			br.close();
 			isr.close();
 			input.close();
-			
-			sw.flush();
-			bw.flush();
-			bw.close();
-			sw.close();
 		}
 	}
 
