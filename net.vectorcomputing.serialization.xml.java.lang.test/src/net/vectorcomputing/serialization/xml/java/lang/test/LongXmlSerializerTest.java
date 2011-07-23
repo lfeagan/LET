@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 import net.vectorcomputing.net.serialization.xml.java.lang.LongXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
-import net.vectorcomputing.serialization.xml.ObjectXmlSerialization;
+import net.vectorcomputing.serialization.xml.XmlSerialization;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
 
@@ -83,7 +83,7 @@ public class LongXmlSerializerTest {
 	@Test
 	public void testMinInput() throws CoreException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Long>-9223372036854775808</java.lang.Long>\n"; //$NON-NLS-1$
-		final Object object = ObjectXmlSerialization.read(reference);
+		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(MIN_VALUE, object);
 	}
@@ -91,7 +91,7 @@ public class LongXmlSerializerTest {
 	@Test
 	public void testMaxInput() throws CoreException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Long>9223372036854775807</java.lang.Long>\n"; //$NON-NLS-1$
-		final Object object = ObjectXmlSerialization.read(reference);
+		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(MAX_VALUE, object);
 	}
@@ -99,7 +99,7 @@ public class LongXmlSerializerTest {
 	@Test
 	public void testZeroInput() throws CoreException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Long>0</java.lang.Long>\n"; //$NON-NLS-1$
-		final Object object = ObjectXmlSerialization.read(reference);
+		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(ZERO, object);
 	}

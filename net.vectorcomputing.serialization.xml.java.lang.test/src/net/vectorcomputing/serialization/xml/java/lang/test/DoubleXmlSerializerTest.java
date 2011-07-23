@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 import net.vectorcomputing.net.serialization.xml.java.lang.DoubleXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
-import net.vectorcomputing.serialization.xml.ObjectXmlSerialization;
+import net.vectorcomputing.serialization.xml.XmlSerialization;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
 
 import org.eclipse.core.runtime.CoreException;
@@ -104,7 +104,7 @@ public class DoubleXmlSerializerTest {
 	@Test
 	public void testMinInput() throws CoreException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Double>4.9E-324</java.lang.Double>\n"; //$NON-NLS-1$
-		final Object object = ObjectXmlSerialization.read(reference);
+		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(MIN_VALUE, object);
 	}
@@ -112,7 +112,7 @@ public class DoubleXmlSerializerTest {
 	@Test
 	public void testMaxInput() throws CoreException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Double>1.7976931348623157E308</java.lang.Double>\n"; //$NON-NLS-1$
-		final Object object = ObjectXmlSerialization.read(reference);
+		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(MAX_VALUE, object);
 	}
@@ -120,7 +120,7 @@ public class DoubleXmlSerializerTest {
 	@Test
 	public void testZeroInput() throws CoreException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Double>0.0</java.lang.Double>\n"; //$NON-NLS-1$
-		final Object object = ObjectXmlSerialization.read(reference);
+		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(ZERO, object);
 	}
@@ -128,7 +128,7 @@ public class DoubleXmlSerializerTest {
 	@Test
 	public void testNaNInput() throws CoreException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Double>NaN</java.lang.Double>\n"; //$NON-NLS-1$
-		final Object object = ObjectXmlSerialization.read(reference);
+		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(NaN, object);
 	}

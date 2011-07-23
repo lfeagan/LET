@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import net.vectorcomputing.net.serialization.xml.java.lang.CharacterXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
-import net.vectorcomputing.serialization.xml.ObjectXmlSerialization;
+import net.vectorcomputing.serialization.xml.XmlSerialization;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
 
@@ -41,7 +41,7 @@ public class CharacterXmlSerializerTest {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(SPACE.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(SPACE);
-		System.out.println(output);
+//		System.out.println(output);
 		assertTrue(output.endsWith("<java.lang.Character/>\n")); //$NON-NLS-1$
 	}
 	
@@ -57,7 +57,7 @@ public class CharacterXmlSerializerTest {
 	@Test
 	public void testSpaceCharacterInput() throws CoreException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Character> </java.lang.Character>\n"; //$NON-NLS-1$final Object object = ObjectXmlSerialization.read(reference);
-		final Object object = ObjectXmlSerialization.read(reference);		
+		final Object object = XmlSerialization.read(reference);		
 		assertNotNull(object);
 		assertEquals(SPACE, object);
 	}
@@ -65,7 +65,7 @@ public class CharacterXmlSerializerTest {
 	@Test
 	public void testSingleCharacterInput() throws CoreException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Character>s</java.lang.Character>\n"; //$NON-NLS-1$
-		final Object object = ObjectXmlSerialization.read(reference);
+		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(SINGLE, object);
 	}

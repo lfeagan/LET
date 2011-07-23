@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 import net.vectorcomputing.net.serialization.xml.java.lang.StringXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
-import net.vectorcomputing.serialization.xml.ObjectXmlSerialization;
+import net.vectorcomputing.serialization.xml.XmlSerialization;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
 
@@ -56,7 +56,7 @@ public class StringXmlSerializerTest {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(EMPTY_STRING.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(EMPTY_STRING);
-		System.out.println(output);
+//		System.out.println(output);
 		assertTrue(output.endsWith("<java.lang.String/>\n")); //$NON-NLS-1$
 	}
 	
@@ -72,7 +72,7 @@ public class StringXmlSerializerTest {
 	@Test
 	public void testEmptyStringInput() throws CoreException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.String/>\n"; //$NON-NLS-1$
-		final Object object = ObjectXmlSerialization.read(reference);
+		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(EMPTY_STRING, object);
 	}
@@ -80,7 +80,7 @@ public class StringXmlSerializerTest {
 	@Test
 	public void testSimpleStringInput() throws CoreException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.String>simple</java.lang.String>\n"; //$NON-NLS-1$
-		final Object object = ObjectXmlSerialization.read(reference);
+		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(SIMPLE_STRING, object);
 	}
