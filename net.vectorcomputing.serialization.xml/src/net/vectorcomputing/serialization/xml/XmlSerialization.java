@@ -37,6 +37,19 @@ public final class XmlSerialization {
 	private XmlSerialization() {
 		throw new AssertionError();
 	}
+	
+	/**
+	 * Converts an object to a property node.
+	 * 
+	 * @param object
+	 *            the object to be converted
+	 * @return a property node representation of the specified object
+	 * @throws CoreException
+	 *             if an error occurs during conversion
+	 */
+	public static final PropertyNode toPropertyNode(final Object object) throws CoreException {
+		return toPropertyNode(object, XmlSerializationPlugin.getRegistry());
+	}
 
 	/**
 	 * Converts an object to a property node.
@@ -60,6 +73,20 @@ public final class XmlSerialization {
 			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, message));
 		}
 		return descriptor.toPropertyNode(object);
+	}
+	
+	/**
+	 * Converts an object to a property node and then to a string.
+	 * 
+	 * @param object
+	 *            the object to be converted
+	 * @return a string representation of the specified object using XML
+	 *         notation
+	 * @throws CoreException
+	 *             if an error occurs during conversion
+	 */
+	public static final String toString(final Object object) throws CoreException {
+		return toString(object, XmlSerializationPlugin.getRegistry());
 	}
 
 	/**
@@ -85,6 +112,21 @@ public final class XmlSerialization {
 			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID,  message));
 		}
 		return descriptor.toString(object);
+	}
+	
+	/**
+	 * Converts an object to a property node and then writes that to an output
+	 * stream using XML notation.
+	 * 
+	 * @param object
+	 *            the object to be converted
+	 * @param outputStream
+	 *            the output stream to write the converted object to
+	 * @throws CoreException
+	 *             if an error occurs during the conversion
+	 */
+	public static final void write(final Object object, final OutputStream outputStream) throws CoreException {
+		write(object, outputStream, XmlSerializationPlugin.getRegistry());
 	}
 
 	/**
@@ -114,6 +156,20 @@ public final class XmlSerialization {
 		descriptor.write(object, outputStream);
 	}
 
+	/**
+	 * Converts an object to a property node and then writes that to a file.
+	 * 
+	 * @param object
+	 *            the object to be converted
+	 * @param file
+	 *            the file to write the converted object to
+	 * @throws CoreException
+	 *             if an error occurs during the conversion
+	 */
+	public static final void write(final Object object, final File file) throws CoreException {
+		write(object, file, XmlSerializationPlugin.getRegistry());
+	}
+	
 	/**
 	 * Converts an object to a property node and then writes that to a file.
 	 * 
@@ -151,6 +207,20 @@ public final class XmlSerialization {
 	 * 
 	 * @param file
 	 *            the file to read from
+	 * @return the object read from the file
+	 * @throws CoreException
+	 *             if unable to read an object from the file
+	 */
+	public static final Object read(final File file) throws CoreException {
+		Assert.isNotNull(file, "file"); //$NON-NLS-1$
+		return read(file, XmlSerializationPlugin.getRegistry());
+	}
+	
+	/**
+	 * Reads an object from a file.
+	 * 
+	 * @param file
+	 *            the file to read from
 	 * @param registry
 	 *            the {@link IXmlSerializerRegistry} to use when finding
 	 *            {@link XmlSerializer}s and tags during conversion
@@ -167,6 +237,26 @@ public final class XmlSerialization {
 			return read(contents, registry);
 		} catch (IOException e) {
 			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, XmlSerializationMessages.XmlSerializer_UnableToReadObjectFromFile, e));
+		}
+	}
+	
+	/**
+	 * Reads an object from a string that contains XML notation.
+	 * 
+	 * @param xmlString
+	 *            the string to read from
+	 * @return the object read from the string
+	 * @throws CoreException
+	 *             if unable to read an object from the string
+	 */
+	public static final Object read(final String xmlString) throws CoreException {
+		Assert.isNotNull(xmlString, "xmlString"); //$NON-NLS-1$
+
+		if (xmlString.length() != 0) {
+			final PropertyNode pnode = PropertyNodeXmlConverter.getSharedInstance().read(xmlString);
+			return read(pnode);
+		} else {
+			return null;
 		}
 	}
 
@@ -199,6 +289,20 @@ public final class XmlSerialization {
 	 * 
 	 * @param pnode
 	 *            the property node to read from
+	 * @return the object read from the property node
+	 * @throws CoreException
+	 *             if unable to read an object from the property node
+	 */
+	public static final Object read(final PropertyNode pnode) throws CoreException {
+		Assert.isNotNull(pnode, "pnode"); //$NON-NLS-1$
+		return read(pnode, XmlSerializationPlugin.getRegistry());		
+	}
+	
+	/**
+	 * Reads an object from a property node.
+	 * 
+	 * @param pnode
+	 *            the property node to read from
 	 * @param registry
 	 *            the {@link IXmlSerializerRegistry} to use when finding
 	 *            {@link XmlSerializer}s and tags during conversion
@@ -220,6 +324,19 @@ public final class XmlSerialization {
 		}
 	}
 
+	/**
+	 * Reads an object from an input stream.
+	 * 
+	 * @param inputStream
+	 *            the input stream to read from
+	 * @return the object read from the input stream
+	 * @throws CoreException
+	 *             if unable to read an object from the input stream
+	 */
+	public static final Object read(final InputStream inputStream) throws CoreException {
+		return read(inputStream, XmlSerializationPlugin.getRegistry());
+	}
+	
 	/**
 	 * Reads an object from an input stream.
 	 * 
