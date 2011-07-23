@@ -18,6 +18,7 @@ package net.vectorcomputing.serialization.xml.java.lang.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import net.vectorcomputing.net.serialization.xml.java.lang.FloatXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
 import net.vectorcomputing.serialization.xml.ObjectXmlSerialization;
@@ -120,6 +121,13 @@ public class FloatXmlSerializerTest {
 		final Object object = ObjectXmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(NaN, object);
+	}
+	
+	@Test
+	public void testEquals() {
+		final FloatXmlSerializer constructed = new FloatXmlSerializer();
+		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(NaN.getClass());
+		assertEquals(constructed, descriptor.getXmlSerializer());
 	}
 	
 }

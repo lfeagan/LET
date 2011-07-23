@@ -18,6 +18,7 @@ package net.vectorcomputing.serialization.xml.java.lang.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import net.vectorcomputing.net.serialization.xml.java.lang.IntegerXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
 import net.vectorcomputing.serialization.xml.ObjectXmlSerialization;
@@ -100,6 +101,13 @@ public class IntegerXmlSerializerTest {
 		final Object object = ObjectXmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(ZERO, object);
+	}
+	
+	@Test
+	public void testEquals() {
+		final IntegerXmlSerializer constructed = new IntegerXmlSerializer();
+		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(ZERO.getClass());
+		assertEquals(constructed, descriptor.getXmlSerializer());
 	}
 	
 }

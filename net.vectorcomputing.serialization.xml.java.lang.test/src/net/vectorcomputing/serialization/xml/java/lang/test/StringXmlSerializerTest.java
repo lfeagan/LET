@@ -18,10 +18,12 @@ package net.vectorcomputing.serialization.xml.java.lang.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import net.vectorcomputing.net.serialization.xml.java.lang.StringXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
 import net.vectorcomputing.serialization.xml.ObjectXmlSerialization;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
+import net.vectorcomputing.serialization.xml.XmlSerializer;
 
 import org.eclipse.core.runtime.CoreException;
 import org.junit.AfterClass;
@@ -81,6 +83,13 @@ public class StringXmlSerializerTest {
 		final Object object = ObjectXmlSerialization.read(reference);
 		assertNotNull(object);
 		assertEquals(SIMPLE_STRING, object);
+	}
+	
+	@Test
+	public void testEquals() {
+		final XmlSerializer constructed = new StringXmlSerializer();
+		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(SIMPLE_STRING.getClass());
+		assertEquals(constructed, descriptor.getXmlSerializer());
 	}
 	
 }

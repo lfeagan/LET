@@ -18,6 +18,7 @@ package net.vectorcomputing.serialization.xml.java.lang.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import net.vectorcomputing.net.serialization.xml.java.lang.BooleanXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
 import net.vectorcomputing.serialization.xml.ObjectXmlSerialization;
@@ -44,10 +45,9 @@ public class BooleanXmlSerializerTest {
 	
 	@Test
 	public void testTrueOuput() throws CoreException {
-		Boolean TRUE = Boolean.TRUE;
-		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(TRUE.getClass());
+		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(Boolean.TRUE.getClass());
 		assertNotNull(descriptor);
-		String output = descriptor.toString(TRUE);
+		String output = descriptor.toString(Boolean.TRUE);
 //		System.out.println(output);
 		assertTrue(output.endsWith("<java.lang.Boolean>true</java.lang.Boolean>\n")); //$NON-NLS-1$
 	}
@@ -62,10 +62,9 @@ public class BooleanXmlSerializerTest {
 
 	@Test
 	public void testFalseOutput() throws CoreException {
-		Boolean FALSE = Boolean.FALSE;
-		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(FALSE.getClass());
+		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(Boolean.FALSE.getClass());
 		assertNotNull(descriptor);
-		String output = descriptor.toString(FALSE);
+		String output = descriptor.toString(Boolean.FALSE);
 //		System.out.println(output);
 		assertTrue(output.endsWith("<java.lang.Boolean>false</java.lang.Boolean>\n")); //$NON-NLS-1$
 	}
@@ -77,4 +76,12 @@ public class BooleanXmlSerializerTest {
 		assertNotNull(object);
 		assertEquals(Boolean.FALSE, object);
 	}
+	
+	@Test
+	public void testEquals() {
+		final BooleanXmlSerializer constructed = new BooleanXmlSerializer();
+		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(Boolean.TRUE.getClass());
+		assertEquals(constructed, descriptor.getXmlSerializer());
+	}
+	
 }
