@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2011 lfeagan
+ * Copyright 2011 Lance Feagan
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,6 @@ public class StringXmlSerializerTest {
 		EMPTY_STRING = null;
 		SIMPLE_STRING = null;
 	}
-	
 	
 	@Test
 	public void testEmptyStringOutput() throws XmlSerializationException {
