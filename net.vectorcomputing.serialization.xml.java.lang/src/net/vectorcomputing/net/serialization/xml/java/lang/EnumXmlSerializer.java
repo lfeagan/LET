@@ -17,9 +17,8 @@ package net.vectorcomputing.net.serialization.xml.java.lang;
 
 import net.vectorcomputing.property.node.PropertyNode;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
+import net.vectorcomputing.serialization.xml.XmlSerializationException;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
-
-import org.eclipse.core.runtime.CoreException;
 
 /**
  * Converts a {@link java.lang.Enum} to and from a {@link PropertyNode} to
@@ -29,14 +28,14 @@ public class EnumXmlSerializer implements XmlSerializer {
 
 	@Override
 	public Object read(PropertyNode pnode, IXmlSerializerDescriptor descriptor)
-			throws CoreException {
+			throws XmlSerializationException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public PropertyNode toPropertyNode(Object obj,
-			IXmlSerializerDescriptor descriptor) throws CoreException {
+			IXmlSerializerDescriptor descriptor) throws XmlSerializationException {
 		// TODO Auto-generated method stub
 		return null;
 	}

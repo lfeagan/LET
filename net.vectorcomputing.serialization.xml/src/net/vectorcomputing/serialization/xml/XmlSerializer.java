@@ -40,7 +40,7 @@ public interface XmlSerializer {
 	 * @throws CoreException
 	 *             if unable to convert the property node to an object
 	 */
-	public Object read(PropertyNode pnode, IXmlSerializerDescriptor descriptor) throws CoreException;
+	public Object read(PropertyNode pnode, IXmlSerializerDescriptor descriptor) throws XmlSerializationException;
 
 	/**
 	 * Converts the specified object to a property node using the descriptor for
@@ -55,7 +55,7 @@ public interface XmlSerializer {
 	 * @throws CoreException
 	 *             if unable to convert the object to a property node
 	 */
-	public PropertyNode toPropertyNode(Object object, IXmlSerializerDescriptor descriptor) throws CoreException;
+	public PropertyNode toPropertyNode(Object object, IXmlSerializerDescriptor descriptor) throws XmlSerializationException;
 	
 	// Implementors must provide an implementation of the equals method
 	@Override

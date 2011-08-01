@@ -47,7 +47,7 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if an error occurs during conversion
 	 */
-	public static final PropertyNode toPropertyNode(final Object object) throws CoreException {
+	public static final PropertyNode toPropertyNode(final Object object) throws XmlSerializationException {
 		return toPropertyNode(object, XmlSerializationPlugin.getRegistry());
 	}
 
@@ -63,14 +63,14 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if an error occurs during conversion
 	 */
-	public static final PropertyNode toPropertyNode(final Object object, final IXmlSerializerRegistry registry) throws CoreException {
+	public static final PropertyNode toPropertyNode(final Object object, final IXmlSerializerRegistry registry) throws XmlSerializationException {
 		Assert.isNotNull(object, "object"); //$NON-NLS-1$
 		Assert.isNotNull(registry, "registry"); //$NON-NLS-1$
 		
 		final IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(object.getClass());
 		if (descriptor == null) {
 			final String message = MessageFormat.format(XmlSerializationMessages.XmlSerializer_UnableToFindXmlSerializerForClass, object.getClass().getName());
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, message));
+			throw new XmlSerializationException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, message));
 		}
 		return descriptor.toPropertyNode(object);
 	}
@@ -85,7 +85,7 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if an error occurs during conversion
 	 */
-	public static final String toString(final Object object) throws CoreException {
+	public static final String toString(final Object object) throws XmlSerializationException {
 		return toString(object, XmlSerializationPlugin.getRegistry());
 	}
 
@@ -102,15 +102,11 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if an error occurs during conversion
 	 */
-	public static final String toString(final Object object, final IXmlSerializerRegistry registry) throws CoreException {
+	public static final String toString(final Object object, final IXmlSerializerRegistry registry) throws XmlSerializationException {
 		Assert.isNotNull(object, "object"); //$NON-NLS-1$
 		Assert.isNotNull(registry, "registry"); //$NON-NLS-1$
 
 		final IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(object.getClass());
-		if (descriptor == null) {
-			final String message = MessageFormat.format(XmlSerializationMessages.XmlSerializer_UnableToFindXmlSerializerForClass, object.getClass().getName());
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID,  message));
-		}
 		return descriptor.toString(object);
 	}
 	
@@ -125,7 +121,7 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if an error occurs during the conversion
 	 */
-	public static final void write(final Object object, final OutputStream outputStream) throws CoreException {
+	public static final void write(final Object object, final OutputStream outputStream) throws XmlSerializationException {
 		write(object, outputStream, XmlSerializationPlugin.getRegistry());
 	}
 
@@ -143,7 +139,7 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if an error occurs during the conversion
 	 */
-	public static final void write(final Object object, final OutputStream outputStream, final IXmlSerializerRegistry registry) throws CoreException {
+	public static final void write(final Object object, final OutputStream outputStream, final IXmlSerializerRegistry registry) throws XmlSerializationException {
 		Assert.isNotNull(object, "object"); //$NON-NLS-1$
 		Assert.isNotNull(outputStream, "outputStream"); //$NON-NLS-1$
 		Assert.isNotNull(registry, "registry"); //$NON-NLS-1$
@@ -151,7 +147,7 @@ public final class XmlSerialization {
 		final IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(object.getClass());
 		if (descriptor == null) {
 			final String message = MessageFormat.format(XmlSerializationMessages.XmlSerializer_UnableToFindXmlSerializerForClass, object.getClass().getName());
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, message));
+			throw new XmlSerializationException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, message));
 		}
 		descriptor.write(object, outputStream);
 	}
@@ -166,7 +162,7 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if an error occurs during the conversion
 	 */
-	public static final void write(final Object object, final File file) throws CoreException {
+	public static final void write(final Object object, final File file) throws XmlSerializationException {
 		write(object, file, XmlSerializationPlugin.getRegistry());
 	}
 	
@@ -183,7 +179,7 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if an error occurs during the conversion
 	 */
-	public static final void write(final Object object, final File file, final IXmlSerializerRegistry registry) throws CoreException {
+	public static final void write(final Object object, final File file, final IXmlSerializerRegistry registry) throws XmlSerializationException {
 		Assert.isNotNull(object, "object"); //$NON-NLS-1$
 		Assert.isNotNull(file, "file"); //$NON-NLS-1$
 		Assert.isNotNull(registry, "registry"); //$NON-NLS-1$
@@ -198,7 +194,7 @@ public final class XmlSerialization {
 			fw.flush();
 			fw.close();
 		} catch (IOException e) {
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, XmlSerializationMessages.XmlSerializer_UnableToWriteObjectToFile, e));
+			throw new XmlSerializationException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, XmlSerializationMessages.XmlSerializer_UnableToWriteObjectToFile, e));
 		}
 	}
 
@@ -211,7 +207,7 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if unable to read an object from the file
 	 */
-	public static final Object read(final File file) throws CoreException {
+	public static final Object read(final File file) throws XmlSerializationException {
 		Assert.isNotNull(file, "file"); //$NON-NLS-1$
 		return read(file, XmlSerializationPlugin.getRegistry());
 	}
@@ -228,7 +224,7 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if unable to read an object from the file
 	 */
-	public static final Object read(final File file, final IXmlSerializerRegistry registry) throws CoreException {
+	public static final Object read(final File file, final IXmlSerializerRegistry registry) throws XmlSerializationException {
 		Assert.isNotNull(file, "file"); //$NON-NLS-1$
 		Assert.isNotNull(registry, "registry"); //$NON-NLS-1$
 
@@ -236,7 +232,7 @@ public final class XmlSerialization {
 			final String contents = StringIO.read(file);
 			return read(contents, registry);
 		} catch (IOException e) {
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, XmlSerializationMessages.XmlSerializer_UnableToReadObjectFromFile, e));
+			throw new XmlSerializationException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, XmlSerializationMessages.XmlSerializer_UnableToReadObjectFromFile, e));
 		}
 	}
 	
@@ -249,12 +245,16 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if unable to read an object from the string
 	 */
-	public static final Object read(final String xmlString) throws CoreException {
+	public static final Object read(final String xmlString) throws XmlSerializationException {
 		Assert.isNotNull(xmlString, "xmlString"); //$NON-NLS-1$
 
 		if (xmlString.length() != 0) {
-			final PropertyNode pnode = PropertyNodeXmlConverter.getSharedInstance().read(xmlString);
-			return read(pnode);
+			try {
+				final PropertyNode pnode = PropertyNodeXmlConverter.getSharedInstance().read(xmlString);
+				return read(pnode);
+			} catch (CoreException e) {
+				throw new XmlSerializationException(e.getStatus());
+			}
 		} else {
 			return null;
 		}
@@ -272,13 +272,17 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if unable to read an object from the string
 	 */
-	public static final Object read(final String xmlString, final IXmlSerializerRegistry registry) throws CoreException {
+	public static final Object read(final String xmlString, final IXmlSerializerRegistry registry) throws XmlSerializationException {
 		Assert.isNotNull(xmlString, "xmlString"); //$NON-NLS-1$
 		Assert.isNotNull(registry, "registry"); //$NON-NLS-1$
 
 		if (xmlString.length() != 0) {
-			final PropertyNode pnode = PropertyNodeXmlConverter.getSharedInstance().read(xmlString);
-			return read(pnode, registry);
+			try {
+				final PropertyNode pnode = PropertyNodeXmlConverter.getSharedInstance().read(xmlString);
+				return read(pnode, registry);
+			} catch (CoreException e) {
+				throw new XmlSerializationException(e.getStatus());
+			}
 		} else {
 			return null;
 		}
@@ -293,7 +297,7 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if unable to read an object from the property node
 	 */
-	public static final Object read(final PropertyNode pnode) throws CoreException {
+	public static final Object read(final PropertyNode pnode) throws XmlSerializationException {
 		Assert.isNotNull(pnode, "pnode"); //$NON-NLS-1$
 		return read(pnode, XmlSerializationPlugin.getRegistry());		
 	}
@@ -310,7 +314,7 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if unable to read an object from the property node
 	 */
-	public static final Object read(final PropertyNode pnode, final IXmlSerializerRegistry registry) throws CoreException {
+	public static final Object read(final PropertyNode pnode, final IXmlSerializerRegistry registry) throws XmlSerializationException {
 		Assert.isNotNull(pnode, "pnode"); //$NON-NLS-1$
 		Assert.isNotNull(registry, "registry"); //$NON-NLS-1$
 
@@ -318,7 +322,7 @@ public final class XmlSerialization {
 		final IXmlSerializerDescriptor descriptor = registry.findXmlSerializerWithTag(tag);
 		if (descriptor == null) {
 			final String message = MessageFormat.format(XmlSerializationMessages.XmlSerializer_UnableToFindSerializerForTag, tag);
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID,  message)); 
+			throw new XmlSerializationException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID,  message)); 
 		} else {
 			return descriptor.read(pnode);
 		}
@@ -333,7 +337,7 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if unable to read an object from the input stream
 	 */
-	public static final Object read(final InputStream inputStream) throws CoreException {
+	public static final Object read(final InputStream inputStream) throws XmlSerializationException {
 		return read(inputStream, XmlSerializationPlugin.getRegistry());
 	}
 	
@@ -349,7 +353,7 @@ public final class XmlSerialization {
 	 * @throws CoreException
 	 *             if unable to read an object from the input stream
 	 */
-	public static final Object read(final InputStream inputStream, final IXmlSerializerRegistry registry) throws CoreException {
+	public static final Object read(final InputStream inputStream, final IXmlSerializerRegistry registry) throws XmlSerializationException {
 		Assert.isNotNull(inputStream, "inputStream"); //$NON-NLS-1$
 		Assert.isNotNull(registry, "registry"); //$NON-NLS-1$
 
@@ -357,7 +361,7 @@ public final class XmlSerialization {
 			final String contents = StringIO.read(inputStream);
 			return read(contents, registry);
 		} catch (IOException e) {
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, XmlSerializationMessages.XmlSerializer_UnableToReadObjectFromInputStream, e));
+			throw new XmlSerializationException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, XmlSerializationMessages.XmlSerializer_UnableToReadObjectFromInputStream, e));
 		}		
 	}
 	

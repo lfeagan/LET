@@ -10,6 +10,7 @@ import java.util.List;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
+import net.vectorcomputing.serialization.xml.XmlSerializerNotFoundException;
 
 import org.junit.Test;
 
@@ -21,7 +22,7 @@ public class XmlSerializerRegistryTest {
 	}
 	
 	@Test
-	public void getXmlSerializerByIdTestNegative() {
+	public void getXmlSerializerByIdTestNegative() throws XmlSerializerNotFoundException {
 		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
 		IXmlSerializerDescriptor descriptor;
 		descriptor = registry.findXmlSerializer("a random id");
@@ -31,7 +32,7 @@ public class XmlSerializerRegistryTest {
 	}
 	
 	@Test
-	public void getXmlSerializerByIdTest() {
+	public void getXmlSerializerByIdTest() throws XmlSerializerNotFoundException {
 		final String ID = "net.vectorcomputing.net.serialization.xml.java.lang.IntegerXmlSerializer";
 		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializer(ID);
@@ -47,7 +48,7 @@ public class XmlSerializerRegistryTest {
 	}
 	
 	@Test
-	public void getXmlSerializerByClassTestNegative() {
+	public void getXmlSerializerByClassTestNegative() throws XmlSerializerNotFoundException {
 		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
 		IXmlSerializerDescriptor descriptor;
 		descriptor = registry.findXmlSerializerForClass(Object.class);
@@ -57,7 +58,7 @@ public class XmlSerializerRegistryTest {
 	}
 	
 	@Test
-	public void getXmlSerializerByClassTest() {
+	public void getXmlSerializerByClassTest() throws XmlSerializerNotFoundException {
 		final String ID = "net.vectorcomputing.net.serialization.xml.java.lang.IntegerXmlSerializer";
 		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(Integer.class);
@@ -73,7 +74,7 @@ public class XmlSerializerRegistryTest {
 	}
 	
 	@Test
-	public void getXmlSerializerByClassNameTestNegative() {
+	public void getXmlSerializerByClassNameTestNegative() throws XmlSerializerNotFoundException {
 		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
 		IXmlSerializerDescriptor descriptor;
 		descriptor = registry.findXmlSerializerForClass("java.lang.Integerr");
@@ -85,7 +86,7 @@ public class XmlSerializerRegistryTest {
 	}
 	
 	@Test
-	public void getXmlSerializerByClassNameTest() {
+	public void getXmlSerializerByClassNameTest() throws XmlSerializerNotFoundException {
 		final String ID = "net.vectorcomputing.net.serialization.xml.java.lang.IntegerXmlSerializer";
 		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass("java.lang.Integer");
@@ -102,7 +103,7 @@ public class XmlSerializerRegistryTest {
 	
 	
 	@Test
-	public void getXmlSerializerByTagTest() {
+	public void getXmlSerializerByTagTest() throws XmlSerializerNotFoundException {
 		final String ID = "net.vectorcomputing.net.serialization.xml.java.lang.IntegerXmlSerializer";
 		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerWithTag("java.lang.Integer");
@@ -118,7 +119,7 @@ public class XmlSerializerRegistryTest {
 	}
 	
 	@Test
-	public void getXmlSerializerByTagTestNegative() {
+	public void getXmlSerializerByTagTestNegative() throws XmlSerializerNotFoundException {
 		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
 		IXmlSerializerDescriptor descriptor;
 		descriptor = registry.findXmlSerializerWithTag("java.lang.Integerr");

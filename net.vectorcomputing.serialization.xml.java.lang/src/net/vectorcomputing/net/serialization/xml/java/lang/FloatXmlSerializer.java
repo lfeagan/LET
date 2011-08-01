@@ -17,9 +17,8 @@ package net.vectorcomputing.net.serialization.xml.java.lang;
 
 import net.vectorcomputing.property.node.PropertyNode;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
+import net.vectorcomputing.serialization.xml.XmlSerializationException;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
-
-import org.eclipse.core.runtime.CoreException;
 
 /**
  * Converts a {@link java.lang.Float} to and from a {@link PropertyNode} to
@@ -29,13 +28,13 @@ public class FloatXmlSerializer implements XmlSerializer {
 
 	@Override
 	public Object read(PropertyNode pnode, IXmlSerializerDescriptor descriptor)
-			throws CoreException {
+			throws XmlSerializationException {
 		return Float.parseFloat(pnode.getValue());
 	}
 
 	@Override
 	public PropertyNode toPropertyNode(Object obj,
-			IXmlSerializerDescriptor descriptor) throws CoreException {
+			IXmlSerializerDescriptor descriptor) throws XmlSerializationException {
 		final Float value = (Float) obj;
 		final PropertyNode pnode = new PropertyNode(descriptor.getTag(), value.toString());
 		return pnode;

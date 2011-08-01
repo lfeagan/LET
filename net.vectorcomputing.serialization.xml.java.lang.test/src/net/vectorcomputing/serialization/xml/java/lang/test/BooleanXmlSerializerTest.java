@@ -21,22 +21,23 @@ import static org.junit.Assert.assertTrue;
 import net.vectorcomputing.net.serialization.xml.java.lang.BooleanXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.XmlSerialization;
+import net.vectorcomputing.serialization.xml.XmlSerializationException;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
+import net.vectorcomputing.serialization.xml.XmlSerializerNotFoundException;
 
-import org.eclipse.core.runtime.CoreException;
 import org.junit.Test;
 
 public class BooleanXmlSerializerTest {
 	
 	@Test
-	public void testTrueOuput() throws CoreException {		
+	public void testTrueOuput() throws XmlSerializationException {		
 		String output = XmlSerialization.toString(Boolean.TRUE);
 //		System.out.println(output);
 		assertTrue(output.endsWith("<java.lang.Boolean>true</java.lang.Boolean>\n")); //$NON-NLS-1$
 	}
 
 	@Test
-	public void testTrueInput() throws CoreException {
+	public void testTrueInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Boolean>true</java.lang.Boolean>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -44,14 +45,14 @@ public class BooleanXmlSerializerTest {
 	}
 
 	@Test
-	public void testFalseOutput() throws CoreException {
+	public void testFalseOutput() throws XmlSerializationException {
 		String output = XmlSerialization.toString(Boolean.FALSE);
 //		System.out.println(output);
 		assertTrue(output.endsWith("<java.lang.Boolean>false</java.lang.Boolean>\n")); //$NON-NLS-1$
 	}
 
 	@Test
-	public void testFalseInput() throws CoreException {
+	public void testFalseInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Boolean>false</java.lang.Boolean>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -59,7 +60,7 @@ public class BooleanXmlSerializerTest {
 	}
 	
 	@Test
-	public void testEquals() {
+	public void testEquals() throws XmlSerializerNotFoundException {
 		final BooleanXmlSerializer constructed = new BooleanXmlSerializer();
 		IXmlSerializerDescriptor descriptor = XmlSerializationPlugin.getRegistry().findXmlSerializerForClass(Boolean.TRUE.getClass());
 		assertEquals(constructed, descriptor.getXmlSerializer());

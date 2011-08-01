@@ -7,10 +7,11 @@ import net.vectorcomputing.net.serialization.xml.java.lang.CharacterXmlSerialize
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
 import net.vectorcomputing.serialization.xml.XmlSerialization;
+import net.vectorcomputing.serialization.xml.XmlSerializationException;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
+import net.vectorcomputing.serialization.xml.XmlSerializerNotFoundException;
 
-import org.eclipse.core.runtime.CoreException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -37,7 +38,7 @@ public class CharacterXmlSerializerTest {
 	
 	
 	@Test
-	public void testSpaceCharacterOutput() throws CoreException {
+	public void testSpaceCharacterOutput() throws XmlSerializationException {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(SPACE.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(SPACE);
@@ -46,7 +47,7 @@ public class CharacterXmlSerializerTest {
 	}
 	
 	@Test
-	public void testSingleCharacterOutput() throws CoreException {
+	public void testSingleCharacterOutput() throws XmlSerializationException {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(SINGLE.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(SINGLE);
@@ -55,7 +56,7 @@ public class CharacterXmlSerializerTest {
 	}
 	
 	@Test
-	public void testSpaceCharacterInput() throws CoreException {
+	public void testSpaceCharacterInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Character> </java.lang.Character>\n"; //$NON-NLS-1$final Object object = ObjectXmlSerialization.read(reference);
 		final Object object = XmlSerialization.read(reference);		
 		assertNotNull(object);
@@ -63,7 +64,7 @@ public class CharacterXmlSerializerTest {
 	}
 	
 	@Test
-	public void testSingleCharacterInput() throws CoreException {
+	public void testSingleCharacterInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Character>s</java.lang.Character>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -71,7 +72,7 @@ public class CharacterXmlSerializerTest {
 	}
 	
 	@Test
-	public void testEquals() {
+	public void testEquals() throws XmlSerializerNotFoundException {
 		final XmlSerializer constructed = new CharacterXmlSerializer();
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(SINGLE.getClass());
 		assertEquals(constructed, descriptor.getXmlSerializer());

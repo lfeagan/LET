@@ -22,9 +22,10 @@ import net.vectorcomputing.net.serialization.xml.java.lang.FloatXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
 import net.vectorcomputing.serialization.xml.XmlSerialization;
+import net.vectorcomputing.serialization.xml.XmlSerializationException;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
+import net.vectorcomputing.serialization.xml.XmlSerializerNotFoundException;
 
-import org.eclipse.core.runtime.CoreException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -56,7 +57,7 @@ public class FloatXmlSerializerTest {
 	}
 	
 	@Test
-	public void testMinOuput() throws CoreException {
+	public void testMinOuput() throws XmlSerializationException {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(MIN_VALUE.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(MIN_VALUE);
@@ -65,7 +66,7 @@ public class FloatXmlSerializerTest {
 	}
 
 	@Test
-	public void testMaxOuput() throws CoreException {
+	public void testMaxOuput() throws XmlSerializationException {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(MAX_VALUE.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(MAX_VALUE);
@@ -74,7 +75,7 @@ public class FloatXmlSerializerTest {
 	}
 
 	@Test
-	public void testZeroOuput() throws CoreException {
+	public void testZeroOuput() throws XmlSerializationException {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(ZERO.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(ZERO);
@@ -83,7 +84,7 @@ public class FloatXmlSerializerTest {
 	}
 	
 	@Test
-	public void testNaNOuput() throws CoreException {
+	public void testNaNOuput() throws XmlSerializationException {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(NaN.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(NaN);
@@ -92,7 +93,7 @@ public class FloatXmlSerializerTest {
 	}
 
 	@Test
-	public void testMinInput() throws CoreException {
+	public void testMinInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Float>1.4E-45</java.lang.Float>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -100,7 +101,7 @@ public class FloatXmlSerializerTest {
 	}
 
 	@Test
-	public void testMaxInput() throws CoreException {
+	public void testMaxInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Float>3.4028235E38</java.lang.Float>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -108,7 +109,7 @@ public class FloatXmlSerializerTest {
 	}
 
 	@Test
-	public void testZeroInput() throws CoreException {
+	public void testZeroInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Float>0.0</java.lang.Float>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -116,7 +117,7 @@ public class FloatXmlSerializerTest {
 	}
 	
 	@Test
-	public void testNaNInput() throws CoreException {
+	public void testNaNInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Float>NaN</java.lang.Float>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -124,7 +125,7 @@ public class FloatXmlSerializerTest {
 	}
 	
 	@Test
-	public void testEquals() {
+	public void testEquals() throws XmlSerializerNotFoundException {
 		final FloatXmlSerializer constructed = new FloatXmlSerializer();
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(NaN.getClass());
 		assertEquals(constructed, descriptor.getXmlSerializer());

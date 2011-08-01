@@ -61,7 +61,7 @@ public interface IXmlSerializerDescriptor {
 	 * Returns the XML serializer this descriptor describes.
 	 * 
 	 * @return the XML serializer this descriptor describes.
-	 * @throws CoreException
+	 * @throws XmlSerializationException
 	 *             if unable to create an instance of the XML serializer
 	 */
 	public XmlSerializer getXmlSerializer();
@@ -72,7 +72,7 @@ public interface IXmlSerializerDescriptor {
 	 * 
 	 * @return the class this XML serializer accepts (serializes and
 	 *         de-serializes).
-	 * @throws CoreException
+	 * @throws XmlSerializationException
 	 *             if unable to create an instance of the accepted class
 	 */
 	public Class<?> getHandledClass();
@@ -90,10 +90,10 @@ public interface IXmlSerializerDescriptor {
 	 * @param string
 	 *            the string to read from
 	 * @return the object read from the string
-	 * @throws CoreException
+	 * @throws XmlSerializationException
 	 *             if unable to read an object from the string
 	 */
-	public Object read(String string) throws CoreException;
+	public Object read(String string) throws XmlSerializationException;
 
 	/**
 	 * Reads an object from an input stream.
@@ -101,10 +101,10 @@ public interface IXmlSerializerDescriptor {
 	 * @param inputStream
 	 *            the input stream to read from
 	 * @return the object read from the input stream
-	 * @throws CoreException
+	 * @throws XmlSerializationException
 	 *             if unable to read an object from the input stream
 	 */
-	public Object read(InputStream inputStream) throws CoreException;
+	public Object read(InputStream inputStream) throws XmlSerializationException;
 
 	/**
 	 * Reads an object from a property node.
@@ -112,10 +112,10 @@ public interface IXmlSerializerDescriptor {
 	 * @param pnode
 	 *            the property node to read from
 	 * @return the object read from the property node
-	 * @throws CoreException
+	 * @throws XmlSerializationException
 	 *             if unable to read an object from the property node
 	 */
-	public Object read(PropertyNode pnode) throws CoreException;
+	public Object read(PropertyNode pnode) throws XmlSerializationException;
 
 	/**
 	 * Converts the specified object to a property node.
@@ -123,10 +123,10 @@ public interface IXmlSerializerDescriptor {
 	 * @param object
 	 *            the object to be converted
 	 * @return a property node representation of the specified object
-	 * @throws CoreException
+	 * @throws XmlSerializationException
 	 *             if an error occurs during conversion
 	 */
-	public PropertyNode toPropertyNode(Object object) throws CoreException;
+	public PropertyNode toPropertyNode(Object object) throws XmlSerializationException;
 
 	/**
 	 * Converts the specified object to a string representation.
@@ -134,10 +134,10 @@ public interface IXmlSerializerDescriptor {
 	 * @param object
 	 *            the object to be converted
 	 * @return the string representation of the specified object
-	 * @throws CoreException
+	 * @throws XmlSerializationException
 	 *             if the specified object could not be converted
 	 */
-	public String toString(Object object) throws CoreException;
+	public String toString(Object object) throws XmlSerializationException;
 	
 	/**
 	 * Converts and writes the specified object to an output stream.
@@ -146,8 +146,8 @@ public interface IXmlSerializerDescriptor {
 	 *            the object to be converted
 	 * @param outputStream
 	 *            the output stream to write the converted object to
-	 * @throws CoreException
+	 * @throws XmlSerializationException
 	 */
-	public void write(Object object, OutputStream outputStream) throws CoreException;
+	public void write(Object object, OutputStream outputStream) throws XmlSerializationException;
 
 }

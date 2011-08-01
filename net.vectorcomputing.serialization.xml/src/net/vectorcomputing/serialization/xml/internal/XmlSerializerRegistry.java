@@ -15,6 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.serialization.xml.internal;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,6 +26,7 @@ import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
 import net.vectorcomputing.serialization.xml.XmlSerializationMessages;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
+import net.vectorcomputing.serialization.xml.XmlSerializerNotFoundException;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -83,25 +85,29 @@ public final class XmlSerializerRegistry implements IXmlSerializerRegistry, IExt
 	}
 	
 	@Override
-	public IXmlSerializerDescriptor findXmlSerializerForClass(String className) {
+	public IXmlSerializerDescriptor findXmlSerializerForClass(String className) throws XmlSerializerNotFoundException {
 		Assert.isNotNull(className , "className"); //$NON-NLS-1$
 		for (IXmlSerializerDescriptor descriptor : descriptors) {
 			if (descriptor.getHandledClass().getName().equals(className)) {
 				return descriptor;
 			}
 		}
-		return null;
+		
+		final String message = MessageFormat.format(XmlSerializationMessages.XmlSerializer_UnableToFindXmlSerializerForClass, className);
+		throw new XmlSerializerNotFoundException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, message));
 	}
 
 	@Override
-	public IXmlSerializerDescriptor findXmlSerializerForClass(Class<?> clazz) {
+	public IXmlSerializerDescriptor findXmlSerializerForClass(Class<?> clazz) throws XmlSerializerNotFoundException {
 		Assert.isNotNull(clazz , "clazz"); //$NON-NLS-1$
 		for (IXmlSerializerDescriptor descriptor : descriptors) {
 			if (descriptor.getHandledClass().equals(clazz)) {
 				return descriptor;
 			}
 		}
-		return null;
+		
+		final String message = MessageFormat.format(XmlSerializationMessages.XmlSerializer_UnableToFindXmlSerializerForClass, clazz.getName());
+		throw new XmlSerializerNotFoundException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, message));
 	}
 
 	@Override

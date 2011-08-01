@@ -25,12 +25,12 @@ import net.vectorcomputing.property.node.PropertyNode;
 import net.vectorcomputing.property.node.PropertyNodeXmlConverter;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
+import net.vectorcomputing.serialization.xml.XmlSerializationException;
 import net.vectorcomputing.serialization.xml.XmlSerializationMessages;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
 
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -46,7 +46,7 @@ public class XmlSerializerDescriptor implements IXmlSerializerDescriptor {
 	private final XmlSerializer xmlSerializer;
 	private final Class<?> handledClass;
 	
-	public XmlSerializerDescriptor(final IConfigurationElement element, final IXmlSerializerRegistry registry) throws CoreException {
+	public XmlSerializerDescriptor(final IConfigurationElement element, final IXmlSerializerRegistry registry) throws XmlSerializationException {
 		Assert.isNotNull(element, "element"); //$NON-NLS-1$
 		Assert.isNotNull(registry, "registry"); //$NON-NLS-1$
 		
@@ -69,7 +69,7 @@ public class XmlSerializerDescriptor implements IXmlSerializerDescriptor {
 		return element.getAttribute(ATTR_NAME);
 	}
 	
-	private static final XmlSerializer extractXmlSerializer(final IConfigurationElement element) throws CoreException {
+	private static final XmlSerializer extractXmlSerializer(final IConfigurationElement element) throws XmlSerializationException {
 		assert element != null;
 		try {
 			Object obj = element.createExecutableExtension(ATTR_CLASS);
@@ -77,11 +77,11 @@ public class XmlSerializerDescriptor implements IXmlSerializerDescriptor {
 			return xmlSerializer;
 		} catch (Exception e) {
 			final String message = MessageFormat.format(XmlSerializationMessages.XmlSerializerDescriptor_UnableToExtractXmlSerializer, element.getAttribute(ATTR_CLASS), extractId(element));
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, message, e));
+			throw new XmlSerializationException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, message, e));
 		}	
 	}
 	
-	private static final Class<?> extractHandledClass(final IConfigurationElement element) throws CoreException {
+	private static final Class<?> extractHandledClass(final IConfigurationElement element) throws XmlSerializationException {
 		assert element != null;
 		String className = element.getAttribute(ATTR_HANDLES);
 		try {
@@ -89,7 +89,7 @@ public class XmlSerializerDescriptor implements IXmlSerializerDescriptor {
 			return handledClass;
 		} catch (ClassNotFoundException e) {
 			final String message = MessageFormat.format(XmlSerializationMessages.XmlSerializerDescriptor_UnableToExtractTheHandlesClass, className, extractId(element));
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, message, e));
+			throw new XmlSerializationException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, message, e));
 		}
 	}
 
@@ -160,61 +160,76 @@ public class XmlSerializerDescriptor implements IXmlSerializerDescriptor {
 	}
 
 	@Override
-	public Object read(final PropertyNode pnode) throws CoreException {
+	public Object read(final PropertyNode pnode) throws XmlSerializationException {
 		Assert.isNotNull(pnode, "pnode"); //$NON-NLS-1$
 		return getXmlSerializer().read(pnode, this);
 	}
 
 	@Override
-	public Object read(final String string) throws CoreException {
+	public Object read(final String string) throws XmlSerializationException {
 		Assert.isNotNull(string , "string"); //$NON-NLS-1$
 		
 		final PropertyNode pnode;
 		try {
 			pnode = PropertyNodeXmlConverter.getSharedInstance().read(string);
+			return read(pnode);
 		} catch (Exception e) {
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, XmlSerializationMessages.UnableToConvertStringToPropertyNode, e));
-		}
-		return read(pnode);
+			throw new XmlSerializationException(
+					new Status(
+							IStatus.ERROR,
+							XmlSerializationPlugin.PLUGIN_ID,
+							XmlSerializationMessages.UnableToConvertStringToPropertyNode,
+							e));
+		}		
 	}
 
 	@Override
-	public Object read(final InputStream inputStream) throws CoreException {		
+	public Object read(final InputStream inputStream) throws XmlSerializationException {		
 		Assert.isNotNull(inputStream, "inputStream"); //$NON-NLS-1$
 		
 		final PropertyNode pnode;
 		try {
 			pnode = PropertyNodeXmlConverter.getSharedInstance().read(inputStream);
 		} catch (Exception e) {
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, XmlSerializationMessages.UnableToConvertInputStreamToPropertyNode, e));
+			throw new XmlSerializationException(
+					new Status(
+							IStatus.ERROR,
+							XmlSerializationPlugin.PLUGIN_ID,
+							XmlSerializationMessages.UnableToConvertInputStreamToPropertyNode,
+							e));
 		}		
 		return read(pnode);
 	}
 
 	@Override
-	public PropertyNode toPropertyNode(final Object object) throws CoreException {
+	public PropertyNode toPropertyNode(final Object object) throws XmlSerializationException {
 		Assert.isNotNull(object, "object"); //$NON-NLS-1$
 		return getXmlSerializer().toPropertyNode(object, this);
 	}
 	
 	@Override
-	public String toString(final Object object) throws CoreException {
+	public String toString(final Object object) throws XmlSerializationException {
 		Assert.isNotNull(object , "object"); //$NON-NLS-1$
 
 		final PropertyNode pnode = toPropertyNode(object);
 		try {
 			return PropertyNodeXmlConverter.getSharedInstance().toString(pnode);
 		} catch (Exception e) {
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, XmlSerializationMessages.UnableToConvertObjectToString, e));
+			throw new XmlSerializationException(new Status(IStatus.ERROR,
+					XmlSerializationPlugin.PLUGIN_ID,
+					XmlSerializationMessages.UnableToConvertObjectToString, e));
 		}
 	}
 	
 	@Override
-	public void write(final Object object, final OutputStream outputStream) throws CoreException {
+	public void write(final Object object, final OutputStream outputStream) throws XmlSerializationException {
 		try {
 			StringIO.write(toString(object), outputStream, false);
 		} catch (IOException e) {
-			throw new CoreException(new Status(IStatus.ERROR, XmlSerializationPlugin.PLUGIN_ID, XmlSerializationMessages.UnableToWriteObjectToOutputStream, e));
+			throw new XmlSerializationException(new Status(IStatus.ERROR,
+					XmlSerializationPlugin.PLUGIN_ID,
+					XmlSerializationMessages.UnableToWriteObjectToOutputStream,
+					e));
 		}
 	}
 	

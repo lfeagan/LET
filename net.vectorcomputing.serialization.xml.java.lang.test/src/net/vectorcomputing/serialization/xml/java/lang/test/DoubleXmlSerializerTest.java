@@ -22,9 +22,10 @@ import net.vectorcomputing.net.serialization.xml.java.lang.DoubleXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
 import net.vectorcomputing.serialization.xml.XmlSerialization;
+import net.vectorcomputing.serialization.xml.XmlSerializationException;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
+import net.vectorcomputing.serialization.xml.XmlSerializerNotFoundException;
 
-import org.eclipse.core.runtime.CoreException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -56,7 +57,7 @@ public class DoubleXmlSerializerTest {
 	}
 	
 	@Test
-	public void testRandomOutput() throws CoreException {
+	public void testRandomOutput() throws XmlSerializationException {
 		final Double myDouble = new Double(1.23);
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(myDouble.getClass());
 		assertNotNull(descriptor);
@@ -66,7 +67,7 @@ public class DoubleXmlSerializerTest {
 	}
 	
 	@Test
-	public void testMinOuput() throws CoreException {
+	public void testMinOuput() throws XmlSerializationException {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(MIN_VALUE.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(MIN_VALUE);
@@ -75,7 +76,7 @@ public class DoubleXmlSerializerTest {
 	}
 
 	@Test
-	public void testMaxOuput() throws CoreException {
+	public void testMaxOuput() throws XmlSerializationException {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(MAX_VALUE.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(MAX_VALUE);
@@ -84,7 +85,7 @@ public class DoubleXmlSerializerTest {
 	}
 
 	@Test
-	public void testZeroOuput() throws CoreException {
+	public void testZeroOuput() throws XmlSerializationException {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(ZERO.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(ZERO);
@@ -93,7 +94,7 @@ public class DoubleXmlSerializerTest {
 	}
 	
 	@Test
-	public void testNaNOuput() throws CoreException {
+	public void testNaNOuput() throws XmlSerializationException {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(NaN.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(NaN);
@@ -102,7 +103,7 @@ public class DoubleXmlSerializerTest {
 	}
 
 	@Test
-	public void testMinInput() throws CoreException {
+	public void testMinInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Double>4.9E-324</java.lang.Double>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -110,7 +111,7 @@ public class DoubleXmlSerializerTest {
 	}
 
 	@Test
-	public void testMaxInput() throws CoreException {
+	public void testMaxInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Double>1.7976931348623157E308</java.lang.Double>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -118,7 +119,7 @@ public class DoubleXmlSerializerTest {
 	}
 
 	@Test
-	public void testZeroInput() throws CoreException {
+	public void testZeroInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Double>0.0</java.lang.Double>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -126,7 +127,7 @@ public class DoubleXmlSerializerTest {
 	}
 	
 	@Test
-	public void testNaNInput() throws CoreException {
+	public void testNaNInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.Double>NaN</java.lang.Double>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -134,7 +135,7 @@ public class DoubleXmlSerializerTest {
 	}
 	
 	@Test
-	public void testEquals() {
+	public void testEquals() throws XmlSerializerNotFoundException {
 		final DoubleXmlSerializer constructed = new DoubleXmlSerializer();
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(NaN.getClass());
 		assertEquals(constructed, descriptor.getXmlSerializer());

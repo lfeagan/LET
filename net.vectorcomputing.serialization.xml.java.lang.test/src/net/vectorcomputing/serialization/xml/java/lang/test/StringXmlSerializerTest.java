@@ -22,10 +22,11 @@ import net.vectorcomputing.net.serialization.xml.java.lang.StringXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
 import net.vectorcomputing.serialization.xml.XmlSerialization;
+import net.vectorcomputing.serialization.xml.XmlSerializationException;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
+import net.vectorcomputing.serialization.xml.XmlSerializerNotFoundException;
 
-import org.eclipse.core.runtime.CoreException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class StringXmlSerializerTest {
 	
 	
 	@Test
-	public void testEmptyStringOutput() throws CoreException {
+	public void testEmptyStringOutput() throws XmlSerializationException {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(EMPTY_STRING.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(EMPTY_STRING);
@@ -61,7 +62,7 @@ public class StringXmlSerializerTest {
 	}
 	
 	@Test
-	public void testSimpleStringOutput() throws CoreException {
+	public void testSimpleStringOutput() throws XmlSerializationException {
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(SIMPLE_STRING.getClass());
 		assertNotNull(descriptor);
 		String output = descriptor.toString(SIMPLE_STRING);
@@ -70,7 +71,7 @@ public class StringXmlSerializerTest {
 	}
 	
 	@Test
-	public void testEmptyStringInput() throws CoreException {
+	public void testEmptyStringInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.String/>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -78,7 +79,7 @@ public class StringXmlSerializerTest {
 	}
 	
 	@Test
-	public void testSimpleStringInput() throws CoreException {
+	public void testSimpleStringInput() throws XmlSerializationException {
 		final String reference = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<java.lang.String>simple</java.lang.String>\n"; //$NON-NLS-1$
 		final Object object = XmlSerialization.read(reference);
 		assertNotNull(object);
@@ -86,7 +87,7 @@ public class StringXmlSerializerTest {
 	}
 	
 	@Test
-	public void testEquals() {
+	public void testEquals() throws XmlSerializerNotFoundException {
 		final XmlSerializer constructed = new StringXmlSerializer();
 		IXmlSerializerDescriptor descriptor = registry.findXmlSerializerForClass(SIMPLE_STRING.getClass());
 		assertEquals(constructed, descriptor.getXmlSerializer());

@@ -29,11 +29,13 @@ public interface IXmlSerializerRegistry {
 	 * 
 	 * @param id
 	 *            the id of the XML serializer to find
-	 * @return the first XML serializer with the specified id or
-	 *         <code>null</code> if one cannot be found
+	 * @return the first XML serializer with the specified id
+	 * @throws XmlSerializerNotFoundException
+	 *             if an XML serializer with the specified id cannot be found
 	 */
-	public IXmlSerializerDescriptor findXmlSerializer(String id);
-	
+	public IXmlSerializerDescriptor findXmlSerializer(String id)
+			throws XmlSerializerNotFoundException;
+
 	/**
 	 * Returns a list containing all {@link IXmlSerializerDescriptor}s in the
 	 * extension registry.
@@ -51,9 +53,13 @@ public interface IXmlSerializerRegistry {
 	 * @param className
 	 *            the class name the XML serializer must accept
 	 * @return the {@link IXmlSerializerDescriptor} that accepts the specified
-	 *         class name or <code>null</code> if one cannot be found
+	 *         class name
+	 * @throws XmlSerializerNotFoundException
+	 *             if an XML serializer for the specified class name cannot be
+	 *             found
 	 */
-	public IXmlSerializerDescriptor findXmlSerializerForClass(String className);
+	public IXmlSerializerDescriptor findXmlSerializerForClass(String className)
+			throws XmlSerializerNotFoundException;
 
 	/**
 	 * Returns the descriptor of the XML serializer that accepts the specified
@@ -62,9 +68,12 @@ public interface IXmlSerializerRegistry {
 	 * @param clazz
 	 *            the class the XML serializer must accept
 	 * @return the {@link IXmlSerializerDescriptor} that accepts the specified
-	 *         class or <code>null</code> if one cannot be found
-	 */	
-	public IXmlSerializerDescriptor findXmlSerializerForClass(Class<?> clazz);
+	 *         class
+	 * @throws XmlSerializerNotFoundException
+	 *             if an XML serializer for the specified class cannot be found
+	 */
+	public IXmlSerializerDescriptor findXmlSerializerForClass(Class<?> clazz)
+			throws XmlSerializerNotFoundException;
 
 	/**
 	 * Returns the descriptor of the XML serializer that uses the specified tag
@@ -73,8 +82,11 @@ public interface IXmlSerializerRegistry {
 	 * @param tag
 	 *            the XML tag the serializer uses
 	 * @return the first {@link IXmlSerializerDescriptor} that uses the
-	 *         specified tag or <code>null</code> if one cannot be found
+	 *         specified tag
+	 * @throws XmlSerializerNotFoundException
+	 *             if an XML serializer for the specified tag cannot be found
 	 */
-	public IXmlSerializerDescriptor findXmlSerializerWithTag(String tag);
-	
+	public IXmlSerializerDescriptor findXmlSerializerWithTag(String tag)
+			throws XmlSerializerNotFoundException;
+
 }

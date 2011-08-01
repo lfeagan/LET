@@ -17,9 +17,8 @@ package net.vectorcomputing.net.serialization.xml.java.lang;
 
 import net.vectorcomputing.property.node.PropertyNode;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
+import net.vectorcomputing.serialization.xml.XmlSerializationException;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
-
-import org.eclipse.core.runtime.CoreException;
 
 /**
  * Converts a {@link java.lang.String} to and from a {@link PropertyNode} to
@@ -28,7 +27,7 @@ import org.eclipse.core.runtime.CoreException;
 public class StringXmlSerializer implements XmlSerializer {
 
 	@Override
-	public PropertyNode toPropertyNode(final Object object, final IXmlSerializerDescriptor descriptor) throws CoreException {
+	public PropertyNode toPropertyNode(final Object object, final IXmlSerializerDescriptor descriptor) throws XmlSerializationException {
 		String value = (String) object;
 		final PropertyNode pnode = new PropertyNode(descriptor.getTag(), value.toString());
 		return pnode;
