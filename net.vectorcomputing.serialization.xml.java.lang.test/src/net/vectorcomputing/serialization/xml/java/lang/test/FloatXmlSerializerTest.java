@@ -62,7 +62,7 @@ public class FloatXmlSerializerTest {
 		assertNotNull(descriptor);
 		String output = descriptor.toString(MIN_VALUE);
 //		System.out.println(output);
-		assertTrue(output.endsWith("<java.lang.Float>-1.4E-45</java.lang.Float>\n")); //$NON-NLS-1$
+		assertTrue(output.endsWith("<java.lang.Float>1.4E-45</java.lang.Float>\n")); //$NON-NLS-1$
 	}
 
 	@Test

@@ -43,7 +43,7 @@ public class CharacterXmlSerializerTest {
 		assertNotNull(descriptor);
 		String output = descriptor.toString(SPACE);
 //		System.out.println(output);
-		assertTrue(output.endsWith("<java.lang.Character/>\n")); //$NON-NLS-1$
+		assertTrue(output.endsWith("<java.lang.Character> </java.lang.Character>\n")); //$NON-NLS-1$
 	}
 	
 	@Test
@@ -52,7 +52,7 @@ public class CharacterXmlSerializerTest {
 		assertNotNull(descriptor);
 		String output = descriptor.toString(SINGLE);
 //		System.out.println(output);
-		assertTrue(output.endsWith("<java.lang.Character>simple</java.lang.Character>\n")); //$NON-NLS-1$
+		assertTrue(output.endsWith("<java.lang.Character>s</java.lang.Character>\n")); //$NON-NLS-1$
 	}
 	
 	@Test

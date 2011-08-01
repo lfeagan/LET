@@ -47,16 +47,18 @@ public class XmlSerializerRegistryTest {
 		assertNotNull(descriptor.getXmlSerializer());
 	}
 	
-	@Test
-	public void getXmlSerializerByClassTestNegative() throws XmlSerializerNotFoundException {
+	@Test(expected=XmlSerializerNotFoundException.class)
+	public void getXmlSerializerByClassTestNegative1() throws XmlSerializerNotFoundException {
 		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
-		IXmlSerializerDescriptor descriptor;
-		descriptor = registry.findXmlSerializerForClass(Object.class);
-		assertNull(descriptor);
-		descriptor = registry.findXmlSerializerForClass(Iterable.class);
-		assertNull(descriptor);
+		registry.findXmlSerializerForClass(Object.class);
 	}
-	
+
+	@Test(expected=XmlSerializerNotFoundException.class)
+	public void getXmlSerializerByClassTestNegative2() throws XmlSerializerNotFoundException {
+		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
+		registry.findXmlSerializerForClass(Iterable.class);
+	}
+
 	@Test
 	public void getXmlSerializerByClassTest() throws XmlSerializerNotFoundException {
 		final String ID = "net.vectorcomputing.net.serialization.xml.java.lang.IntegerXmlSerializer";
@@ -73,16 +75,22 @@ public class XmlSerializerRegistryTest {
 		assertNotNull(descriptor.getXmlSerializer());
 	}
 	
-	@Test
-	public void getXmlSerializerByClassNameTestNegative() throws XmlSerializerNotFoundException {
+	@Test(expected=XmlSerializerNotFoundException.class)
+	public void getXmlSerializerByClassNameTestNegative1() throws XmlSerializerNotFoundException {
 		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
-		IXmlSerializerDescriptor descriptor;
-		descriptor = registry.findXmlSerializerForClass("java.lang.Integerr");
-		assertNull(descriptor);
-		descriptor = registry.findXmlSerializerForClass("java.lang.Intege");
-		assertNull(descriptor);
-		descriptor = registry.findXmlSerializerForClass("java.lang.Object");
-		assertNull(descriptor);
+		registry.findXmlSerializerForClass("java.lang.Integerr");
+	}
+
+	@Test(expected=XmlSerializerNotFoundException.class)
+	public void getXmlSerializerByClassNameTestNegative2() throws XmlSerializerNotFoundException {
+		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
+		registry.findXmlSerializerForClass("java.lang.Intege");
+	}
+
+	@Test(expected=XmlSerializerNotFoundException.class)
+	public void getXmlSerializerByClassNameTestNegative3() throws XmlSerializerNotFoundException {
+		final IXmlSerializerRegistry registry = XmlSerializationPlugin.getRegistry();
+		registry.findXmlSerializerForClass("java.lang.Object");
 	}
 	
 	@Test

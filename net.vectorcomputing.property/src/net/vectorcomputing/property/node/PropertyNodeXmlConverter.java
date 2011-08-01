@@ -181,7 +181,8 @@ public class PropertyNodeXmlConverter implements IPropertyNodeXmlConverter {
 	}
 	
 	private static final PropertyNode convertToPropertyNode(final Document doc) {
-		doc.getDocumentElement().normalize();
+		// verify that this normalize here can be removed as convertToPropertyNode also normalizes the document
+		//doc.getDocumentElement().normalize();
 		final PropertyNode rootParameter = PropertyNodeDocumentConversion.convertToPropertyNode(doc);
 		return rootParameter;
 	}

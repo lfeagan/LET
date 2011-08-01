@@ -15,6 +15,7 @@
  ******************************************************************************/
 package net.vectorcomputing.property;
 
+import net.vectorcomputing.base.string.Strings;
 import net.vectorcomputing.base.string.transform.IStringTransformer;
 import net.vectorcomputing.base.string.transform.StringTransformRemoveLeadingSpaces;
 import net.vectorcomputing.base.string.transform.StringTransformRemoveTrailingSpaces;
@@ -51,22 +52,26 @@ public class PropertyDocumentConversion {
 
 		if (type == Node.ELEMENT_NODE) {
 			// Fetch and normalize the document node's value
-			final Node curNode = documentNode.getFirstChild();
-			if (curNode != null) {
-				final String untrimmedValue = curNode.getNodeValue();
-				if (untrimmedValue != null) {
-					value = TRANSFORMER.transform(untrimmedValue);
-					// if the value's length after trimming leading and trailing
-					// spaces is zero, treat as being effectively null
-					if (value.length() == 0) {
-						value = null;
-					}
-				}
+			final Node valueNode = documentNode.getFirstChild();
+			if (valueNode == null) {
+				return new ImmutableProperty(name, Strings.emptyString());
+			} else {
+				return new ImmutableProperty(name, valueNode.getNodeValue());
 			}
-			return new ImmutableProperty(name, value);
-		} else {
-			return null;
 		}
+		return null;
 	}
 
+	private static final String trimValue(final String untrimmedValue) {
+//		final String untrimmedValue = curNode.getNodeValue();
+//		if (untrimmedValue != null) {
+//			value = TRANSFORMER.transform(untrimmedValue);
+//			// if the value's length after trimming leading and trailing
+//			// spaces is zero, treat as being effectively null
+//			if (value.length() == 0) {
+//				value = null;
+//			}
+//		}
+		return Strings.emptyString();
+	}
 }
