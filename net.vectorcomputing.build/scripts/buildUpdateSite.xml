@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="all" name="build" basedir="../..">
+	<description>VectorComputing.net LET Update Site Build</description>
+
+	<!--property name="ECLIPSE_DIR" location="${basedir}/com.ibm.ies.full.linux-gtk-x86/eclipse"/-->
+	<property name="ECLIPSE_DIR" location="/opt/tools/Linux/64/x86_64/Eclipse/3.6.2"/>
+	<property name="ECLIPSE_PLUGIN_DIR" location="${ECLIPSE_DIR}/plugins"/>
+
+	<fileset id="EQUINOX_LAUNCHER" dir="${ECLIPSE_PLUGIN_DIR}">
+		<include name="org.eclipse.equinox.launcher_*.jar"/>
+	</fileset>
+	<pathconvert property="EQUINOX_LAUNCHER_PATH" refid="EQUINOX_LAUNCHER"/>
+	
+	<property name="buildFile" location="${basedir}/com.ibm.informix.build/src/exportUpdateSite.xml"/>
+
+	<target name="import" description="Imports all projects into the workspace">
+		<java jar="${EQUINOX_LAUNCHER_PATH}" fork="true" failonerror="true">
+			<arg line="-application net.vectorcomputing.build.importProjects"/>
+			<arg line="-data ${basedir}"/>
+		</java>
+	</target>
+
+	<target name="dist" description="Perform the Eclipse build">
+		<echo file="versionFile" id="versionOS" message="BuildOS=${os.name} ${os.version} ${os.arch}${line.separator}" append="true"/>
+		<java jar="${EQUINOX_LAUNCHER_PATH}" fork="true" failonerror="true">
+			<arg line="-application org.eclipse.ant.core.antRunner"/>
+			<arg line="-buildfile ${buildFile}"/>
+			<arg line="-data ${basedir}"/>
+			<arg line="-DpluginPath=${ECLIPSE_PLUGIN_DIR}"/>
+
+			<arg value="-DjavacFailOnError=true"/>
+			<arg value="-DjavacVerbose=true"/>
+			<arg value="-DjavacSource=1.6"/>
+			<arg value="-DjavacTarget=1.6"/>
+		</java>
+	</target>
+	
+	<target name="all" depends="import,dist" description="Perform a Full build"/>
+	
+</project>

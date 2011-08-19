@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="feature_export" name="build" basedir="../..">
+	<description>VectorComputing.net LET Update Site Export</description>
+
+	<property file="${basedir}/build.properties"/>
+	
+	<target name="feature_export">
+		<!--echo file="env_info" id="versionOS" message="basedir=${basedir}${line.separator}" append="true"/-->
+		<pde.exportFeatures 
+			destination="${DESTINATION}" 
+			exportSource="true" 
+			exportType="zip" 
+			filename="${FILENAME}" 
+			useJARFormat="true" 
+			features="net.vectorcomputing.base.feature" />
+	</target>
+	
+</project>
