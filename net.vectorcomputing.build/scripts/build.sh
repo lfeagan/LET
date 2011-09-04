@@ -20,7 +20,7 @@ platform_config
 if [ "${KERNELNAME}" == "Darwin" ]; then
 	GNU_FIND="gfind"
 	CPUTYPE="x86_64"
-elif ["${KERNELNAME}" == "Linux" ]; then
+elif [ "${KERNELNAME}" == "Linux" ]; then
 	GNU_FIND="find"
 fi
 
@@ -29,6 +29,30 @@ ECLIPSE_DIR="/opt/tools/${KERNELNAME}/${KERNELBITS}/${CPUTYPE}/Eclipse/3.6.2"
 
 # Path to the workspace containing the features and projects #to be imported, compiled, and exported to an update site
 WORKSPACE_DIR="${SCRIPT_PATH}/../../"
+
+# The location to save the update site to
+DESTINATION="${WORKSPACE_DIR}"
+
+# The to name of update site file
+FILENAME_PREFIX="letUpdateSite"
+FILENAME_SUFFIX=".zip"
+setFileName ()
+{
+	TIMESTAMP=`date +'%Y%m%d%H%M'`
+	FILENAME="${FILENAME_PREFIX}_${TIMESTAMP}${FILENAME_SUFFIX}"
+}
+
+setBuildProperties ()
+{
+	BUILD_PROPERTIES="${WORKSPACE_DIR}/jazzBuild.properties"
+	if [ -f "${BUILD_PROPERTIES}" ]; then
+		BUILD_PROPERTIES_EXISTED=true;
+	else
+		BUILD_PROPERTIES_EXISTED=false;
+	fi
+	echo "FILENAME=${FILENAME}" >> "${BUILD_PROPERTIES}"
+	echo "DESTINATION=${DESTINATION}" >> "${BUILD_PROPERTIES}"
+}
 
 # Finds the highest version Equinox launcher plugin.
 # The name looks like this: org.eclipse.equinox.launcher_1.1.1.R36x_v20101122_1401.jar
@@ -48,14 +72,6 @@ setPdeBuildPath ()
 	#echo $PDE_BUILD_PATH
 }
 
-setBuildProperties ()
-{
-	BUILD_PROPERTIES="${WORKSPACE_DIR}/build.properties"
-	FILENAME="updateSite.zip"
-	echo "DESTINATION=${WORKSPACE_DIR}" >> "${BUILD_PROPERTIES}"
-	echo "FILENAME=${FILENAME}" >> "${BUILD_PROPERTIES}"
-}
-
 # Sample Environment Variables
 # PWD=/opt/tools/Linux/32/i686/JazzBuildSystem/2.0.0.2iFix5/builds                                                                                                 
 # SCRIPT_PATH=/opt/tools/Linux/32/i686/JazzBuildSystem/2.0.0.2iFix5/builds/iet/com.ibm.informix.build/src                                                          
@@ -64,18 +80,19 @@ setBuildProperties ()
 import ()
 {
 	java -jar "${EQUINOX_PATH}" \
-	-XstartOnFirstThread \
 	-application net.vectorcomputing.build.importProjects \
-	-data "${WORKSPACE_DIR}"
+	-data "${WORKSPACE_DIR}" \
+	-clean \
+	-XstartOnFirstThread
 }
 
 compile ()
 {
 	java -jar "${EQUINOX_PATH}" \
-	-XstartOnFirstThread \
 	-application org.eclipse.ant.core.antRunner \
 	-buildfile "${SCRIPT_PATH}/exportUpdateSite.xml" \
 	-data "${WORKSPACE_DIR}" \
+	-XstartOnFirstThread \
 	-Dbuilder="${SCRIPT_PATH}" \
 	-DlogExtension=.xml \
 	-DpluginPath="${ECLIPSE_DIR}/plugins"
@@ -89,14 +106,17 @@ publish ()
 
 cleanup ()
 {
-	rm "${BUILD_PROPERTIES}"	
+	if [ ! "${BUILD_PROPERTIES_EXISTED}" ]; then
+		rm "${BUILD_PROPERTIES}"
+	fi	
 }
 
+setFileName
+setBuildProperties
 setEquinoxPath
 setPdeBuildPath
-setBuildProperties
 
-#import
+import
 compile
 #publish
 cleanup

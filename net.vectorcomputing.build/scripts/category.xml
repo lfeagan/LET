@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/net.vectorcomputing.base.feature_1.0.0.qualifier.jar" id="net.vectorcomputing.base.feature" version="1.0.0.qualifier">
+      <category name="net.vectorcomputing"/>
+   </feature>
+   <category-def name="net.vectorcomputing" label="VectorComputing.net Tools">
+      <description>
+         Lance&apos;s VectorComputing.net Tools
+      </description>
+   </category-def>
+</site>

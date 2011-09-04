@@ -1,0 +1,197 @@
+<!-- Task definitions for the build toolkit ant tasks.
+
+	Import this file into your ant build file like this:
+		<project>
+			<import file="BuildToolkitTaskDefs.xml"/>
+			...
+		</project>
+-->
+
+<project >
+	
+	<import file="BuildToolkitTaskDefs.xml" description="Import Jazz Tasks"/>
+	<property file="${eclipse.workspace}${file.separator}jazzBuild.properties"/>
+
+	<!-- Feel free to put these in a property file that is sourced -->
+	<property name="userId" value="build"/>
+	<property name="passwordFile" value="password.txt"/>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before setup -->
+	<!-- ===================================================================== -->
+	<target name="preSetup">
+		<echo message="preSetup"/>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after setup but before starting the build proper -->
+	<!-- ===================================================================== -->
+	<target name="postSetup">
+		<echo message="postSetup"/>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before fetching the build elements -->
+	<!-- ===================================================================== -->
+	<target name="preFetch">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after fetching the build elements -->
+	<!-- ===================================================================== -->
+	<target name="postFetch">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before importing the projects being built. -->
+	<!-- ===================================================================== -->
+	<target name="preImport">
+		<startBuildActivity 
+			label="Import projects into workspace"
+			autoComplete="true"
+			verbose="true"
+			buildResultUUID="${buildResultUUID}"
+			repositoryAddress="${repositoryAddress}"
+			userId="${iet.userId}"
+			passwordFile="${iet.passwordFile}"/>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after importing the projects being built. -->
+	<!-- ===================================================================== -->
+	<target name="postImport">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running compile. -->
+	<!-- ===================================================================== -->
+	<target name="preCompile">
+		<startBuildActivity 
+			label="Compile"
+			autoComplete="true"
+			verbose="true"
+			buildResultUUID="${buildResultUUID}"
+			repositoryAddress="${repositoryAddress}"
+			userId="${iet.userId}"
+			passwordFile="${iet.passwordFile}"/>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after running compile. -->
+	<!-- ===================================================================== -->
+	<target name="postCompile">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running publish. -->
+	<!-- ===================================================================== -->
+	<target name="prePublish">
+		<startBuildActivity 
+			label="Publish to update site"
+			autoComplete="true"
+			verbose="true"
+			buildResultUUID="${buildResultUUID}"
+			repositoryAddress="${repositoryAddress}"
+			userId="${iet.userId}"
+			passwordFile="${iet.passwordFile}"/>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after running publish. -->
+	<!-- ===================================================================== -->
+	<target name="postPublish">
+	</target>
+	
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running categorize. -->
+	<!-- ===================================================================== -->
+	<target name="preCategorize">
+		<startBuildActivity 
+			label="Categorize update site"
+			autoComplete="true"
+			verbose="true"
+			buildResultUUID="${buildResultUUID}"
+			repositoryAddress="${repositoryAddress}"
+			userId="${iet.userId}"
+			passwordFile="${iet.passwordFile}"/>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after running categorize. -->
+	<!-- ===================================================================== -->
+	<target name="postCategorize">
+		<linkPublisher 
+			repositoryAddress="${repositoryAddress}"
+			userId="${iet.userId}"
+			passwordFile="${iet.passwordFile}"
+			buildResultUUID="${buildResultUUID}"
+			url="${iet.update.url}"
+			label="Update Site"
+		/>
+	</target>
+	
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running package. -->
+	<!-- ===================================================================== -->
+	<target name="prePackage">
+		<startBuildActivity 
+			label="Package update site"
+			autoComplete="true"
+			verbose="true"
+			buildResultUUID="${buildResultUUID}"
+			repositoryAddress="${repositoryAddress}"
+			userId="${iet.userId}"
+			passwordFile="${iet.passwordFile}"/>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after running package. -->
+	<!-- ===================================================================== -->
+	<target name="postPackage">
+		<artifactLinkPublisher 
+			repositoryAddress="${repositoryAddress}"
+			userId="${iet.userId}"
+			passwordFile="${iet.passwordFile}"
+			buildResultUUID="${buildResultUUID}"
+			url="${iet.builds.url}"
+			localfilepath="${iet.builds.filepath}"
+			verbose="true"
+			label="Zipped Update Site"
+		/>
+	</target>
+
+	<target name="preCleanup">
+		<startBuildActivity 
+			label="Cleanup temporary files"
+			autoComplete="true"
+			verbose="true"
+			buildResultUUID="${buildResultUUID}"
+			repositoryAddress="${repositoryAddress}"
+			userId="${userId}"
+			passwordFile="${passwordFile}"/>
+	</target>
+
+	<target name="postCleanup">		
+	</target>
+
+	
+	<!-- ===================================================================== -->
+	<!-- Steps to do after the build is done. -->
+	<!-- ===================================================================== -->
+	<target name="postBuild">
+		<antcall target="gatherLogs" />
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do to test the build results -->
+	<!-- ===================================================================== -->
+	<target name="test">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do to publish the build results -->
+	<!-- ===================================================================== -->
+	<!--target name="publish">
+	</target-->
+
+</project>
