@@ -22,6 +22,7 @@
 	  3. release = a release build, uses a version number
 	  4. personal = a personal build
 	  5. local = run a build intended for the local machine, builds results are placed in the current user's home directory with the project name
+	  6. workspace = Build the current Eclipse workspace. This is the only build that should and must be run from Eclipse.
 	-->
 	<target name="ci" description="Perform a continuous integration (CI) build">
 		<property name="buildtype" value="ci"/>
@@ -42,6 +43,11 @@
 	<target name="local" description="Performs a local build">
 		<property name="buildtype" value="local"/>
 		<antcall target="build"/>
+	</target>
+	<target name="workspace" description="Performs a build against the current workspace">
+		<property name="buildtype" value="local"/>
+		<property name="eclipse.workspace.preserve" value="true"/>
+		<antcall target="build"/>	
 	</target>
 
 	<!--
@@ -86,7 +92,7 @@
 			<include name="org.eclipse.equinox.launcher_*.jar"/>
 		</fileset>
 		<pathconvert property="equinox.launcher.path" refid="equinox.launcher"/>
-
+		
 		<if description="Determine which setup to run based on the build type">
 			<or>
 				<equals arg1="${buildtype}" arg2="ci" casesensitive="false" />
@@ -94,6 +100,7 @@
 				<equals arg1="${buildtype}" arg2="release" />
 				<equals arg1="${buildtype}" arg2="local" />
 				<equals arg1="${buildtype}" arg2="personal" />
+				<equals arg1="${buildtype}" arg2="workspace" />
 			</or>
 			<then>
 				<runtarget target="${buildtype}.setup" />
@@ -102,6 +109,8 @@
 				<fail message="Unable to find setup for build type ${buildtype}"/>
 			</else>
 		</if>
+		
+		<runtarget target="createExportInfo"/>
 
 		<antcall target="postSetup"/>
 	</target>
@@ -126,11 +135,14 @@
 		<property name="builds.filepath" value="${builds.dir}${file.separator}${builds.filename}" />
 		<property name="builds.url" value="${ci.builds.url}/${builds.filename}"/>
 		<property name="update.url" value="${ci.update.url}/${qualifier}" />
-		<runtarget target="createExportInfo" />
 	</target>
 
-	<target name="createExportInfo">
+	<target name="createExportInfo">		
 		<propertyfile file="${export.info}" comment="Export Information File">
+			<entry key="export.exportSource" value="${export.exportSource}"/>
+			<entry key="export.exportType" value="${export.exportType}"/>
+			<entry key="export.useJARFormat" value="${export.useJARFormat}"/>
+			<entry key="export.features" value="${export.features}"/>
 			<entry key="eclipse.workspace" value="${eclipse.workspace}" />
 			<entry key="export.filename" value="${builds.filename}" />
 			<entry key="export.destination" value="${export.destination}" />
@@ -149,7 +161,6 @@
 		<property name="builds.filepath" value="${builds.dir}${file.separator}${builds.filename}" />
 		<property name="builds.url" value="${nightly.builds.url}/${builds.filename}"/>
 		<property name="update.url" value="${nightly.update.url}/${qualifier}" />
-		<runtarget target="createExportInfo" />
 	</target>
 
 	<target name="release.setup" description="Configures properties for a release build">
@@ -161,7 +172,6 @@
 		<property name="builds.filepath" value="${builds.dir}${file.separator}${builds.filename}" />
 		<property name="builds.url" value="${release.builds.url}/${builds.filename}"/>
 		<property name="update.url" value="${release.update.url}/${qualifier}" />
-		<runtarget target="createExportInfo" />
 	</target>
 
 	<target name="updateBuildInfo">
@@ -178,7 +188,7 @@
 	
 	<target name="local.setup" description="Configures properties for a local build">
 		<tstamp>
-			<format property="qualifier" pattern="${nightly.tstamp.pattern}" />
+			<format property="qualifier" pattern="${ci.tstamp.pattern}" />
 		</tstamp>
 		<property name="update.dir" value="${user.home}${file.separator}${project.name}${file.separator}update" />
 		<property name="export.destination" value="${update.dir}${file.separator}${qualifier}" />
@@ -187,21 +197,19 @@
 		<property name="builds.filepath" value="${builds.dir}${file.separator}${builds.filename}" />
 		<property name="builds.url" value="${nightly.builds.url}/${builds.filename}"/>
 		<property name="update.url" value="${nightly.update.url}/${qualifier}" />
-		<runtarget target="createExportInfo" />
 	</target>
 
 	<target name="personal.setup" description="Configures properties for a personal	 build">
 		<tstamp>
-			<format property="qualifier" pattern="${nightly.tstamp.pattern}" />
+			<format property="qualifier" pattern="${ci.tstamp.pattern}" />
 		</tstamp>
-		<property name="update.dir" value="${user.home}${file.separator}${project.name}" />
-		<property name="export.destination" value="${nightly.update.dir}${file.separator}${qualifier}" />
+		<property name="update.dir" value="${personal.update.dir}${file.separator}${user.name}" />
+		<property name="export.destination" value="${personal.update.dir}${file.separator}${qualifier}" />
 		<property name="builds.dir" value="${user.home}${file.separator}${project.name}" />
 		<property name="builds.filename" value="${project.name}_UpdateSite_${qualifier}.zip" />
 		<property name="builds.filepath" value="${builds.dir}${file.separator}${builds.filename}" />
 		<property name="builds.url" value="${nightly.builds.url}/${builds.filename}"/>
 		<property name="update.url" value="${nightly.update.url}/${qualifier}" />
-		<runtarget target="createExportInfo" />
 	</target>
 
 	<target name="printSetupVars">
@@ -272,6 +280,7 @@
 	</target>
 
 	<target name="categorize" description="Categorizes the update site">
+		<antcall target="preCategorize"/>
 		<java jar="${equinox.launcher.path}" fork="true" failonerror="true" maxmemory="384M">
 			<arg line="-application org.eclipse.equinox.p2.publisher.CategoryPublisher"/>
 			<arg line="-noSplash"/>
@@ -279,14 +288,27 @@
 			<arg line="-metadataRepository file://${export.destination}"/>
 			<arg line="-categoryDefinition file://${basedir}/category.xml" />
 		</java>
+		<antcall target="postCategorize"/>
 	</target>
 
 	<target name="package" description="">
+		<antcall target="prePackage"/>
 		<zip basedir="${export.destination}" destfile="${builds.filepath}" compress="true" />
+		<antcall target="postPackage"/>
 	</target>
 
 	<target name="cleanup" description="cleanup any temporary files created during the build process">
-		<deltree dir="${eclipse.workspace}"/>
+		<if>
+			<not>
+			<equals arg1="eclipse.workspace.preserve" arg2="true"/>
+			</not>
+			<then>
+				<delete includeemptydirs="true">
+					<fileset dir="${eclipse.workspace}"/>
+				</delete>
+			</then>
+		</if>
+		<delete file="${export.info}"/>
 	</target>
 
 </project>
