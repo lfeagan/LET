@@ -6,7 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: net.vectorcomputing.property.PropertyPlugin
 Require-Bundle: org.eclipse.core.runtime,
  net.vectorcomputing.base.string;bundle-version="1.0.0",
- net.vectorcomputing.node;bundle-version="1.0.0"
+ net.vectorcomputing.node;bundle-version="1.0.0";visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: net.vectorcomputing.property,

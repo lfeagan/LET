@@ -13,33 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package net.vectorcomputing.net.serialization.xml.java.lang;
+package net.vectorcomputing.serialization.xml.java.lang;
 
 import net.vectorcomputing.property.node.PropertyNode;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
 
 /**
- * Converts a {@link java.lang.Boolean} to and from a {@link PropertyNode} to
+ * Converts a {@link java.lang.Short} to and from a {@link PropertyNode} to
  * perform XML serialization and de-serialization.
  */
-public class BooleanXmlSerializer implements XmlSerializer {
+public class ShortXmlSerializer implements XmlSerializer {
+
+	@Override
+	public PropertyNode toPropertyNode(final Object object, final IXmlSerializerDescriptor descriptor) {
+		final Short value = (Short) object;
+		final PropertyNode pnode = new PropertyNode(descriptor.getTag(), value.toString());
+		return pnode;
+	}
 
 	@Override
 	public Object read(final PropertyNode pnode, final IXmlSerializerDescriptor descriptor) {
-		return Boolean.parseBoolean(pnode.getValue());
-	}
-	
-	@Override
-	public PropertyNode toPropertyNode(final Object obj, final IXmlSerializerDescriptor descriptor) {
-		final Boolean value = (Boolean) obj;
-		final PropertyNode pnode = new PropertyNode(descriptor.getTag(), value.toString());
-		return pnode;
+		return Short.parseShort(pnode.getValue());
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		return (BooleanXmlSerializer.class.equals(obj.getClass()));
+		return (ShortXmlSerializer.class.equals(obj.getClass()));
 	}
-
 }

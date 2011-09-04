@@ -5,56 +5,56 @@
          point="net.vectorcomputing.serialization.xml.xmlSerializers">
       <serializer
             handles="java.lang.Boolean"
-            class="net.vectorcomputing.net.serialization.xml.java.lang.BooleanXmlSerializer"
+            class="net.vectorcomputing.serialization.xml.java.lang.BooleanXmlSerializer"
             id="net.vectorcomputing.net.serialization.xml.java.lang.BooleanXmlSerializer"
             name="java.lang.Boolean XML Serializer"
             tag="java.lang.Boolean">
       </serializer>
       <serializer
             handles="java.lang.Character"
-            class="net.vectorcomputing.net.serialization.xml.java.lang.CharacterXmlSerializer"
+            class="net.vectorcomputing.serialization.xml.java.lang.CharacterXmlSerializer"
             id="net.vectorcomputing.net.serialization.xml.java.lang.CharacterXmlSerializer"
             name="java.lang.Character XML Serializer"
             tag="java.lang.Character">
       </serializer>
       <serializer
             handles="java.lang.Double"
-            class="net.vectorcomputing.net.serialization.xml.java.lang.DoubleXmlSerializer"
+            class="net.vectorcomputing.serialization.xml.java.lang.DoubleXmlSerializer"
             id="net.vectorcomputing.net.serialization.xml.java.lang.DoubleXmlSerializer"
             name="java.lang.Double XML Serializer"
             tag="java.lang.Double">
       </serializer>
       <serializer
             handles="java.lang.Float"
-            class="net.vectorcomputing.net.serialization.xml.java.lang.FloatXmlSerializer"
+            class="net.vectorcomputing.serialization.xml.java.lang.FloatXmlSerializer"
             id="net.vectorcomputing.net.serialization.xml.java.lang.FloatXmlSerializer"
             name="java.lang.Float XML Serializer"
             tag="java.lang.Float">
       </serializer>
       <serializer
             handles="java.lang.Integer"
-            class="net.vectorcomputing.net.serialization.xml.java.lang.IntegerXmlSerializer"
+            class="net.vectorcomputing.serialization.xml.java.lang.IntegerXmlSerializer"
             id="net.vectorcomputing.net.serialization.xml.java.lang.IntegerXmlSerializer"
             name="java.lang.Integer XML Serializer"
             tag="java.lang.Integer">
       </serializer>
       <serializer
             handles="java.lang.Long"
-            class="net.vectorcomputing.net.serialization.xml.java.lang.LongXmlSerializer"
+            class="net.vectorcomputing.serialization.xml.java.lang.LongXmlSerializer"
             id="net.vectorcomputing.net.serialization.xml.java.lang.LongXmlSerializer"
             name="java.lang.Long XML Serializer"
             tag="java.lang.Long">
       </serializer>
       <serializer
             handles="java.lang.Short"
-            class="net.vectorcomputing.net.serialization.xml.java.lang.ShortXmlSerializer"
+            class="net.vectorcomputing.serialization.xml.java.lang.ShortXmlSerializer"
             id="net.vectorcomputing.net.serialization.xml.java.lang.ShortXmlSerializer"
             name="java.lang.Short XML Serializer"
             tag="java.lang.Short">
       </serializer>
       <serializer
             handles="java.lang.String"
-            class="net.vectorcomputing.net.serialization.xml.java.lang.StringXmlSerializer"
+            class="net.vectorcomputing.serialization.xml.java.lang.StringXmlSerializer"
             id="net.vectorcomputing.net.serialization.xml.java.lang.StringXmlSerializer"
             name="java.lang.String XML Serializer"
             tag="java.lang.String">
