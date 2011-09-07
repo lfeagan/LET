@@ -1,0 +1,66 @@
+
+<!--project>
+
+	<target name="nightly.setup" description="Configures properties for a nightly build">
+		<tstamp>
+			<format property="qualifier" pattern="${nightly.tstamp.pattern}" />
+		</tstamp>
+		<property name="update.dir" value="${nightly.update.dir}" />
+		<property name="export.destination" value="${update.dir}${file.separator}${qualifier}" />
+		<property name="builds.dir" value="${nightly.builds.dir}" />
+		<property name="builds.filename" value="${project.name}_UpdateSite_${qualifier}.zip" />
+		<property name="builds.filepath" value="${builds.dir}${file.separator}${builds.filename}" />
+		<property name="builds.url" value="${nightly.builds.url}/${builds.filename}"/>
+		<property name="update.url" value="${nightly.update.url}/${qualifier}" />
+	</target>
+
+	<target name="release.setup" description="Configures properties for a release build">
+		<property name="qualifier" value="${version}" />
+		<property name="update.dir" value="${release.update.dir}" />
+		<property name="export.destination" value="${update.dir}${file.separator}${qualifier}" />
+		<property name="builds.dir" value="${release.builds.dir}" />
+		<property name="builds.filename" value="${project.name}_UpdateSite_${qualifier}.zip" />
+		<property name="builds.filepath" value="${builds.dir}${file.separator}${builds.filename}" />
+		<property name="builds.url" value="${release.builds.url}/${builds.filename}"/>
+		<property name="update.url" value="${release.update.url}/${qualifier}" />
+	</target>
+
+	<target name="updateBuildInfo">
+		<propertyfile file="${build.info}" comment="Build Information File - DO NOT CHANGE">
+			<entry key="build.num"
+				type="int" default="0000"
+				operation="+" pattern="0000"/>
+			<entry key="build.date"
+				type="date"
+				value="now"
+				pattern="dd.MM.yyyy HH:mm"/>
+		</propertyfile>
+	</target>
+	
+	<target name="local.setup" description="Configures properties for a local build">
+		<tstamp>
+			<format property="qualifier" pattern="${ci.tstamp.pattern}" />
+		</tstamp>
+		<property name="update.dir" value="${user.home}${file.separator}${project.name}${file.separator}update" />
+		<property name="export.destination" value="${update.dir}${file.separator}${qualifier}" />
+		<property name="builds.dir" value="${user.home}${file.separator}${project.name}${file.separator}builds" />
+		<property name="builds.filename" value="${project.name}_UpdateSite_${qualifier}.zip" />
+		<property name="builds.filepath" value="${builds.dir}${file.separator}${builds.filename}" />
+		<property name="builds.url" value="${nightly.builds.url}/${builds.filename}"/>
+		<property name="update.url" value="${nightly.update.url}/${qualifier}" />
+	</target>
+
+	<target name="personal.setup" description="Configures properties for a personal	 build">
+		<tstamp>
+			<format property="qualifier" pattern="${ci.tstamp.pattern}" />
+		</tstamp>
+		<property name="update.dir" value="${personal.update.dir}${file.separator}${user.name}" />
+		<property name="export.destination" value="${personal.update.dir}${file.separator}${qualifier}" />
+		<property name="builds.dir" value="${user.home}${file.separator}${project.name}" />
+		<property name="builds.filename" value="${project.name}_UpdateSite_${qualifier}.zip" />
+		<property name="builds.filepath" value="${builds.dir}${file.separator}${builds.filename}" />
+		<property name="builds.url" value="${nightly.builds.url}/${builds.filename}"/>
+		<property name="update.url" value="${nightly.update.url}/${qualifier}" />
+	</target>
+
+</project-->

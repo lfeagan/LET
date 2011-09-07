@@ -1,0 +1,27 @@
+
+<project>
+
+	<property name="scm.supportsFetch" value="true"/>
+	<property name="scm.supportsUpload" value="false"/>
+
+	<target name="scm.fetch">
+		<antcall target="preFetch"/>
+			
+		<antcall target="postFetch"/>
+	</target>
+	
+	<target name="scm.upload">
+		<runtarget target="uploadArtifacts"/>
+		<runtarget target="publishArtifactLinks"/>
+	</target>
+	
+	<target name="uploadArtifacts">
+	</target>
+	
+	<target name="publishArtifactLinks">
+	</target>
+	
+	<target name="scm.cleanup">
+	</target>
+	
+</project>

@@ -1,0 +1,44 @@
+<!-- Github implementation of scm interface -->
+
+<project>
+
+	<property name="scm.supportsFetch" value="true"/>
+	<property name="scm.supportsArtifactUpload" value="false"/>
+	<property name="scm.supportsPublishArtifactLinks" value="false"/>
+
+	<import file="git-tasks.xml"/>
+	
+	<target name="scm.setup">
+		<sequential>
+		</sequential>
+	</target>
+	
+	<macrodef name="scm.fetch">
+		<attribute name="source" />
+		<attribute name="target" />
+		<sequential>
+			<git-clone-pull repository="@{source}" dest="@{target}"/>
+		</sequential>
+	</macrodef>
+		
+	<macrodef name="scm.uploadFile">
+		<attribute name="file" />
+		<attribute name="site" />
+		<sequential>
+			<git-add />
+			<git-commit />
+			<git-push />
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="publishArtifactLinks">
+		<sequential>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="scm.cleanup">
+		<sequential>
+		</sequential>
+	</macrodef>
+	
+</project>

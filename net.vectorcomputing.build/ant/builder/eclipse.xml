@@ -1,0 +1,191 @@
+
+<project>
+
+	<target name="builder.setup">
+		<sequential>
+			<property file="builder/eclipse.properties" />
+
+			<property name="build.info" value="${basedir}${file.separator}build.properties" />
+			<property name="export.info" value="${basedir}${file.separator}export.properties" />
+			<property name="build.file" location="${basedir}${file.separator}exportUpdateSite.xml" />
+
+			<eclipse.setup />
+
+			<!-- TODO validate that build.qualifier.type is set and is one of timestamp or version -->
+
+			<if>
+				<equals arg1="${build.qualifier.type}" arg2="timestamp" />
+				<then>
+					<tstamp>
+						<format property="build.qualifier" pattern="${build.tstamp.pattern}" />
+					</tstamp>
+				</then>
+				<else>
+					<property name="build.qualifier" value="${build.version}" />
+				</else>
+			</if>
+
+			<property name="export.destination" value="${updates.dir}${file.separator}${build.qualifier}" />
+			<property name="builds.filename" value="${project.name}_UpdateSite_${build.qualifier}.zip" />
+			<property name="builds.filepath" value="${builds.dir}${file.separator}${builds.filename}" />
+			<property name="builds.url" value="${builds.url.base}/${builds.filename}" />
+			<property name="updates.url" value="${updates.url.base}/${build.qualifier}" />
+
+			<createExportInfo />
+			<printSetupVars />
+		</sequential>
+	</target>
+
+	<target name="eclipse.setup">
+		<sequential>
+			<!-- make ECLIPSE_DIR have if blocks for architcture -->
+			<!-- ${os.name} ${os.version} ${os.arch} -->
+			<!--property name="ECLIPSE_DIR" location="${basedir}/com.ibm.ies.full.linux-gtk-x86/eclipse"/-->
+
+			<if>
+				<isset property="eclipse.running" />
+				<then>
+					<eclipse.convertPath resourcepath="/" property="eclipse.workspace" />
+					<echo message="eclipse.workspace=${eclipse.workspace}" />
+				</then>
+			</if>
+
+			<fail message="eclipse.workspace is not set" unless="eclipse.workspace" />
+
+			<if>
+				<not>
+					<isset property="osgi.syspath" />
+				</not>
+				<then>
+					<property name="osgi.syspath" location="${eclipse.home}${file.separator}plugins" />
+					<echo message="osgi.syspath=${osgi.syspath}" />
+				</then>
+			</if>
+
+			<fileset id="equinox.launcher" dir="${osgi.syspath}">
+				<include name="org.eclipse.equinox.launcher_*.jar" />
+			</fileset>
+			<pathconvert property="equinox.launcher.path" refid="equinox.launcher" />
+		</sequential>
+	</target>
+
+	<target name="createExportInfo">
+		<sequential>
+			<propertyfile file="${export.info}" comment="Export Information File">
+				<entry key="export.exportSource" value="${export.exportSource}" />
+				<entry key="export.exportType" value="${export.exportType}" />
+				<entry key="export.useJARFormat" value="${export.useJARFormat}" />
+				<entry key="export.features" value="${export.features}" />
+				<entry key="eclipse.workspace" value="${eclipse.workspace}" />
+				<entry key="export.filename" value="${builds.filename}" />
+				<entry key="export.destination" value="${export.destination}" />
+				<entry key="export.qualifier" value="${build.qualifier}" />
+			</propertyfile>
+		</sequential>
+	</target>
+
+	<target name="printSetupVars">
+		<sequential>
+			<echo message="updates.dir=${updates.dir}" level="info" />
+			<echo message="builds.dir=${builds.dir}" level="info" />
+			<echo message="export.destination=${export.destination}" level="info" />
+			<echo message="builds.filename=${builds.filename}" level="info" />
+			<echo message="builds.filepath=${builds.filepath}" level="info" />
+			<echo message="builds.url=${builds.url}" level="info" />
+			<echo message="updates.url=${updates.url}" level="info" />
+		</sequential>
+	</target>
+
+	<!-- do not import projects if this is a workspace build in a running Eclipse -->
+	<!-- TODO add back in unless="eclipse.running" -->
+	<target name="builder.import" description="Imports projects into the build workspace">
+		<sequential>
+			<if>
+				<istrue value="${eclipse.workspace.import}" />
+				<then>
+					<java jar="${equinox.launcher.path}" fork="true" failonerror="true">
+						<arg line="-application net.vectorcomputing.build.importProjects" />
+						<arg line="-data ${eclipse.workspace}" />
+					</java>
+				</then>
+			</if>
+		</sequential>
+	</target>
+
+	<target name="builder.compile" description="Perform the Eclipse build">
+		<sequential>
+			<java jar="${equinox.launcher.path}" fork="true" failonerror="true">
+				<arg line="-application org.eclipse.ant.core.antRunner" />
+				<arg line="-noSplash" />
+				<arg line="-buildfile ${build.file}" />
+				<arg line="-data ${eclipse.workspace}" />
+				<arg line="-DpluginPath=${osgi.syspath}" />
+				<arg line="-Dbuilder=${basedir}" />
+				<arg line="-DjavacFailOnError=true" />
+				<arg line="-DjavacVerbose=true" />
+				<arg line="-DjavacSource=1.6" />
+				<arg line="-DjavacTarget=1.6" />
+			</java>
+		</sequential>
+	</target>
+
+	<target name="builder.publish" description="Create an update site suitable for installation using Eclipse's Update Site Manager">
+		<sequential>
+		<java jar="${equinox.launcher.path}" fork="true" failonerror="true" maxmemory="384M">
+			<arg line="-application org.eclipse.equinox.p2.publisher.FeaturesAndBundlesPublisher"/>
+			<arg line="-noSplash" />
+			<arg line="-data ${eclipse.workspace}" />
+			<arg line="-metadataRepository file://${export.destination}" />
+			<arg line="-artifactRepository file://${export.destination}" />
+			<arg line="-bundles ${export.destination}" />
+			<arg line="-features ${export.destination}" />
+			<arg line="-compress" />
+		</java>
+		<!-- FeaturesAndBundlesPublisher arguments
+		     -bundles = the location of the plugins to generate metadata for
+		     -features = the location of the features to generate metadata for
+		     -metadataRepository = the location to publish the generated metadata to
+		     -artifactRepository = the location to publish the artifacts to if -publishArtifacts is set
+		     -publishArtifacts = copy the bundles and/or features to the artifact repository
+		     -compress = store the content.xml and artifacts.xml files inside jars
+		     -source = the location of the update site
+		-->
+		<symlink link="${updates.dir}${file.separator}latest" resource="${export.destination}" overwrite="true" />
+		</sequential>
+	</target>
+
+	<target name="builder.categorize" description="Categorizes the update site">
+		<sequential>
+			<java jar="${equinox.launcher.path}" fork="true" failonerror="true" maxmemory="384M">
+				<arg line="-application org.eclipse.equinox.p2.publisher.CategoryPublisher" />
+				<arg line="-noSplash" />
+				<arg line="-data ${eclipse.workspace}" />
+				<arg line="-metadataRepository file://${export.destination}" />
+				<arg line="-categoryDefinition file://${basedir}/category.xml" />
+			</java>
+		</sequential>
+	</target>
+
+	<target name="builder.package" description="">
+		<sequential>
+			<zip basedir="${export.destination}" destfile="${builds.filepath}" compress="true" />
+		</sequential>
+	</target>
+
+	<target name="builder.cleanup" description="cleanup any temporary files created during the build process">
+		<sequential>
+			<!-- TODO include this in if clause below: isfalse property="eclipse.running"/ -->
+			<if>
+				<isfalse value="${eclipse.workspace.preserve}" />
+				<then>
+					<echo message="delete workspace ${eclipse.workspace}" />
+					<!--delete includeemptydirs="true">
+					<fileset dir="${eclipse.workspace}"/>
+				</delete-->
+				</then>
+			</if>
+			<delete file="${export.info}" />
+		</sequential>
+	</target>
+
+</project>

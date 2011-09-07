@@ -1,0 +1,40 @@
+<!-- 
+Template for creating a new builder.
+-->
+<project>
+
+	<!--
+	Build phases:
+	  1. setup - builder & scm
+	  2. fetch - scm
+	  3. import - builder
+	  4. compile - builder
+	  5. publish - builder
+	  6. categorize - builder
+	  7. package - builder
+	  8. ??? - scm
+	  8. cleanup - builder & scm
+	-->
+
+	<target name="builder.setup">
+	</target>
+
+	<target name="builder.import" description="Imports projects ">
+	</target>
+
+	<target name="builder.compile" description="Compile projects">
+	</target>
+
+	<target name="builder.publish" description="Export projects">
+	</target>
+
+	<target name="builder.categorize" description="Export projects">
+	</target>
+
+	<target name="builder.package" description="Export projects">
+	</target>
+
+	<target name="builder.cleanup" description="Cleanup temporary files created in earlier phases by the builder (not the scm)">
+	</target>
+
+</project>

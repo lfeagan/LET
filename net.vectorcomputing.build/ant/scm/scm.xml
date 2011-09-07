@@ -1,0 +1,20 @@
+<!-- Template for methods that a compliant SCM should implement -->
+
+<project>
+	<property name="scm.supportsFetch" value="true"/>
+	<property name="scm.supportsArtifactUpload" value="false"/>
+	<property name="scm.supportsPublishArtifactLinks" value="false"/>
+
+	<target name="scm.setup">		
+	</target>
+	
+	<target name="scm.fetch" if="fetch.source" description="fetch files necessary for building">
+	</target>
+
+	<target name="scm.upload" description="upload artifacts created by the build process">
+	</target>
+	
+	<target name="scm.cleanup" description="cleanup files/folders created by the scm as part of the build process">
+	</target>
+
+</project>

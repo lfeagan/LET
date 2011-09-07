@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="workspace" name="build">
+
+	<description>Lance's Eclipse Tools Update Site Build</description>
+
+	<!-- Read all common build properties in to make sure they are available for reference by any other properties -->
+	<property file="${basedir}${file.separator}build.properties"/>
+
+	<!--
+	Dependencies :
+	This project makes extensive use of ant-contrib to create a more elegant 
+	program through use of runtarget to get property inheritance going back 
+	to the top-level target and if tasks.
+	-->
+
+	<import file="builder/eclipse.xml"/>
+	<import file="scm/git.xml"/>
+	<import file="customTargets.xml"/>
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+
+	<!--
+	The main build targets are:
+	  1. ci = continuous integration build, uses a timestamp accurate to the minute
+	  2. nightly = nightly build, uses a timestamp accurate to the day
+	  3. release = a release build, uses a version number
+	  4. personal = a personal build
+	  5. local = run a build intended for the local machine, builds results are placed in the current user's home directory with the project name
+	  6. workspace = Build the current Eclipse workspace. This is the only build that should and must be run from Eclipse.
+	-->
+	<target name="ci" description="Perform a continuous integration (CI) build">
+		<property name="buildtype" value="ci"/>
+		<property file="conf${file.separator}ci.properties" />
+		<build />
+	</target>
+	<target name="nightly" description="Perform a nightly build">
+		<property name="buildtype" value="nightly"/>
+		<property file="conf${file.separator}nightly.properties" />
+		<build />
+	</target>
+	<target name="release" description="Performs a release build">
+		<property name="buildtype" value="release"/>
+		<property file="conf${file.separator}release.properties" />
+		<build />
+	</target>
+	<target name="personal" description="Performs a personal build">
+		<property name="buildtype" value="personal"/>
+		<property file="conf${file.separator}personal.properties" />
+		<build />
+	</target>
+	<target name="local" description="Performs a local build">
+		<property name="buildtype" value="local"/>
+		<property file="conf${file.separator}local.properties" />
+		<build />
+	</target>
+	<target name="workspace" description="Performs a build against the current workspace">
+		<property name="buildtype" value="local"/>
+		<property file="conf${file.separator}workspace.properties" />
+		<build />
+	</target>
+
+	<!--
+	Build phases:
+	  1. setup - builder & scm
+	  2. fetch - scm
+	  3. import - builder
+	  4. compile - builder
+	  5. publish - builder
+	  6. categorize - builder
+	  7. package - builder
+	  8. upload - scm
+	  8. cleanup - builder & scm
+	-->
+
+	<macrodef name="build">
+		<sequential>
+			<trycatch property="failprop" reference="failref">
+				<try>
+					<build.setup />
+					<build.fetch />
+					<build.import />
+					<build.compile />
+					<build.publish />
+					<build.categorize />
+					<build.package />
+				</try>
+				<finally>
+					<build.cleanup />
+				</finally>
+			</trycatch>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build.setup">
+		<sequential>
+			<antcall target="preSetup" />
+			<runtarget target="builder.setup" />
+			<runtarget target="scm.setup" />
+			<antcall target="postSetup" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build.fetch">
+		<sequential>
+			<antcall target="preFetch"/>
+			<scm.fetch source="${fetch.source}" target="${fetch.target}"/>
+			<antcall target="postFetch"/>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build.import" description="Imports projects">
+		<sequential>
+			<antcall target="preImport"/>
+			<builder.import target="${eclipse.workspace}"/>
+			<antcall target="postImport"/>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build.compile" description="Compile projects">
+		<sequential>
+			<antcall target="preCompile" />
+			<builder.compile />
+			<antcall target="postCompile" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build.publish" description="Publish projects">
+		<sequential>
+			<antcall target="prePublish" />
+			<builder.publish />
+			<antcall target="postPublish" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build.categorize" description="Categorize features in update site">
+		<sequential>
+			<antcall target="preCategorize" />
+			<builder.categorize />
+			<antcall target="postCategorize" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build.package" description="Package update site">
+		<sequential>
+			<antcall target="prePackage" />
+			<builder.package />
+			<antcall target="postPackage" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build.cleanup" description="Cleanup temporary files created in earlier phases">
+		<sequential>
+			<scm.cleanup />
+			<builder.cleanup />
+		</sequential>
+	</macrodef>
+
+</project>
