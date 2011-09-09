@@ -29,27 +29,27 @@
 	  6. workspace = Build the current Eclipse workspace. This is the only build that should and must be run from Eclipse.
 	-->
 	<target name="ci" description="Perform a continuous integration (CI) build">
-		<property file="profile${file.separator}ci.properties" />
+		<property name="profilePath" value="profile${file.separator}ci.properties" />
 		<build />
 	</target>
 	<target name="nightly" description="Perform a nightly build">
-		<property file="profile${file.separator}nightly.properties" />
+		<property name="profilePath" value="profile${file.separator}nightly.properties" />
 		<build />
 	</target>
 	<target name="release" description="Performs a release build">
-		<property file="profile${file.separator}release.properties" />
+		<property name="profilePath" value="profile${file.separator}release.properties" />
 		<build />
 	</target>
 	<target name="personal" description="Performs a personal build">
-		<property file="profile${file.separator}personal.properties" />
+		<property name="profilePath" value="profile${file.separator}personal.properties" />
 		<build />
 	</target>
 	<target name="local" description="Performs a local build">
-		<property file="profile${file.separator}local.properties" />
+		<property name="profilePath" value="profile${file.separator}local.properties" />
 		<build />
 	</target>
 	<target name="workspace" description="Performs a build against the current workspace">
-		<property file="profile${file.separator}workspace.properties" />
+		<property name="profilePath" value="profile${file.separator}workspace.properties" />
 		<build />
 	</target>
 
@@ -68,6 +68,12 @@
 
 	<macrodef name="build">
 		<sequential>
+			<if>
+				<isset property="profilePath"/>
+				<then>
+					<property file="${profilePath}" description="Reading profile from ${profilePath}"/>
+				</then>
+			</if>
 			<trycatch property="failprop" reference="failref">
 				<try>
 					<build.setup />
@@ -88,24 +94,29 @@
 	<macrodef name="build.setup">
 		<sequential>
 			<antcall target="preSetup" />
-			<runtarget target="builder.setup" />
-			<runtarget target="scm.setup" />
+			<builder.setup />
+			<scm.setup />
 			<antcall target="postSetup" />
 		</sequential>
 	</macrodef>
 
 	<macrodef name="build.fetch">
 		<sequential>
-			<antcall target="preFetch"/>
-			<scm.fetch source="${fetch.source}" target="${fetch.target}"/>
-			<antcall target="postFetch"/>
+			<if>
+				<isset property="fetch.source" />
+				<then>
+					<antcall target="preFetch"/>
+					<scm.fetch source="${fetch.source}" target="${fetch.target}"/>
+					<antcall target="postFetch"/>
+				</then>
+			</if>
 		</sequential>
 	</macrodef>
 
 	<macrodef name="build.import" description="Imports projects">
 		<sequential>
 			<antcall target="preImport"/>
-			<builder.import target="${eclipse.workspace}"/>
+			<builder.import source="${eclipse.workspace}" target="${eclipse.workspace}"/>
 			<antcall target="postImport"/>
 		</sequential>
 	</macrodef>

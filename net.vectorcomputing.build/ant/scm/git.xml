@@ -2,16 +2,18 @@
 
 <project>
 
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+
 	<property name="scm.supportsFetch" value="true"/>
 	<property name="scm.supportsArtifactUpload" value="false"/>
 	<property name="scm.supportsPublishArtifactLinks" value="false"/>
 
 	<import file="git-tasks.xml"/>
 	
-	<target name="scm.setup">
+	<macrodef name="scm.setup">
 		<sequential>
 		</sequential>
-	</target>
+	</macrodef>
 	
 	<macrodef name="scm.fetch">
 		<attribute name="source" />
@@ -20,7 +22,7 @@
 			<git-clone-pull repository="@{source}" dest="@{target}"/>
 		</sequential>
 	</macrodef>
-		
+	
 	<macrodef name="scm.uploadFile">
 		<attribute name="file" />
 		<attribute name="site" />

@@ -1,7 +1,7 @@
 
 <project>
 
-	<target name="builder.setup">
+	<macrodef name="builder.setup">
 		<sequential>
 			<property file="builder/eclipse.properties" />
 
@@ -12,21 +12,27 @@
 			<eclipse.setup />
 
 			<!-- TODO validate that build.qualifier.type is set and is one of timestamp or version -->
-
-			<if>
+			<!--if>
 				<equals arg1="${build.qualifier.type}" arg2="timestamp" />
 				<then>
 					<tstamp>
-						<format property="build.qualifier" pattern="${build.tstamp.pattern}" />
+						<format property="build.tstamp" pattern="${build.tstamp.pattern}" />
 					</tstamp>
 				</then>
 				<else>
-					<property name="build.qualifier" value="${build.version}" />
+					<property name="build.tstamp" value="${build.version}" />
 				</else>
-			</if>
+			</if-->
 
+			<tstamp>
+					<format property="build.tstamp" pattern="${build.tstamp.pattern}" />
+			</tstamp>
+			
+			<!-- Sample build.qualifer 1.0.1.R10x_v20030629 -->
+			<property name="build.qualifier" value="${build.version}.R${build.branch}_v${build.tstamp}" />
+			
 			<property name="export.destination" value="${updates.dir}${file.separator}${build.qualifier}" />
-			<property name="builds.filename" value="${project.name}_UpdateSite_${build.qualifier}.zip" />
+			<property name="builds.filename" value="${project.name}_${build.qualifier}.zip" />
 			<property name="builds.filepath" value="${builds.dir}${file.separator}${builds.filename}" />
 			<property name="builds.url" value="${builds.url.base}/${builds.filename}" />
 			<property name="updates.url" value="${updates.url.base}/${build.qualifier}" />
@@ -34,9 +40,9 @@
 			<createExportInfo />
 			<printSetupVars />
 		</sequential>
-	</target>
+	</macrodef>
 
-	<target name="eclipse.setup">
+	<macrodef name="eclipse.setup">
 		<sequential>
 			<!-- make ECLIPSE_DIR have if blocks for architcture -->
 			<!-- ${os.name} ${os.version} ${os.arch} -->
@@ -67,9 +73,9 @@
 			</fileset>
 			<pathconvert property="equinox.launcher.path" refid="equinox.launcher" />
 		</sequential>
-	</target>
+	</macrodef>
 
-	<target name="createExportInfo">
+	<macrodef name="createExportInfo">
 		<sequential>
 			<propertyfile file="${export.info}" comment="Export Information File">
 				<entry key="export.exportSource" value="${export.exportSource}" />
@@ -82,9 +88,9 @@
 				<entry key="export.qualifier" value="${build.qualifier}" />
 			</propertyfile>
 		</sequential>
-	</target>
+	</macrodef>
 
-	<target name="printSetupVars">
+	<macrodef name="printSetupVars">
 		<sequential>
 			<echo message="updates.dir=${updates.dir}" level="info" />
 			<echo message="builds.dir=${builds.dir}" level="info" />
@@ -94,25 +100,27 @@
 			<echo message="builds.url=${builds.url}" level="info" />
 			<echo message="updates.url=${updates.url}" level="info" />
 		</sequential>
-	</target>
+	</macrodef>
 
 	<!-- do not import projects if this is a workspace build in a running Eclipse -->
 	<!-- TODO add back in unless="eclipse.running" -->
-	<target name="builder.import" description="Imports projects into the build workspace">
+	<macrodef name="builder.import" description="Imports projects into the build workspace">
+		<attribute name="source" />
+		<attribute name="target" />
 		<sequential>
 			<if>
 				<istrue value="${eclipse.workspace.import}" />
 				<then>
 					<java jar="${equinox.launcher.path}" fork="true" failonerror="true">
 						<arg line="-application net.vectorcomputing.build.importProjects" />
-						<arg line="-data ${eclipse.workspace}" />
+						<arg line="-data @{target}" />
 					</java>
 				</then>
 			</if>
 		</sequential>
-	</target>
+	</macrodef>
 
-	<target name="builder.compile" description="Perform the Eclipse build">
+	<macrodef name="builder.compile" description="Perform the Eclipse build">
 		<sequential>
 			<java jar="${equinox.launcher.path}" fork="true" failonerror="true">
 				<arg line="-application org.eclipse.ant.core.antRunner" />
@@ -127,9 +135,9 @@
 				<arg line="-DjavacTarget=1.6" />
 			</java>
 		</sequential>
-	</target>
+	</macrodef>
 
-	<target name="builder.publish" description="Create an update site suitable for installation using Eclipse's Update Site Manager">
+	<macrodef name="builder.publish" description="Create an update site suitable for installation using Eclipse's Update Site Manager">
 		<sequential>
 		<java jar="${equinox.launcher.path}" fork="true" failonerror="true" maxmemory="384M">
 			<arg line="-application org.eclipse.equinox.p2.publisher.FeaturesAndBundlesPublisher"/>
@@ -152,9 +160,9 @@
 		-->
 		<symlink link="${updates.dir}${file.separator}latest" resource="${export.destination}" overwrite="true" />
 		</sequential>
-	</target>
+	</macrodef>
 
-	<target name="builder.categorize" description="Categorizes the update site">
+	<macrodef name="builder.categorize" description="Categorizes the update site">
 		<sequential>
 			<java jar="${equinox.launcher.path}" fork="true" failonerror="true" maxmemory="384M">
 				<arg line="-application org.eclipse.equinox.p2.publisher.CategoryPublisher" />
@@ -164,15 +172,15 @@
 				<arg line="-categoryDefinition file://${basedir}/category.xml" />
 			</java>
 		</sequential>
-	</target>
+	</macrodef>
 
-	<target name="builder.package" description="">
+	<macrodef name="builder.package" description="">
 		<sequential>
 			<zip basedir="${export.destination}" destfile="${builds.filepath}" compress="true" />
 		</sequential>
-	</target>
+	</macrodef>
 
-	<target name="builder.cleanup" description="cleanup any temporary files created during the build process">
+	<macrodef name="builder.cleanup" description="cleanup any temporary files created during the build process">
 		<sequential>
 			<!-- TODO include this in if clause below: isfalse property="eclipse.running"/ -->
 			<if>
@@ -186,6 +194,6 @@
 			</if>
 			<delete file="${export.info}" />
 		</sequential>
-	</target>
+	</macrodef>
 
 </project>
