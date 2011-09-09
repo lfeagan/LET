@@ -30,32 +30,32 @@
 	-->
 	<target name="ci" description="Perform a continuous integration (CI) build">
 		<property name="buildtype" value="ci"/>
-		<property file="conf${file.separator}ci.properties" />
+		<property file="profile${file.separator}ci.properties" />
 		<build />
 	</target>
 	<target name="nightly" description="Perform a nightly build">
 		<property name="buildtype" value="nightly"/>
-		<property file="conf${file.separator}nightly.properties" />
+		<property file="profile${file.separator}nightly.properties" />
 		<build />
 	</target>
 	<target name="release" description="Performs a release build">
 		<property name="buildtype" value="release"/>
-		<property file="conf${file.separator}release.properties" />
+		<property file="profile${file.separator}release.properties" />
 		<build />
 	</target>
 	<target name="personal" description="Performs a personal build">
 		<property name="buildtype" value="personal"/>
-		<property file="conf${file.separator}personal.properties" />
+		<property file="profile${file.separator}personal.properties" />
 		<build />
 	</target>
 	<target name="local" description="Performs a local build">
 		<property name="buildtype" value="local"/>
-		<property file="conf${file.separator}local.properties" />
+		<property file="profile${file.separator}local.properties" />
 		<build />
 	</target>
 	<target name="workspace" description="Performs a build against the current workspace">
 		<property name="buildtype" value="local"/>
-		<property file="conf${file.separator}workspace.properties" />
+		<property file="profile${file.separator}workspace.properties" />
 		<build />
 	</target>
 
