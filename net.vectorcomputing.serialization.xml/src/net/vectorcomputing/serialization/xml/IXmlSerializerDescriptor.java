@@ -20,8 +20,6 @@ import java.io.OutputStream;
 
 import net.vectorcomputing.property.node.PropertyNode;
 
-import org.eclipse.core.runtime.CoreException;
-
 /**
  * Interface for accessing the attributes of a serializer configuration element.
  */

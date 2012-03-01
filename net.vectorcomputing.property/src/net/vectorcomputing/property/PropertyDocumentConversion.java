@@ -48,7 +48,6 @@ public class PropertyDocumentConversion {
 		
 		final String name = documentNode.getNodeName();
 		final Short type = documentNode.getNodeType();
-		String value = null;
 
 		if (type == Node.ELEMENT_NODE) {
 			// Fetch and normalize the document node's value
