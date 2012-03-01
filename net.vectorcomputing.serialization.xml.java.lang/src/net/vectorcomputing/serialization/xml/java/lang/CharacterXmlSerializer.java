@@ -13,33 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package net.vectorcomputing.net.serialization.xml.java.lang;
+package net.vectorcomputing.serialization.xml.java.lang;
 
 import net.vectorcomputing.property.node.PropertyNode;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
 
 /**
- * Converts a {@link java.lang.Integer} to and from a {@link PropertyNode} to
+ * Converts a {@link java.lang.Character} to and from a {@link PropertyNode} to
  * perform XML serialization and de-serialization.
  */
-public class IntegerXmlSerializer implements XmlSerializer {
 
-	@Override
-	public PropertyNode toPropertyNode(final Object obj, final IXmlSerializerDescriptor descriptor) {
-		Integer value = (Integer) obj;
-		final PropertyNode pnode = new PropertyNode(descriptor.getTag(), value.toString());
-		return pnode;
-	}
+public class CharacterXmlSerializer implements XmlSerializer {
 
 	@Override
 	public Object read(final PropertyNode pnode, final IXmlSerializerDescriptor descriptor) {
-		return Integer.parseInt(pnode.getValue());
+		return new Character(pnode.getValue().charAt(0));
+	}
+	
+	@Override
+	public PropertyNode toPropertyNode(final Object obj, final IXmlSerializerDescriptor descriptor) {
+		final Character character = (Character) obj;
+		final PropertyNode pnode = new PropertyNode(descriptor.getTag(), character.toString());
+		return pnode;
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		return (IntegerXmlSerializer.class.equals(obj.getClass()));
+		return (CharacterXmlSerializer.class.equals(obj.getClass()));
 	}
 	
 }

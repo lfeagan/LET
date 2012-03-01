@@ -18,13 +18,13 @@ package net.vectorcomputing.serialization.xml.java.lang.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import net.vectorcomputing.net.serialization.xml.java.lang.DoubleXmlSerializer;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.IXmlSerializerRegistry;
 import net.vectorcomputing.serialization.xml.XmlSerialization;
 import net.vectorcomputing.serialization.xml.XmlSerializationException;
 import net.vectorcomputing.serialization.xml.XmlSerializationPlugin;
 import net.vectorcomputing.serialization.xml.XmlSerializerNotFoundException;
+import net.vectorcomputing.serialization.xml.java.lang.DoubleXmlSerializer;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

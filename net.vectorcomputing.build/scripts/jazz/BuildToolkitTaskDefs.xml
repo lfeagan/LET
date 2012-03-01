@@ -1,0 +1,101 @@
+<!-- Task definitions for the build toolkit ant tasks.
+
+	 Import this file into your ant build file like this:
+		<project>
+			<import file="BuildToolkitTaskDefs.xml"/>
+			...
+		</project>
+-->
+
+
+<project>
+
+	<!-- Tasks for publishing build results and build contributions. -->
+	
+	<taskdef name="artifactFilePublisher"
+	         classname="com.ibm.team.build.ant.task.ArtifactFilePublisherTask" />
+
+	<taskdef name="artifactLinkPublisher"
+	         classname="com.ibm.team.build.ant.task.ArtifactLinkPublisherTask" />
+
+	<taskdef name="buildResultPublisher"
+	         classname="com.ibm.team.build.ant.task.BuildResultPublisherTask" />
+
+	<taskdef name="filePublisher"
+	         classname="com.ibm.team.build.ant.task.FilePublisherTask" />
+
+	<taskdef name="jdtCompileLogPublisher"
+	         classname="com.ibm.team.build.ant.task.JdtCompileLogPublisherTask" />
+	
+	<taskdef name="junitLogPublisher"
+	         classname="com.ibm.team.build.ant.task.JUnitLogPublisherTask" />
+
+	<taskdef name="cppunitLogPublisher"
+	         classname="com.ibm.team.build.ant.task.CppUnitLogPublisherTask" />
+
+	<taskdef name="mstestLogPublisher"
+	         classname="com.ibm.team.build.ant.task.MSTestLogPublisherTask" />
+
+	<taskdef name="nunitLogPublisher"
+	         classname="com.ibm.team.build.ant.task.NUnitLogPublisherTask" />
+
+	<taskdef name="linkPublisher"
+	         classname="com.ibm.team.build.ant.task.LinkPublisherTask" />
+
+	<taskdef name="logPublisher"
+	         classname="com.ibm.team.build.ant.task.LogPublisherTask" />
+
+	<taskdef name="workItemPublisher"
+	         classname="com.ibm.team.build.ant.task.WorkItemPublisherTask">
+	</taskdef>
+
+	<!-- Tasks for enabling progress monitoring. -->
+	
+	<taskdef name="startBuildActivity"
+	         classname="com.ibm.team.build.ant.task.StartBuildActivityTask" />
+
+	<taskdef name="completeBuildActivity"
+	         classname="com.ibm.team.build.ant.task.CompleteBuildActivityTask" />
+
+	<!-- Tasks for controlling the build lifecycle. -->
+
+	<taskdef name="startTeamBuild"
+	         classname="com.ibm.team.build.ant.task.StartBuildTask" />
+
+	<taskdef name="completeTeamBuild"
+	         classname="com.ibm.team.build.ant.task.CompleteBuildTask" />
+
+	<taskdef name="getNextTeamBuildRequest"
+	         classname="com.ibm.team.build.ant.task.GetNextBuildRequestTask" />
+
+	<taskdef name="requestTeamBuild"
+	         classname="com.ibm.team.build.ant.task.RequestBuildTask" />
+	
+	<!-- Tasks for using Jazz Source Control. -->
+
+	<taskdef name="teamAccept"
+	         classname="com.ibm.team.build.ant.task.TeamAcceptTask">
+	</taskdef>
+
+	<taskdef name="teamFetch"
+	         classname="com.ibm.team.build.ant.task.TeamFetchTask">
+	</taskdef>
+
+	<taskdef name="teamLastModified"
+	         classname="com.ibm.team.build.ant.task.TeamLastModifiedTask">
+	</taskdef>
+
+	
+	<!-- Miscellaneous tasks. -->
+	
+	<taskdef name="pluginOrganizer"
+	         classname="com.ibm.team.build.ant.task.PluginOrganizerTask">
+	</taskdef>
+	
+	<taskdef name="waitForTeamBuild"
+	         classname="com.ibm.team.build.ant.task.WaitForTeamBuildTask">
+	</taskdef>
+	
+
+
+</project>

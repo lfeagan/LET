@@ -13,32 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package net.vectorcomputing.net.serialization.xml.java.lang;
+package net.vectorcomputing.serialization.xml.java.lang;
 
 import net.vectorcomputing.property.node.PropertyNode;
 import net.vectorcomputing.serialization.xml.IXmlSerializerDescriptor;
 import net.vectorcomputing.serialization.xml.XmlSerializer;
 
 /**
- * Converts a {@link java.lang.Short} to and from a {@link PropertyNode} to
+ * Converts a {@link java.lang.Long} to and from a {@link PropertyNode} to
  * perform XML serialization and de-serialization.
  */
-public class ShortXmlSerializer implements XmlSerializer {
+public class LongXmlSerializer implements XmlSerializer {
 
 	@Override
-	public PropertyNode toPropertyNode(final Object object, final IXmlSerializerDescriptor descriptor) {
-		final Short value = (Short) object;
+	public PropertyNode toPropertyNode(final Object obj, final IXmlSerializerDescriptor descriptor) {
+		final Long value = (Long) obj;
 		final PropertyNode pnode = new PropertyNode(descriptor.getTag(), value.toString());
 		return pnode;
 	}
 
 	@Override
 	public Object read(final PropertyNode pnode, final IXmlSerializerDescriptor descriptor) {
-		return Short.parseShort(pnode.getValue());
+		return Long.parseLong(pnode.getValue());
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		return (ShortXmlSerializer.class.equals(obj.getClass()));
+		return (LongXmlSerializer.class.equals(obj.getClass()));
 	}
+	
 }

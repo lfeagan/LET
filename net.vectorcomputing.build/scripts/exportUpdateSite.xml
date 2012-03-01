@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="feature_export" name="build" basedir="../..">
-	<description>VectorComputing.net LET Update Site Export</description>
+<project default="feature_export" name="build">
+	<description>Informix Eclipse Tools Update Site Export</description>
 
-	<property file="${basedir}/build.properties"/>
+	<property name="export.properties.file" value="${basedir}/export.properties" />
+	<property file="${export.properties.file}" />
+
+	<!-- qualifier="${export.qualifier}" -->
+	<!-- description="Build for ${export.qualifier}" -->
 	
 	<target name="feature_export">
-		<!--echo file="env_info" id="versionOS" message="basedir=${basedir}${line.separator}" append="true"/-->
 		<pde.exportFeatures 
-			destination="${DESTINATION}" 
-			exportSource="true" 
-			exportType="zip" 
-			filename="${FILENAME}" 
-			useJARFormat="true" 
-			features="net.vectorcomputing.base.feature" />
+			destination="${export.destination}"
+			filename="${export.filename}"
+			exportSource="${export.exportSource}"
+			exportType="${export.exportType}"
+			useJARFormat="${export.useJARFormat}"
+			features="${export.features}"
+		/>
 	</target>
 	
+	<target name="printProperties">
+		<echo message="export.properties.file=${export.properties.file}" />
+		<echo message="export.destination=${export.destination}" />
+		<echo message="export.filename=${export.filename}" />
+		<echo message="export.qualifier=${export.qualifier}" />
+		<echo message="export.exportType=${export.exportType}" />
+		<echo message="export.useJARFormat=${export.useJARFormat}" />
+		<echo message="export.exportSource=${export.exportSource}" />
+	</target>
+
 </project>

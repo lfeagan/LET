@@ -30,8 +30,14 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.IJobChangeListener;
+import org.eclipse.core.runtime.jobs.IJobManager;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
@@ -47,12 +53,23 @@ public class ImportProjectsApplication implements IApplication {
 	
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
+		
+		IJobManager jobManager = Job.getJobManager();
+		jobManager.addJobChangeListener(new MyJobChangeListener());
+		
 		int returnCode = 0;
 		try {
 			importExistingProjects();
 		} catch (Exception e) {
 			returnCode = 1;
 		}
+		
+		waitForNoNewBuilds();
+		
+		ResourcesPlugin.getWorkspace().save(true, new NullProgressMonitor());
+		
+		waitOnJobCompletion();
+		
 		return returnCode;
 	}
 
@@ -150,6 +167,90 @@ public class ImportProjectsApplication implements IApplication {
 		workspace.run(runnable,
 				workspace.getRuleFactory().modifyRule(workspace.getRoot()),
 				IResource.NONE, null);
+	}
+	
+	private void waitOnJobCompletion() {
+		System.out.println("Waiting...");
+		IJobManager jobManager = Job.getJobManager();
+		try {
+			jobManager.join(ResourcesPlugin.FAMILY_AUTO_REFRESH, new NullProgressMonitor());
+			jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, new NullProgressMonitor());
+			Thread.currentThread().sleep(5000);
+			jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, new NullProgressMonitor());
+		} catch (OperationCanceledException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			System.out.println("Done Waiting");
+		}
+	}
+	
+	private void waitForNoNewBuilds() {
+		IJobManager jobManager = Job.getJobManager();
+		int count = 0;
+		while (count <= 5) {
+			try {
+				Thread.sleep(5000);
+				Job[] autoBuildJobs = jobManager.find(ResourcesPlugin.FAMILY_AUTO_BUILD);
+				Job[] manualBuildJobs = jobManager.find(ResourcesPlugin.FAMILY_MANUAL_BUILD);
+				System.out.println("build job counts, auto=" + autoBuildJobs.length +" manual=" + manualBuildJobs.length);
+				if (autoBuildJobs.length == 0 && manualBuildJobs.length == 0) {
+					System.out.println("incrementing build job count");
+					++count;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static class MyJobChangeListener implements IJobChangeListener {
+		IJobManager jobManager = Job.getJobManager();
+		
+		@Override
+		public void aboutToRun(IJobChangeEvent event) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void awake(IJobChangeEvent event) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void done(IJobChangeEvent event) {
+			System.out.println("Job Done: " + event.getJob());
+			//printJobs();
+		}
+		
+		private void printJobs() {
+			Job[] jobs = jobManager.find(null);
+			for (Job job : jobs) {
+				System.out.println(job + " " + job.getState());
+			}
+		}
+
+		@Override
+		public void running(IJobChangeEvent event) {
+			System.out.println("Job Running: " + event.getJob().getName());
+		}
+
+		@Override
+		public void scheduled(IJobChangeEvent event) {
+			System.out.println("Job Scheduled: " + event.getJob().getName());
+		}
+
+		@Override
+		public void sleeping(IJobChangeEvent event) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 	
 }
