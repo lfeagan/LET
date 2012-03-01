@@ -17,7 +17,6 @@ package net.vectorcomputing.photo.ui.widgets;
 
 import net.vectorcomputing.photo.PhotoPlugin;
 import net.vectorcomputing.photo.catalog.IPhotoCatalog;
-import net.vectorcomputing.photo.catalog.IPhotoCatalogEvent;
 import net.vectorcomputing.photo.factory.IPhotoFactoryRegistry;
 
 import org.eclipse.jface.viewers.ISelectionProvider;

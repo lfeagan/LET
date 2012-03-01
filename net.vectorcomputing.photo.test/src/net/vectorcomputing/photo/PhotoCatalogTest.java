@@ -17,8 +17,6 @@ package net.vectorcomputing.photo;
 
 import net.vectorcomputing.photo.catalog.IPhotoCatalog;
 import net.vectorcomputing.photo.catalog.IPhotoCatalogs;
-import net.vectorcomputing.photo.library.IPhoto;
-import net.vectorcomputing.photo.library.IPhotoLibrary;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
