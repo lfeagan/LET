@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Print JUnit Tests
+Bundle-SymbolicName: net.vectorcomputing.print.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: VectorComputing.net
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: net.vectorcomputing.print;bundle-version="1.0.0",
+ org.hibernate.libs;bundle-version="4.1.1",
+ org.junit
