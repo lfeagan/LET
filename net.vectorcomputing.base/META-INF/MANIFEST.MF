@@ -5,4 +5,5 @@ Bundle-SymbolicName: net.vectorcomputing.base
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: VectorComputing.net
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: net.vectorcomputing.base
+Export-Package: net.vectorcomputing.base,
+ net.vectorcomputing.base.number
