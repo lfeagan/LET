@@ -10,6 +10,8 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import net.vectorcomputing.print.PrintPlugin;
+
 import org.hibernate.Session;
 
 @Embeddable
@@ -43,7 +45,7 @@ public class Price {
 	void setPrice(BigDecimal price) { this.price = price; }
 
 	public static Set<Price> getPrices(UUID uuid) {
-		Session session = Database.getSessionFactory().openSession();
+		Session session = PrintPlugin.getSessionFactory().openSession();
 		session.beginTransaction();
 		Set<Price> prices = new HashSet<Price>();
 		List result = session.createQuery("from Price as price").list();

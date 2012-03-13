@@ -50,18 +50,16 @@ public class InkCartridge {
 	}
 
 
-	@Column(name="installation", nullable=false)
-	private Calendar installation;
-	public Calendar getInstallation() { return installation; }
-	@SuppressWarnings("unused")
-	private void setInstallation(Calendar installation) { this.installation = installation; }
+	@Column(name="installDate", nullable=false)
+	private Calendar installDate;
+	public Calendar getInstallDate() { return installDate; }
+	public void setInstallDate(Calendar installDate) { this.installDate = installDate; }
 
-	@Column(name="disposal", length=128, nullable=true)
-	private Calendar disposal;
-	public Calendar getDisposal() { return disposal; }
-	@SuppressWarnings("unused")
-	private void setDisposal(Calendar disposal) { this.disposal = disposal; }
-	public boolean isDisposed() { return disposal != null; }
+	@Column(name="disposalDate", nullable=true)
+	private Calendar disposalDate;
+	public Calendar getDisposeDate() { return disposalDate; }
+	public void setDisposeDate(Calendar disposalDate) { this.disposalDate = disposalDate; }
+	public boolean isDisposed() { return disposalDate != null; }
 
 	@ManyToOne
 	@JoinColumn(name="cartridge_fk", insertable=false, updatable=false)
@@ -81,10 +79,10 @@ public class InkCartridge {
 		
 	}
 	
-	public InkCartridge(String id, InkCartridgeSpecification specification) {
+	public InkCartridge(String id, InkCartridgeSpecification specification, Calendar installDate) {
 		this.id = id;
 		this.specification = specification;
-		this.installation = Calendar.getInstance();
+		this.installDate = installDate;
 		this.remainingVolume = specification.getFillVolume();
 	}
 	

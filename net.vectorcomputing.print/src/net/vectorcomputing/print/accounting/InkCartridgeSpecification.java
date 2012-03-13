@@ -31,6 +31,12 @@ public class InkCartridgeSpecification {
 	@SuppressWarnings("unused")
 	private void setUUID(UUID uuid) { this.uuid = uuid; }
 	
+	@Column(name="maker", length=128, nullable=false, unique=false)
+	private String maker;
+	public String getMaker() { return maker; }
+	@SuppressWarnings("unused")
+	private void setMaker(String maker) { this.maker = maker; }	
+	
 	@Column(name="name", length=128, nullable=false, unique=true)
 	private String name;
 	public String getName() { return name; }
@@ -50,7 +56,7 @@ public class InkCartridgeSpecification {
 	private void setFillVolume(double fillVolume) { this.fillVolume = fillVolume; }
 	
 	@OneToMany
-	@JoinColumn(name="InkCartridges_FK")
+	@JoinColumn(name="cartridge_fk")
 	private Map<UUID,InkCartridge> inkCartridges;
 	public Map<UUID,InkCartridge> getInkCartridges() { return inkCartridges; }
 	public void setInkCartridges(Map<UUID,InkCartridge> inkCartridges) { this.inkCartridges = inkCartridges; }
@@ -78,18 +84,19 @@ public class InkCartridgeSpecification {
 	 * @param abbreviation
 	 * @param fillVolume
 	 */
-	public InkCartridgeSpecification(UUID uuid, String name, String abbreviation, double fillVolume) {
+	public InkCartridgeSpecification(UUID uuid, String maker, String name, String abbreviation, double fillVolume) {
 		this.uuid = uuid;
+		this.maker = maker;
 		this.name = name;
 		this.abbreviation = abbreviation;
 		this.fillVolume = fillVolume;
 	}
 	
-	public InkCartridgeSpecification(String name, double fillVolume) {
-		this(name, findAbbreviation(name), fillVolume);
+	public InkCartridgeSpecification(String maker, String name, double fillVolume) {
+		this(maker, name, generateAbbreviation(name), fillVolume);
 	}
 	
-	private static final String findAbbreviation(String name) {
+	public static final String generateAbbreviation(String name) {
 		String[] decomposition = name.split(" ");
 		StringBuilder abbreviation = new StringBuilder();
 		for (String element : decomposition){
@@ -106,14 +113,17 @@ public class InkCartridgeSpecification {
 			} else if (element.equalsIgnoreCase("Vivid")) {
 				abbreviation.append('V');
 			} else {
-				return name.substring(0, 1);
+				if (element.length() > 0) {
+					abbreviation.append(element.substring(0, 1));
+				}
 			}
 		}
 		
 		return abbreviation.toString();
 	}
 	
-	public InkCartridgeSpecification(String name, String abbreviation, double fillVolume) {
+	public InkCartridgeSpecification(String maker, String name, String abbreviation, double fillVolume) {
+		this.maker = maker;
 		this.name = name;
 		this.abbreviation = abbreviation;
 		this.fillVolume = fillVolume;

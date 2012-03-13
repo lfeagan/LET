@@ -1,8 +1,9 @@
 package net.vectorcomputing.print.accounting;
 
-import java.math.BigDecimal;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.List;
+
+import net.vectorcomputing.print.PrintPlugin;
 
 import org.hibernate.Session;
 
@@ -11,25 +12,25 @@ public class Test {
 	@SuppressWarnings({ "unchecked" })
 	public void testBasicUsage() {
 		// create a couple of events...
-		Session session = Database.getSessionFactory().openSession();
+		Session session = PrintPlugin.getSessionFactory().openSession();
 		session.beginTransaction();
 		
-		session.save(new InkCartridgeSpecification("Cyan", 350));
-		session.save(new InkCartridgeSpecification("Magenta", 350));
-		session.save(new InkCartridgeSpecification("Yellow", 350));
-		session.save(new InkCartridgeSpecification("Black", 350));
-		session.save(new InkCartridgeSpecification("Foo", 351));
+		session.save(new InkCartridgeSpecification("Epson", "Cyan", 350));
+		session.save(new InkCartridgeSpecification("Epson", "Magenta", 350));
+		session.save(new InkCartridgeSpecification("Epson", "Yellow", 350));
+		session.save(new InkCartridgeSpecification("Epson", "Black", 350));
+		session.save(new InkCartridgeSpecification("Epson", "Foo", 351));
 		
-		InkCartridgeSpecification cs = new InkCartridgeSpecification("Bar", 352);
+		InkCartridgeSpecification cs = new InkCartridgeSpecification("Epson", "Bar", 352);
 		session.save(cs);
 		
-		InkCartridge ic = new InkCartridge("my id", cs);
+		InkCartridge ic = new InkCartridge("my id", cs, Calendar.getInstance());
 		session.save(ic);
 		session.getTransaction().commit();
 		session.close();
 
 		// now lets pull events from the database and list them
-		session = Database.getSessionFactory().openSession();
+		session = PrintPlugin.getSessionFactory().openSession();
 		session.beginTransaction();
 		List result = session.createQuery("from InkCartridgeSpecification").list();
 		for (InkCartridgeSpecification ics : (List<InkCartridgeSpecification>) result) {

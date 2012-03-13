@@ -20,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Transient;
 
 import net.vectorcomputing.base.number.DateRangeWithValue;
+import net.vectorcomputing.print.PrintPlugin;
 
 import org.hibernate.Session;
 import org.hibernate.annotations.DynamicUpdate;
@@ -50,7 +51,7 @@ public class PriceHistory {
 //		Set<Price> prices = Price.getPrices(uuid);
 //		return new PriceHistory(uuid, prices);
 		
-		Session session = Database.getSessionFactory().openSession();
+		Session session = PrintPlugin.getSessionFactory().openSession();
 		session.beginTransaction();
 //		Set<Price> prices = new HashSet<Price>();
 		List result = session.createQuery("from PriceHistory where uuid = :theuuid").setParameter("theuuid", uuid).list();
