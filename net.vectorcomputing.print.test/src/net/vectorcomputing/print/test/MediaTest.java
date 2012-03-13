@@ -4,10 +4,11 @@ import java.math.BigDecimal;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import net.vectorcomputing.print.accounting.Database;
+import net.vectorcomputing.print.PrintPlugin;
 import net.vectorcomputing.print.accounting.Media;
 import net.vectorcomputing.print.accounting.PriceHistory;
 import net.vectorcomputing.print.accounting.Size;
+import net.vectorcomputing.print.internal.ORM;
 
 import org.hibernate.Session;
 import org.junit.Test;
@@ -16,7 +17,7 @@ public class MediaTest {
 	
 	@Test
 	public void addMedia() {
-		Session session = Database.getSessionFactory().openSession();
+		Session session = PrintPlugin.getSessionFactory().openSession();
 		session.beginTransaction();
 		Media matte = new Media("Epson", "Enhanced Matte", Media.Type.SHEET, Media.Finish.MATTE, new Size(13, 19), 50);
 		session.save(matte);
@@ -40,7 +41,7 @@ public class MediaTest {
 	
 	@Test
 	public void getMedia() {
-		Session session = Database.getSessionFactory().openSession();
+		Session session = ORM.getSessionFactory().openSession();
 		session.beginTransaction();
 		
 		List result = session.createQuery("from Media").list();
