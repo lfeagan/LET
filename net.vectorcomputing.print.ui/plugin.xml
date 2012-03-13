@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            class="net.vectorcomputing.print.ui.wizard.InkCartridgeSpecificationNewWizard"
+            id="net.vectorcomputing.print.ui.wizard.inkCartridgeSpecification"
+            name="Ink Cartridge Specification"
+            project="false">
+         <description>
+            Creates a new ink cartridge specification.
+         </description>
+      </wizard>
+      <wizard
+            class="net.vectorcomputing.print.ui.wizard.InkCartridgeNewWizard"
+            id="net.vectorcomputing.print.ui.wizard.inkCartridge"
+            name="Ink Cartridge">
+         <description>
+            Creates a new instance of an ink cartridge specification.
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="net.vectorcomputing.print.ui.view.InkCartridgeSpecificationsView"
+            id="net.vectorcomputing.print.ui.view.InkCartridgeSpecificationsView"
+            name="Ink Cartridge Specifications">
+      </view>
+      <view
+            class="net.vectorcomputing.print.ui.view.InkCartridgesView"
+            id="net.vectorcomputing.print.ui.view.InkCartridgesView"
+            name="Ink Cartridges"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>

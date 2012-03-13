@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Print UI
+Bundle-SymbolicName: net.vectorcomputing.print.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.vectorcomputing.print.ui.Activator
+Bundle-Vendor: VectorComputing.net
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ net.vectorcomputing.print;bundle-version="1.0.0",
+ org.hibernate.libs;bundle-version="4.1.1",
+ org.eclipse.nebula.widgets.tablecombo;bundle-version="1.0.0",
+ org.eclipse.nebula.widgets.calendarcombo;bundle-version="1.0.0",
+ org.eclipse.nebula.effects.stw;bundle-version="1.0.0",
+ org.eclipse.nebula.widgets.compositetable;bundle-version="1.0.0",
+ org.eclipse.nebula.widgets.gallery;bundle-version="0.5.3",
+ org.eclipse.nebula.widgets.ganttchart;bundle-version="1.0.0",
+ org.eclipse.nebula.widgets.grid;bundle-version="1.0.0",
+ org.eclipse.nebula.widgets.oscilloscope;bundle-version="1.0.1",
+ org.eclipse.nebula.widgets.pgroup;bundle-version="1.0.0",
+ org.eclipse.nebula.widgets.pshelf;bundle-version="1.0.0",
+ org.eclipse.nebula.widgets.xviewer;bundle-version="0.9.9",
+ net.vectorcomputing.ui;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
