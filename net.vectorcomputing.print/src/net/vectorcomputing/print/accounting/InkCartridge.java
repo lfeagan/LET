@@ -1,5 +1,6 @@
 package net.vectorcomputing.print.accounting;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.UUID;
 
@@ -9,16 +10,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.SelectBeforeUpdate;
-import org.hibernate.annotations.Table;
 
 @Entity
 @DynamicUpdate
-@SelectBeforeUpdate
-@Table(appliesTo = "InkCartridge")
+@DynamicInsert
+@Table(name="InkCartridge")
 public class InkCartridge {
 	
 	@Id
@@ -26,21 +27,21 @@ public class InkCartridge {
 	@GenericGenerator(name="system-uuid", strategy = "uuid2")
 	@Column(name = "uuid", unique = true, nullable=false)
 	private UUID uuid;
-	public UUID getUUID() { return uuid; }
+	public UUID getUuid() { return uuid; }
 	@SuppressWarnings("unused")
-	private void setUUID(UUID uuid) { this.uuid = uuid; }
+	private void setUuid(UUID uuid) { this.uuid = uuid; }
 	
-	@Column(name="id", length=128, nullable=false, unique=true)
-	private String id;
-	public String getId() { return id; }
+	@Column(name="name", length=128, nullable=false, unique=true)
+	private String name;
+	public String getName() { return name; }
 	@SuppressWarnings("unused")
-	private void setId(String id) { this.id = id; }
+	private void setName(String name) { this.name = name; }
 	
 	@Column(name="remainingVolume", nullable=false, unique=false)
 	private double remainingVolume;
 	public double getRemainingVolume() {
 		return remainingVolume;
-	}	
+	}
 	public void setRemainingVolume(double remainingVolume) {
 		if (remainingVolume > specification.getFillVolume()) {
 			throw new IllegalArgumentException("Remaining volume cannot be set higher than the fill volume");
@@ -48,7 +49,6 @@ public class InkCartridge {
 		
 		this.remainingVolume = remainingVolume;
 	}
-
 
 	@Column(name="installDate", nullable=false)
 	private Calendar installDate;
@@ -61,14 +61,13 @@ public class InkCartridge {
 	public void setDisposeDate(Calendar disposalDate) { this.disposalDate = disposalDate; }
 	public boolean isDisposed() { return disposalDate != null; }
 
-	@ManyToOne
-	@JoinColumn(name="cartridge_fk", insertable=false, updatable=false)
+	@ManyToOne(optional=false)
+	@JoinColumn(name="cartridge_fk", updatable=false)
 	private InkCartridgeSpecification specification;
 	public InkCartridgeSpecification getSpecification() {
 		return specification;
 	}
-	@SuppressWarnings("unused")
-	private void setSpecification(InkCartridgeSpecification specification) {
+	void setSpecification(InkCartridgeSpecification specification) {
 		this.specification = specification;
 	}
 	
@@ -79,23 +78,35 @@ public class InkCartridge {
 		
 	}
 	
-	public InkCartridge(String id, InkCartridgeSpecification specification, Calendar installDate) {
-		this.id = id;
+	public InkCartridge(String name, InkCartridgeSpecification specification, Calendar installDate) {
+		this.name = name;
 		this.specification = specification;
 		this.installDate = installDate;
 		this.remainingVolume = specification.getFillVolume();
 	}
 	
-	public String getName() {
-		return specification.getName();
+	public String getMaker() {
+		return getSpecification().getMaker();
+	}
+	
+	public String getModel() {
+		return getSpecification().getModel();
 	}
 
 	public String getAbbreviation() {
-		return specification.getAbbreviation();
+		return getSpecification().getAbbreviation();
 	}
 
 	public double getFillVolume() {
-		return specification.getFillVolume();
+		return getSpecification().getFillVolume();
+	}
+	
+	public BigDecimal getPrice() {
+		
+		PriceHistory ph = getSpecification().getPriceHistory();
+		
+		
+		return new BigDecimal("1.24");
 	}
 	
 }

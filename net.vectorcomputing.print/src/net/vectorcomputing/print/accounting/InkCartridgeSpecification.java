@@ -1,25 +1,27 @@
 package net.vectorcomputing.print.accounting;
 
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.SelectBeforeUpdate;
-import org.hibernate.annotations.Table;
-
 @Entity
 @DynamicUpdate
-@SelectBeforeUpdate
-@Table(appliesTo = "InkCartridgeSpecification")
+@DynamicInsert
+@Table(name = "InkCartridgeSpecification", uniqueConstraints=@UniqueConstraint(columnNames={"maker", "model"}))
 public class InkCartridgeSpecification {
 	
 	@Id
@@ -27,45 +29,48 @@ public class InkCartridgeSpecification {
 	@GenericGenerator(name="system-uuid", strategy = "uuid2")
 	@Column(name = "uuid", unique = true, nullable=false)
 	private UUID uuid;
-	public UUID getUUID() { return uuid; }
+	public UUID getUuid() { return uuid; }
 	@SuppressWarnings("unused")
-	private void setUUID(UUID uuid) { this.uuid = uuid; }
+	private void setUuid(UUID uuid) { this.uuid = uuid; }
 	
 	@Column(name="maker", length=128, nullable=false, unique=false)
 	private String maker;
 	public String getMaker() { return maker; }
-	@SuppressWarnings("unused")
-	private void setMaker(String maker) { this.maker = maker; }	
+	public void setMaker(String maker) { this.maker = maker; }	
 	
-	@Column(name="name", length=128, nullable=false, unique=true)
-	private String name;
-	public String getName() { return name; }
-	@SuppressWarnings("unused")
-	private void setName(String name) { this.name = name; }
+	@Column(name="model", length=128, nullable=false, unique=false)
+	private String model;
+	public String getModel() { return model; }
+	public void setModel(String model) { this.model = model; }
 
 	@Column(name="abbreviation", length=10, nullable=false, unique=false)
 	private String abbreviation;
 	public String getAbbreviation() { return abbreviation; }
-	@SuppressWarnings("unused")
-	private void setAbbreviation(String abbreviation) { this.abbreviation = abbreviation; }
+	public void setAbbreviation(String abbreviation) { this.abbreviation = abbreviation; }
 
 	@Column(name="fillVolume", nullable=false, unique=false)
 	private double fillVolume;
 	public double getFillVolume() { return fillVolume; }
-	@SuppressWarnings("unused")
-	private void setFillVolume(double fillVolume) { this.fillVolume = fillVolume; }
+	public void setFillVolume(double fillVolume) { this.fillVolume = fillVolume; }
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="cartridge_fk")
-	private Map<UUID,InkCartridge> inkCartridges;
-	public Map<UUID,InkCartridge> getInkCartridges() { return inkCartridges; }
-	public void setInkCartridges(Map<UUID,InkCartridge> inkCartridges) { this.inkCartridges = inkCartridges; }
+	private final Set<InkCartridge> inkCartridges = new HashSet<InkCartridge>();
+	public Set<InkCartridge> getInkCartridges() { return inkCartridges; }
+	void addInkCartridge(InkCartridge inkCartridge) { inkCartridge.setSpecification(this); this.inkCartridges.add(inkCartridge); }
+	void setInkCartridges(Set<InkCartridge> inkCartridges) { this.inkCartridges.addAll(inkCartridges); }
+	
+//	private Map<UUID,InkCartridge> inkCartridges;
+//	public Map<UUID,InkCartridge> getInkCartridges() { return inkCartridges; }
+//	void addInkCartridge(InkCartridge inkCartridge) { inkCartridge.setSpecification(this); this.inkCartridges.put(inkCartridge.getUUID(), inkCartridge); }
+//	void setInkCartridges(Map<UUID,InkCartridge> inkCartridges) { this.inkCartridges = inkCartridges; }
+
 	
 	@Transient
 	private PriceHistory priceHistory = null;
 	public PriceHistory getPriceHistory() {
 		if (priceHistory == null) {
-			priceHistory = PriceHistory.getPriceHistory(this.getUUID());
+			priceHistory = PriceHistory.getPriceHistory(this.getUuid());
 		}
 		return priceHistory;
 	}
@@ -80,24 +85,24 @@ public class InkCartridgeSpecification {
 	/**
 	 * Constructor for application use.
 	 * @param uuid
-	 * @param name
+	 * @param model
 	 * @param abbreviation
 	 * @param fillVolume
 	 */
-	public InkCartridgeSpecification(UUID uuid, String maker, String name, String abbreviation, double fillVolume) {
+	public InkCartridgeSpecification(UUID uuid, String maker, String model, String abbreviation, double fillVolume) {
 		this.uuid = uuid;
 		this.maker = maker;
-		this.name = name;
+		this.model = model;
 		this.abbreviation = abbreviation;
 		this.fillVolume = fillVolume;
 	}
 	
-	public InkCartridgeSpecification(String maker, String name, double fillVolume) {
-		this(maker, name, generateAbbreviation(name), fillVolume);
+	public InkCartridgeSpecification(String maker, String model, double fillVolume) {
+		this(maker, model, generateAbbreviation(model), fillVolume);
 	}
 	
-	public static final String generateAbbreviation(String name) {
-		String[] decomposition = name.split(" ");
+	public static final String generateAbbreviation(String model) {
+		String[] decomposition = model.split(" ");
 		StringBuilder abbreviation = new StringBuilder();
 		for (String element : decomposition){
 			if (element.equalsIgnoreCase("Cyan")) {
@@ -122,9 +127,9 @@ public class InkCartridgeSpecification {
 		return abbreviation.toString();
 	}
 	
-	public InkCartridgeSpecification(String maker, String name, String abbreviation, double fillVolume) {
+	public InkCartridgeSpecification(String maker, String model, String abbreviation, double fillVolume) {
 		this.maker = maker;
-		this.name = name;
+		this.model = model;
 		this.abbreviation = abbreviation;
 		this.fillVolume = fillVolume;
 	}
@@ -138,7 +143,7 @@ public class InkCartridgeSpecification {
 		long temp;
 		temp = Double.doubleToLongBits(fillVolume);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((model == null) ? 0 : model.hashCode());
 		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
 		return result;
 	}
@@ -166,11 +171,11 @@ public class InkCartridgeSpecification {
 				.doubleToLongBits(other.fillVolume)) {
 			return false;
 		}
-		if (name == null) {
-			if (other.name != null) {
+		if (model == null) {
+			if (other.model != null) {
 				return false;
 			}
-		} else if (!name.equals(other.name)) {
+		} else if (!model.equals(other.model)) {
 			return false;
 		}
 		if (uuid == null) {
@@ -188,8 +193,8 @@ public class InkCartridgeSpecification {
 		StringBuilder builder = new StringBuilder();
 		builder.append("InkCartridgeSpecification [uuid=");
 		builder.append(uuid);
-		builder.append(", name=");
-		builder.append(name);
+		builder.append(", model=");
+		builder.append(model);
 		builder.append(", abbreviation=");
 		builder.append(abbreviation);
 		builder.append(", fillVolume=");

@@ -2,6 +2,8 @@ package net.vectorcomputing.print.accounting;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,12 +39,12 @@ public class Price {
 	@Column(name="date", nullable=false)
 	private Calendar date;
 	public Calendar getDate() { return date; }
-	void setDate(Calendar date) { this.date = date; }
+	public void setDate(Calendar date) { this.date = date; }
 	
 	@Column(name="price", nullable=false)
 	private BigDecimal price;
 	public BigDecimal getPrice() { return price; }
-	void setPrice(BigDecimal price) { this.price = price; }
+	public void setPrice(BigDecimal price) { this.price = price; }
 
 	public static Set<Price> getPrices(UUID uuid) {
 		Session session = PrintPlugin.getSessionFactory().openSession();

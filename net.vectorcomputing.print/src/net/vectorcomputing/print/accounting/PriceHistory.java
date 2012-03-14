@@ -42,40 +42,46 @@ public class PriceHistory {
 		
 	}
 	
+	public PriceHistory(UUID uuid) {
+		this.uuid = uuid;
+	}
+	
 	@Id
 	private UUID uuid;
 	public UUID getUUID() { return uuid; }
 	public void setUUID(UUID uuid) { this.uuid = uuid; }
 	
 	public static PriceHistory getPriceHistory(UUID uuid) {
-//		Set<Price> prices = Price.getPrices(uuid);
-//		return new PriceHistory(uuid, prices);
-		
 		Session session = PrintPlugin.getSessionFactory().openSession();
 		session.beginTransaction();
-//		Set<Price> prices = new HashSet<Price>();
-		List result = session.createQuery("from PriceHistory where uuid = :theuuid").setParameter("theuuid", uuid).list();
+		@SuppressWarnings("unchecked")
+		List<PriceHistory> result = (List<PriceHistory>) session.createQuery("from PriceHistory where uuid = :theuuid").setParameter("theuuid", uuid).list();
 		PriceHistory p = null;
-		for (PriceHistory priceHistory : (List<PriceHistory>) result) {
+		for (PriceHistory priceHistory : result) {
 			p = priceHistory;
 			System.out.println(priceHistory.getUUID());
 		}
+		
+		if (p == null) {
+			p = new PriceHistory(uuid);
+			session.save(p);
+		}
+		
 		session.getTransaction().commit();
 		session.close();
 		return p;
 	}
 	
-//	public PriceHistory(UUID uuid, Collection<Price> prices) {
-//		this.uuid = uuid;
-//		this.prices.addAll(prices);
-//	}
+	public static List<PriceHistory> getAll() {
+		Session session = PrintPlugin.getSessionFactory().openSession();
+		session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<PriceHistory> result = (List<PriceHistory>) session.createQuery("from PriceHistory").list();
+		session.getTransaction().commit();
+		session.close();
+		return result;
+	}
 	
-//	public PriceHistory(Collection<Price> prices) {
-//		for (Price price : prices) {
-//			data.put(price.getDate(), price.getPrice());
-//		}
-//	}
-		
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="Prices", joinColumns=@JoinColumn(name="uuid"))
 	private Set<Price> prices = new HashSet<Price>();
