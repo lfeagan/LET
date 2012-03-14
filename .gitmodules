@@ -1,0 +1,6 @@
+[submodule "depend/EH2"]
+	path = depend/EH2
+	url = git://github.com/lfeagan/EH2.git
+[submodule "depend/EHibernate"]
+	path = depend/EHibernate
+	url = git://github.com/lfeagan/EHibernate.git
