@@ -32,18 +32,27 @@ public class ColumnHeaders {
 			add(spec);
 		}
 	}
+	
+	public List<String> getNames() {
+		List<String> names = new ArrayList<String>(specs.size());
+		for (ColumnSpecification spec : specs) {
+			names.add(spec.getName());
+		}
+		return names;
+	}
 
 	public void configureTreeColumns(TreeViewer treeViewer) {
 		for (ColumnSpecification spec : specs) {
-			TreeViewerColumn column = new TreeViewerColumn(treeViewer, SWT.NONE);
-			column.getColumn().setText(spec.getName());
-			column.getColumn().setResizable(spec.isResizable());
-			column.getColumn().setMoveable(spec.isMovable());
-			column.getColumn().setWidth(spec.getWidth());
+			TreeViewerColumn viewerColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
+			TreeColumn treeColumn = viewerColumn.getColumn();
+			treeColumn.setText(spec.getName());
+			treeColumn.setResizable(spec.isResizable());
+			treeColumn.setMoveable(spec.isMovable());
+			treeColumn.setWidth(spec.getWidth());
 
 			if (spec.isHidden()) {
-				column.getColumn().setWidth(0);
-				column.getColumn().setResizable(false);
+				treeColumn.setWidth(0);
+				treeColumn.setResizable(false);
 			}
 
 		}
@@ -54,19 +63,19 @@ public class ColumnHeaders {
 	}
 
 	public void reconfigureTreeColumns(TreeViewer treeViewer) {
-		for (TreeColumn column : treeViewer.getTree().getColumns()) {
+		for (TreeColumn treeColumn : treeViewer.getTree().getColumns()) {
 			// Consider using the getData(String key) capability for finding the
 			// right mapping between columns and specifications
-			ColumnSpecification spec = getColumnSpecification(column.getText());
+			ColumnSpecification spec = getColumnSpecification(treeColumn.getText());
 			if (spec != null) {
-				column.setText(spec.getName());
-				column.setResizable(spec.isResizable());
-				column.setMoveable(spec.isMovable());
-				column.setWidth(spec.getWidth());
+				treeColumn.setText(spec.getName());
+				treeColumn.setResizable(spec.isResizable());
+				treeColumn.setMoveable(spec.isMovable());
+				treeColumn.setWidth(spec.getWidth());
 
 				if (spec.isHidden()) {
-					column.setWidth(0);
-					column.setResizable(false);
+					treeColumn.setWidth(0);
+					treeColumn.setResizable(false);
 				}
 			}
 		}
@@ -84,11 +93,17 @@ public class ColumnHeaders {
 
 	public void configureTableColumns(TableViewer tableViewer) {
 		for (ColumnSpecification spec : specs) {
-			TableViewerColumn column = new TableViewerColumn(tableViewer, SWT.NONE);
-			column.getColumn().setText(spec.getName());
-			column.getColumn().setResizable(spec.isResizable());
-			column.getColumn().setMoveable(spec.isMovable());
-			column.getColumn().setWidth(spec.getWidth());
+			TableViewerColumn viewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
+			TableColumn tableColumn = viewerColumn.getColumn();
+			tableColumn.setText(spec.getName());
+			tableColumn.setResizable(spec.isResizable());
+			tableColumn.setMoveable(spec.isMovable());
+			tableColumn.setWidth(spec.getWidth());
+
+			if (spec.isHidden()) {
+				tableColumn.setWidth(0);
+				tableColumn.setResizable(false);
+			}
 		}
 
 		Table table = tableViewer.getTable();
@@ -97,17 +112,17 @@ public class ColumnHeaders {
 	}
 
 	public void reconfigureTableColumns(TableViewer tableViewer) {
-		for (TableColumn column : tableViewer.getTable().getColumns()) {
-			ColumnSpecification spec = getColumnSpecification(column.getText());
+		for (TableColumn tableColumn : tableViewer.getTable().getColumns()) {
+			ColumnSpecification spec = getColumnSpecification(tableColumn.getText());
 			if (spec != null) {
-				column.setText(spec.getName());
-				column.setResizable(spec.isResizable());
-				column.setMoveable(spec.isMovable());
-				column.setWidth(spec.getWidth());
+				tableColumn.setText(spec.getName());
+				tableColumn.setResizable(spec.isResizable());
+				tableColumn.setMoveable(spec.isMovable());
+				tableColumn.setWidth(spec.getWidth());
 
 				if (spec.isHidden()) {
-					column.setWidth(0);
-					column.setResizable(false);
+					tableColumn.setWidth(0);
+					tableColumn.setResizable(false);
 				}
 			}
 		}
