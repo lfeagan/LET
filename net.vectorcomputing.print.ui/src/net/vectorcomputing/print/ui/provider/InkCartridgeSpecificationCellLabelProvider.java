@@ -15,13 +15,13 @@ public class InkCartridgeSpecificationCellLabelProvider extends CellLabelProvide
 			int index = cell.getColumnIndex();
 			switch (index){
 			case 0:
-				cell.setText(spec.getUUID().toString());
+				cell.setText(spec.getUuid().toString());
 				break;
 			case 1:
 				cell.setText(spec.getMaker());
 				break;
 			case 2:
-				cell.setText(spec.getName());
+				cell.setText(spec.getModel());
 				break;
 			case 3:
 				cell.setText(Double.toString(spec.getFillVolume()));

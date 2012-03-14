@@ -1,7 +1,7 @@
 package net.vectorcomputing.print.ui.dialog;
 
 import net.vectorcomputing.print.accounting.InkCartridgeSpecification;
-import net.vectorcomputing.print.ui.widget.InkCartridgeSpecificationsTree;
+import net.vectorcomputing.print.ui.widget.InkCartridgeSpecificationsComposite;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Shell;
 public class InkCartridgeSpecificationSelectionDialog extends Dialog {
 
 	private InkCartridgeSpecification specification = null;
-	private InkCartridgeSpecificationsTree specs;
+	private InkCartridgeSpecificationsComposite specs;
 	
 	/**
 	 * Create the dialog.
@@ -33,7 +33,7 @@ public class InkCartridgeSpecificationSelectionDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite container = (Composite) super.createDialogArea(parent);
 		container.setLayout(new FillLayout());
-		specs = new InkCartridgeSpecificationsTree(container, SWT.SINGLE);
+		specs = new InkCartridgeSpecificationsComposite(container, SWT.SINGLE);
 
 		return container;
 	}

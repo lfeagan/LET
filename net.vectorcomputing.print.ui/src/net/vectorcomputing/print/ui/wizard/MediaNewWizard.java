@@ -5,32 +5,32 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 
-public class InkCartridgeSpecificationNewWizard extends Wizard implements INewWizard {
+public class MediaNewWizard extends Wizard implements INewWizard {
+	
+	public static final String ID = "net.vectorcomputing.print.ui.wizard.media";
 
-	public static final String ID = "net.vectorcomputing.print.ui.wizard.inkCartridgeSpecification";
-	
-	InkCartridgeSpecificationWizardPage page;
-	
-	public InkCartridgeSpecificationNewWizard() {
-		setWindowTitle("New Ink Cartridge Specification");
+	private MediaWizardPage page;
+
+	public MediaNewWizard() {
+		setWindowTitle("New Media");
 	}
 
 	@Override
 	public void addPages() {
-		page = new InkCartridgeSpecificationWizardPage();
+		page = new MediaWizardPage();
 		addPage(page);
 	}
 
 	@Override
 	public boolean performFinish() {
 		try {
-			page.saveInkCartridgeSpecification();
+//			page.saveMedia();
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
-
+	
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		// TODO Auto-generated method stub

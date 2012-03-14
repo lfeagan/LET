@@ -2,17 +2,18 @@ package net.vectorcomputing.print.ui.provider;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
+import net.vectorcomputing.print.PrintPlugin;
 import net.vectorcomputing.print.accounting.InkCartridgeSpecification;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 public class InkCartridgeSpecificationsContentProvider implements ITreeContentProvider {
 
-	private Object[] EMPTY_ARRAY = Collections.EMPTY_LIST.toArray();
+	private static final Object[] EMPTY_ARRAY = Collections.EMPTY_LIST.toArray();
 
 	@Override
 	public void dispose() {
@@ -27,9 +28,13 @@ public class InkCartridgeSpecificationsContentProvider implements ITreeContentPr
 
 	@Override
 	public Object[] getElements(Object inputElement) {
-		if (inputElement instanceof SessionFactory) {
-			SessionFactory sf = (SessionFactory) inputElement;
-			Session session = sf.openSession();
+		if (inputElement instanceof UUID) {
+			// get the ink cartridge specification with the specified UUID
+			UUID uuid = (UUID) inputElement;
+			
+			return EMPTY_ARRAY;
+		} else {
+			Session session = PrintPlugin.getSessionFactory().openSession();
 			session.beginTransaction();
 			
 			List<InkCartridgeSpecification> result = (List<InkCartridgeSpecification>) session.createQuery("from InkCartridgeSpecification").list();
@@ -41,8 +46,6 @@ public class InkCartridgeSpecificationsContentProvider implements ITreeContentPr
 			session.close();
 			
 			return result.toArray();
-		} else {
-			return null;
 		}
 	}
 

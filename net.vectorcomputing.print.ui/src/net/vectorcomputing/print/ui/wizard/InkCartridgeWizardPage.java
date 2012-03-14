@@ -2,7 +2,6 @@ package net.vectorcomputing.print.ui.wizard;
 
 import net.vectorcomputing.print.PrintPlugin;
 import net.vectorcomputing.print.accounting.InkCartridge;
-import net.vectorcomputing.print.accounting.InkCartridgeSpecification;
 import net.vectorcomputing.print.ui.widget.InkCartridgeComposite;
 
 import org.eclipse.jface.wizard.WizardPage;
@@ -40,7 +39,7 @@ public class InkCartridgeWizardPage extends WizardPage {
 	public void saveInkCartridge() {
 		Session session = PrintPlugin.getSessionFactory().openSession();
 		session.beginTransaction();
-		InkCartridge ics = inkCartridgeComposite.build();
+		InkCartridge ics = inkCartridgeComposite.getInkCartridge();
 		session.save(ics);
 		session.getTransaction().commit();
 		session.close();

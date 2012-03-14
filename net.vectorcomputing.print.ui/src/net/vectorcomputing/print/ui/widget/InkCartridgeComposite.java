@@ -2,12 +2,12 @@ package net.vectorcomputing.print.ui.widget;
 
 import java.util.Calendar;
 
+import net.vectorcomputing.print.PrintPlugin;
 import net.vectorcomputing.print.accounting.InkCartridge;
 import net.vectorcomputing.print.accounting.InkCartridgeSpecification;
 import net.vectorcomputing.print.ui.dialog.InkCartridgeSpecificationSelectionDialog;
 
 import org.eclipse.nebula.widgets.calendarcombo.CalendarCombo;
-import org.eclipse.nebula.widgets.tablecombo.TableCombo;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -17,19 +17,23 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.hibernate.Session;
 
 public class InkCartridgeComposite extends Composite {
 	private final Composite parent;
+	private final Text specificationText;
+	private final Button specificationSelectButton;
 	private final Text uuidText;
-	private final Text idText;
+	private final Text nameText;
 	private final Text remainingVolumeText;
 	private final Text priceText;
 	private final Button remainingVolumeCustomButton;
 	private final CalendarCombo installDateCombo;
 	private final CalendarCombo disposeDateCombo;
 	
+	private InkCartridge cartridge = null;
 	private InkCartridgeSpecification specification = null;
-
+	
 	/**
 	 * Create the composite.
 	 * @param parent
@@ -43,20 +47,20 @@ public class InkCartridgeComposite extends Composite {
 		Label lblSpecification = new Label(this, SWT.NONE);
 		lblSpecification.setText("Specification");
 		
-		TableCombo tableCombo = new TableCombo(this, SWT.NONE);
-		tableCombo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		specificationText = new Text(this, SWT.NONE);
+		specificationText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		specificationText.setEditable(false);
 		
-		Button specificationSelectButton = new Button(this, SWT.NONE);
+		specificationSelectButton = new Button(this, SWT.NONE);
 		specificationSelectButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				InkCartridgeSpecificationSelectionDialog dialog = new InkCartridgeSpecificationSelectionDialog(InkCartridgeComposite.this.parent.getShell());
 				int returnCode = dialog.open();
-				if (returnCode == SWT.OK) {
+				if (returnCode != SWT.CANCEL) {
 					specification = dialog.getSelection();
-					System.out.println(specification.getMaker() + "-" + specification.getName());
+					updateSpecificationText();
 				}
-				
 			}
 		});
 		specificationSelectButton.setText("Select");
@@ -69,11 +73,11 @@ public class InkCartridgeComposite extends Composite {
 		uuidText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		new Label(this, SWT.NONE);
 		
-		Label idLabel = new Label(this, SWT.NONE);
-		idLabel.setText("ID");
+		Label nameLabel = new Label(this, SWT.NONE);
+		nameLabel.setText("Name");
 		
-		idText = new Text(this, SWT.BORDER);
-		idText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		nameText = new Text(this, SWT.BORDER);
+		nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		new Label(this, SWT.NONE);
 		
 		Label remainingVolumeLabel = new Label(this, SWT.NONE);
@@ -116,6 +120,62 @@ public class InkCartridgeComposite extends Composite {
 		priceCurrentButton.setToolTipText("Looks up the price based on the installation date.");
 		priceCurrentButton.setText("Lookup");
 	}
+	
+	public void setInkCartridge(InkCartridge inkCartridge) {
+		this.cartridge = inkCartridge;
+		fetchSpecification(inkCartridge);
+		updateButtons();
+		updateInput();
+	}
+	
+	private void fetchSpecification(InkCartridge inkCartridge) {
+		Session session = PrintPlugin.getSessionFactory().openSession();
+		session.beginTransaction();
+
+		specification = inkCartridge.getSpecification();
+		
+		session.getTransaction().commit();
+		session.close();
+	}
+		
+	public boolean isAlreadyCreated() {
+		if (cartridge == null) {
+			return false;
+		} else {
+			return cartridge.getUuid() != null;
+		}
+	}
+	
+	private void updateButtons() {
+		specificationSelectButton.setEnabled(!isAlreadyCreated());
+	}
+		
+	private void updateSpecificationText() {
+		if (specification != null && specificationText != null && !isDisposed()) {
+			specificationText.setText(specification.getMaker() + " " + specification.getModel() + " " + specification.getFillVolume() + " mL");
+		}
+	}
+	
+	private void updateInput() {
+		updateSpecificationText();
+		
+		if (cartridge.getUuid() != null) {
+			uuidText.setText(cartridge.getUuid().toString());
+		} else {
+			uuidText.setText(""); //$NON-NLS-1$
+		}
+		
+		if (cartridge.getName() != null) {
+			nameText.setText(cartridge.getName());
+		} else {
+			nameText.setText(""); //$NON-NLS-1$
+		}
+		
+		installDateCombo.setDate(cartridge.getInstallDate());
+		disposeDateCombo.setDate(cartridge.getDisposeDate());
+		
+		remainingVolumeText.setText(Double.toString(cartridge.getRemainingVolume()));
+	}
 
 	@Override
 	protected void checkSubclass() {
@@ -123,12 +183,12 @@ public class InkCartridgeComposite extends Composite {
 	}
 	
 	public String getId() {
-		return idText.getText();
+		return nameText.getText();
 	}
 	
 	public double getRemainingVolume() {
 		String remainingVolumeString = remainingVolumeText.getText();
-		if (remainingVolumeString != null) {
+		if (remainingVolumeString == null) {
 			return getSpecification().getFillVolume();
 		} else {
 			return Double.parseDouble(remainingVolumeString);
@@ -142,11 +202,23 @@ public class InkCartridgeComposite extends Composite {
 	private Calendar getInstallDate() {
 		return installDateCombo.getDate();
 	}
-
-	public InkCartridge build() {
-		InkCartridge ink = new InkCartridge(getId(), getSpecification(), getInstallDate());
-		ink.setRemainingVolume(getRemainingVolume());
-		return ink;
+	
+	public InkCartridge getInkCartridge() {
+		if (isAlreadyCreated()) {
+			updateCartridge();
+			return cartridge;
+		} else {
+			InkCartridge ink = new InkCartridge(getId(), getSpecification(), getInstallDate());
+			ink.setRemainingVolume(getRemainingVolume());
+			ink.setDisposeDate(disposeDateCombo.getDate());
+			return ink;
+		}
+	}
+	
+	private void updateCartridge() {
+		cartridge.setInstallDate(installDateCombo.getDate());
+		cartridge.setDisposeDate(disposeDateCombo.getDate());
+		cartridge.setRemainingVolume(getRemainingVolume());
 	}
 	
 }

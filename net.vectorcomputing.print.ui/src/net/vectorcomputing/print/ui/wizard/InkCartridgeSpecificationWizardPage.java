@@ -39,7 +39,7 @@ public class InkCartridgeSpecificationWizardPage extends WizardPage {
 	public void saveInkCartridgeSpecification() {
 		Session session = PrintPlugin.getSessionFactory().openSession();
 		session.beginTransaction();
-		InkCartridgeSpecification ics = inkCartridgeSpecificationComposite.build();
+		InkCartridgeSpecification ics = inkCartridgeSpecificationComposite.getInkCartridgeSpecification();
 		session.save(ics);
 		session.getTransaction().commit();
 		session.close();

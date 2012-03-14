@@ -7,7 +7,9 @@ import org.eclipse.ui.IWorkbench;
 
 public class InkCartridgeNewWizard extends Wizard implements INewWizard {
 
-	InkCartridgeWizardPage page;
+	public static final String ID = "net.vectorcomputing.print.ui.wizard.inkCartridge";
+
+	private InkCartridgeWizardPage page;
 	
 	public InkCartridgeNewWizard() {
 		setWindowTitle("New Ink Cartridge");

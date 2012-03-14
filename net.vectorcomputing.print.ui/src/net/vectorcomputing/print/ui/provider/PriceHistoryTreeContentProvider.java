@@ -1,17 +1,14 @@
 package net.vectorcomputing.print.ui.provider;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
 
-import net.vectorcomputing.print.PrintPlugin;
-import net.vectorcomputing.print.accounting.InkCartridge;
+import net.vectorcomputing.print.accounting.PriceHistory;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.hibernate.Session;
 
-public class InkCartridgesContentProvider implements ITreeContentProvider {
+public class PriceHistoryTreeContentProvider implements ITreeContentProvider {
 
 	private static final Object[] EMPTY_ARRAY = Collections.EMPTY_LIST.toArray();
 
@@ -29,30 +26,24 @@ public class InkCartridgesContentProvider implements ITreeContentProvider {
 	@Override
 	public Object[] getElements(Object inputElement) {
 		if (inputElement instanceof UUID) {
-			// get the ink cartridge with the specified UUID
 			UUID uuid = (UUID) inputElement;
-			
-			return EMPTY_ARRAY;
+			PriceHistory[] ph = new PriceHistory[1];
+			ph[0] = PriceHistory.getPriceHistory(uuid);
+			return ph;
 		} else {
-			// get all ink cartridges
-			Session session = PrintPlugin.getSessionFactory().openSession();
-			session.beginTransaction();
-			
-			List<InkCartridge> result = (List<InkCartridge>) session.createQuery("from InkCartridge").list();
-			for (InkCartridge cartridge : result) {
-				System.out.println(cartridge);
-			}
-
-			session.getTransaction().commit();
-			session.close();
-			
-			return result.toArray();	
+			// return the price history for all items
+			return PriceHistory.getAll().toArray();
 		}
 	}
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		return EMPTY_ARRAY;
+		if (parentElement instanceof PriceHistory) {
+			PriceHistory ph = (PriceHistory) parentElement;
+			return ph.getPrices().toArray();
+		} else {
+			return EMPTY_ARRAY;
+		}
 	}
 
 	@Override
@@ -62,7 +53,12 @@ public class InkCartridgesContentProvider implements ITreeContentProvider {
 
 	@Override
 	public boolean hasChildren(Object element) {
-		return false;
+		if (element instanceof PriceHistory) {
+			PriceHistory ph = (PriceHistory) element;
+			return (ph.getPrices().size() > 0);
+		} else {
+			return false;
+		}
 	}
-	
+
 }
