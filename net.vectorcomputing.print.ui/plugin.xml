@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <wizard
-            class="net.vectorcomputing.print.ui.wizard.InkCartridgeSpecificationNewWizard"
+            class="net.vectorcomputing.print.ui.wizard.CartridgeSpecificationNewWizard"
             id="net.vectorcomputing.print.ui.wizard.inkCartridgeSpecification"
             name="Ink Cartridge Specification"
             project="false">
@@ -13,7 +13,7 @@
          </description>
       </wizard>
       <wizard
-            class="net.vectorcomputing.print.ui.wizard.InkCartridgeNewWizard"
+            class="net.vectorcomputing.print.ui.wizard.CartridgeNewWizard"
             id="net.vectorcomputing.print.ui.wizard.inkCartridge"
             name="Ink Cartridge">
          <description>
@@ -32,12 +32,12 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="net.vectorcomputing.print.ui.editor.InkCartridgeEditor"
+            class="net.vectorcomputing.print.ui.editor.CartridgeEditor"
             id="net.vectorcomputing.print.ui.editor.inkCartridgeEditor"
             name="Ink Cartridge Editor">
       </editor>
       <editor
-            class="net.vectorcomputing.print.ui.editor.InkCartridgeSpecificationEditor"
+            class="net.vectorcomputing.print.ui.editor.CartridgeSpecificationEditor"
             default="false"
             id="net.vectorcomputing.print.ui.editor.inkCartridgeSpecificationEditor"
             name="Ink Cartridge Specification Editor">
@@ -46,14 +46,14 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="net.vectorcomputing.print.ui.viewers.InkCartridgeSpecificationsView"
-            id="net.vectorcomputing.print.ui.view.InkCartridgeSpecificationsView"
-            name="Ink Cartridge Specifications">
+            class="net.vectorcomputing.print.ui.viewers.CartridgeSpecificationsView"
+            id="net.vectorcomputing.print.ui.view.CartridgeSpecificationsView"
+            name="Cartridge Specifications">
       </view>
       <view
-            class="net.vectorcomputing.print.ui.viewers.InkCartridgesView"
-            id="net.vectorcomputing.print.ui.view.InkCartridgesView"
-            name="Ink Cartridges"
+            class="net.vectorcomputing.print.ui.viewers.CartridgesView"
+            id="net.vectorcomputing.print.ui.view.CartridgesView"
+            name="Cartridges"
             restorable="true">
       </view>
       <view
@@ -61,100 +61,116 @@
             id="net.vectorcomputing.print.ui.view.PriceHistoryView"
             name="Price History">
       </view>
+      <view
+            class="net.vectorcomputing.print.ui.viewers.MediaView"
+            id="net.vectorcomputing.print.ui.view.MediaView"
+            name="Media">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
       <command
             description="Create a new ink cartridge specification"
-            id="net.vectorcomputing.print.ui.newInkCartridgeSpecification"
+            id="net.vectorcomputing.print.ui.newCartridgeSpecification"
             name="New Ink Cartridge Specification">
       </command>
       <command
-            id="net.vectorcomputing.print.ui.editInkCartridgeSpecification"
+            id="net.vectorcomputing.print.ui.editCartridgeSpecification"
             name="Edit Ink Cartridge Specification">
       </command>
       <command
-            id="net.vectorcomputing.print.ui.deleteInkCartridgeSpecification"
+            id="net.vectorcomputing.print.ui.deleteCartridgeSpecification"
             name="Delete Ink Cartridge Specification(s)">
       </command>
       <command
-            id="net.vectorcomputing.print.ui.refreshInkCartridgeSpecificationsView"
+            id="net.vectorcomputing.print.ui.refreshCartridgeSpecificationsView"
             name="Refresh Ink Cartridge Specifications View">
       </command>
       <command
             description="Create a new ink cartridge"
-            id="net.vectorcomputing.print.ui.newInkCartridge"
+            id="net.vectorcomputing.print.ui.newCartridge"
             name="New Ink Cartridge">
       </command>
       <command
-            id="net.vectorcomputing.print.ui.editInkCartridge"
+            id="net.vectorcomputing.print.ui.editCartridge"
             name="Edit Ink Cartridge">
       </command>
       <command
-            id="net.vectorcomputing.print.ui.deleteInkCartridge"
+            id="net.vectorcomputing.print.ui.deleteCartridge"
             name="Delete Ink Cartridge(s)">
       </command>
       <command
-            id="net.vectorcomputing.print.ui.refreshInkCartridgesView"
-            name="Refresh Ink Cartridges View">
+            id="net.vectorcomputing.print.ui.refreshCartridgesView"
+            name="Refresh Cartridges View">
       </command>
       <command
             id="net.vectorcomputing.print.ui.refreshPriceHistoryView"
             name="Refresh Price History View">
       </command>
+      <command
+            id="net.vectorcomputing.print.ui.refreshMediaView"
+            name="Refresh Media View">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.commandImages">
       <image
-            commandId="net.vectorcomputing.print.ui.newInkCartridgeSpecification"
+            commandId="net.vectorcomputing.print.ui.newCartridgeSpecification"
             icon="icons/full/elcl16/add.gif">
       </image>
       <image
-            commandId="net.vectorcomputing.print.ui.deleteInkCartridgeSpecification"
+            commandId="net.vectorcomputing.print.ui.editCartridgeSpecification"
+            icon="icons/full/obj16/edit.png">
+      </image>
+      <image
+            commandId="net.vectorcomputing.print.ui.deleteCartridgeSpecification"
             icon="icons/full/elcl16/delete.gif">
       </image>
       <image
-            commandId="net.vectorcomputing.print.ui.refreshInkCartridgeSpecificationsView"
+            commandId="net.vectorcomputing.print.ui.refreshCartridgeSpecificationsView"
             icon="icons/full/elcl16/refresh.gif">
       </image>
       <image
-            commandId="net.vectorcomputing.print.ui.newInkCartridge"
+            commandId="net.vectorcomputing.print.ui.newCartridge"
             icon="icons/full/elcl16/add.gif">
       </image>
       <image
-            commandId="net.vectorcomputing.print.ui.refreshInkCartridgesView"
+            commandId="net.vectorcomputing.print.ui.refreshCartridgesView"
             icon="icons/full/elcl16/refresh.gif">
       </image>
       <image
-            commandId="net.vectorcomputing.print.ui.deleteInkCartridge"
+            commandId="net.vectorcomputing.print.ui.editCartridge"
+            icon="icons/full/obj16/edit.png">
+      </image>
+      <image
+            commandId="net.vectorcomputing.print.ui.deleteCartridge"
             icon="icons/full/elcl16/delete.gif">
       </image>
       <image
             commandId="net.vectorcomputing.print.ui.refreshPriceHistoryView"
             icon="icons/full/elcl16/refresh.gif">
       </image>
+      <image
+            commandId="net.vectorcomputing.print.ui.refreshMediaView"
+            icon="icons/full/elcl16/refresh.gif">
+      </image>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="net.vectorcomputing.print.ui.handler.NewInkCartridgeSpecificationHandler"
-            commandId="net.vectorcomputing.print.ui.newInkCartridgeSpecification">
+            class="net.vectorcomputing.print.ui.handler.NewCartridgeSpecificationHandler"
+            commandId="net.vectorcomputing.print.ui.newCartridgeSpecification">
       </handler>
       <handler
-            class="net.vectorcomputing.print.ui.handler.EditInkCartridgeSpecificationHandler"
-            commandId="net.vectorcomputing.print.ui.editInkCartridgeSpecification">
-      </handler>
-      <handler
-            class="net.vectorcomputing.print.ui.handler.DeleteInkCartridgeSpecificationHandler"
-            commandId="net.vectorcomputing.print.ui.deleteInkCartridgeSpecification">
+            class="net.vectorcomputing.print.ui.handler.EditCartridgeSpecificationHandler"
+            commandId="net.vectorcomputing.print.ui.editCartridgeSpecification">
          <activeWhen>
             <with
                   variable="selection">
                <iterate
-                     ifEmpty="false"
                      operator="and">
                   <instanceof
-                        value="net.vectorcomputing.print.accounting.InkCartridgeSpecification">
+                        value="net.vectorcomputing.print.accounting.CartridgeSpecification">
                   </instanceof>
                </iterate>
             </with>
@@ -166,27 +182,55 @@
                      ifEmpty="false"
                      operator="and">
                   <instanceof
-                        value="net.vectorcomputing.print.accounting.InkCartridgeSpecification">
+                        value="net.vectorcomputing.print.accounting.CartridgeSpecification">
                   </instanceof>
                </iterate>
             </with>
          </enabledWhen>
       </handler>
       <handler
-            class="net.vectorcomputing.print.ui.handler.RefreshInkCartridgeSpecificationsViewHandler"
-            commandId="net.vectorcomputing.print.ui.refreshInkCartridgeSpecificationsView">
+            class="net.vectorcomputing.print.ui.handler.DeleteCartridgeSpecificationHandler"
+            commandId="net.vectorcomputing.print.ui.deleteCartridgeSpecification">
+         <activeWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
+                  <instanceof
+                        value="net.vectorcomputing.print.accounting.CartridgeSpecification">
+                  </instanceof>
+               </iterate>
+            </with>
+         </activeWhen>
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
+                  <instanceof
+                        value="net.vectorcomputing.print.accounting.CartridgeSpecification">
+                  </instanceof>
+               </iterate>
+            </with>
+         </enabledWhen>
       </handler>
       <handler
-            class="net.vectorcomputing.print.ui.handler.NewInkCartridgeHandler"
-            commandId="net.vectorcomputing.print.ui.newInkCartridge">
+            class="net.vectorcomputing.print.ui.handler.RefreshCartridgeSpecificationsViewHandler"
+            commandId="net.vectorcomputing.print.ui.refreshCartridgeSpecificationsView">
       </handler>
       <handler
-            class="net.vectorcomputing.print.ui.handler.DeleteInkCartridgeHandler"
-            commandId="net.vectorcomputing.print.ui.deleteInkCartridge">
+            class="net.vectorcomputing.print.ui.handler.NewCartridgeHandler"
+            commandId="net.vectorcomputing.print.ui.newCartridge">
       </handler>
       <handler
-            class="net.vectorcomputing.print.ui.handler.EditInkCartridgeHandler"
-            commandId="net.vectorcomputing.print.ui.editInkCartridge">
+            class="net.vectorcomputing.print.ui.handler.DeleteCartridgeHandler"
+            commandId="net.vectorcomputing.print.ui.deleteCartridge">
+      </handler>
+      <handler
+            class="net.vectorcomputing.print.ui.handler.EditCartridgeHandler"
+            commandId="net.vectorcomputing.print.ui.editCartridge">
          <activeWhen>
             <with
                   variable="selection">
@@ -198,7 +242,7 @@
                         ifEmpty="false"
                         operator="and">
                      <instanceof
-                           value="net.vectorcomputing.print.accounting.InkCartridge">
+                           value="net.vectorcomputing.print.accounting.Cartridge">
                      </instanceof>
                   </iterate>
                </and>
@@ -215,7 +259,7 @@
                         ifEmpty="false"
                         operator="and">
                      <instanceof
-                           value="net.vectorcomputing.print.accounting.InkCartridge">
+                           value="net.vectorcomputing.print.accounting.Cartridge">
                      </instanceof>
                   </iterate>
                </and>
@@ -223,53 +267,77 @@
          </enabledWhen>
       </handler>
       <handler
-            class="net.vectorcomputing.print.ui.handler.RefreshInkCartridgesViewHandler"
-            commandId="net.vectorcomputing.print.ui.refreshInkCartridgesView">
+            class="net.vectorcomputing.print.ui.handler.RefreshCartridgesViewHandler"
+            commandId="net.vectorcomputing.print.ui.refreshCartridgesView">
       </handler>
       <handler
             class="net.vectorcomputing.print.ui.handler.RefreshPriceHistoryViewHandler"
             commandId="net.vectorcomputing.print.ui.refreshPriceHistoryView">
+      </handler>
+      <handler
+            class="net.vectorcomputing.print.ui.handler.RefreshMediaViewHandler"
+            commandId="net.vectorcomputing.print.ui.refreshMediaView">
       </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
-            locationURI="toolbar:net.vectorcomputing.print.ui.view.InkCartridgeSpecificationsView?after=commands">
+            locationURI="toolbar:net.vectorcomputing.print.ui.view.CartridgeSpecificationsView?after=commands">
          <command
-               commandId="net.vectorcomputing.print.ui.newInkCartridgeSpecification"
+               commandId="net.vectorcomputing.print.ui.newCartridgeSpecification"
                style="push">
          </command>
          <command
-               commandId="net.vectorcomputing.print.ui.editInkCartridgeSpecification"
+               commandId="net.vectorcomputing.print.ui.editCartridgeSpecification"
                style="push">
          </command>
          <command
-               commandId="net.vectorcomputing.print.ui.deleteInkCartridgeSpecification"
+               commandId="net.vectorcomputing.print.ui.deleteCartridgeSpecification"
                style="push">
          </command>
          <command
-               commandId="net.vectorcomputing.print.ui.refreshInkCartridgeSpecificationsView"
+               commandId="net.vectorcomputing.print.ui.refreshCartridgeSpecificationsView"
                style="push">
          </command>
       </menuContribution>
       <menuContribution
             allPopups="false"
-            locationURI="toolbar:net.vectorcomputing.print.ui.view.InkCartridgesView?after=commands">
+            locationURI="popup:net.vectorcomputing.print.ui.view.CartridgeSpecificationsView?after=commands">
          <command
-               commandId="net.vectorcomputing.print.ui.newInkCartridge"
+               commandId="net.vectorcomputing.print.ui.newCartridgeSpecification"
                style="push">
          </command>
          <command
-               commandId="net.vectorcomputing.print.ui.editInkCartridge"
+               commandId="net.vectorcomputing.print.ui.editCartridgeSpecification"
                style="push">
          </command>
          <command
-               commandId="net.vectorcomputing.print.ui.deleteInkCartridge"
+               commandId="net.vectorcomputing.print.ui.deleteCartridgeSpecification"
                style="push">
          </command>
          <command
-               commandId="net.vectorcomputing.print.ui.refreshInkCartridgesView"
+               commandId="net.vectorcomputing.print.ui.newCartridge"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:net.vectorcomputing.print.ui.view.CartridgesView?after=commands">
+         <command
+               commandId="net.vectorcomputing.print.ui.newCartridge"
+               style="push">
+         </command>
+         <command
+               commandId="net.vectorcomputing.print.ui.editCartridge"
+               style="push">
+         </command>
+         <command
+               commandId="net.vectorcomputing.print.ui.deleteCartridge"
+               style="push">
+         </command>
+         <command
+               commandId="net.vectorcomputing.print.ui.refreshCartridgesView"
                style="push">
          </command>
       </menuContribution>
@@ -278,6 +346,14 @@
             locationURI="toolbar:net.vectorcomputing.print.ui.view.PriceHistoryView?after=commands">
          <command
                commandId="net.vectorcomputing.print.ui.refreshPriceHistoryView"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:net.vectorcomputing.print.ui.view.MediaView?after=commands">
+         <command
+               commandId="net.vectorcomputing.print.ui.refreshMediaView"
                style="push">
          </command>
       </menuContribution>

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import net.vectorcomputing.print.accounting.Media;
+import net.vectorcomputing.print.accounting.Finish;
 
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -19,7 +20,7 @@ public class MediaFinishCombo extends ComboViewer {
 		super(parent);
 		setContentProvider(new MediaFinishContentProvider());
 		setLabelProvider(new MediaFinishLabelProvider());
-		setInput(Media.Finish.values());
+		setInput(Finish.getAll());
 	}
 
 	private static class MediaFinishContentProvider implements IStructuredContentProvider {
@@ -27,10 +28,12 @@ public class MediaFinishCombo extends ComboViewer {
 		@SuppressWarnings("rawtypes")
 		@Override
 		public Object[] getElements(Object inputElement) {
-			if (inputElement instanceof Media.Finish) {
-				Media.Finish[] finishes = new Media.Finish[1];
-				finishes[0] = ((Media.Finish) inputElement);
+			if (inputElement instanceof Finish) {
+				Finish[] finishes = new Finish[1];
+				finishes[0] = ((Finish) inputElement);
 				return finishes;
+			} else if (inputElement instanceof Finish[]) {
+				return ((Finish[]) inputElement);
 			} else if (inputElement instanceof Collection) {
 				return ((Collection) inputElement).toArray();
 			} else {
@@ -44,9 +47,9 @@ public class MediaFinishCombo extends ComboViewer {
 	private static class MediaFinishLabelProvider implements ILabelProvider {
 		@Override
 		public String getText(Object element) {
-			if (element instanceof Media.Finish) {
-				Media.Finish finish = (Media.Finish) element;
-				return finish.name();
+			if (element instanceof Finish) {
+				Finish finish = (Finish) element;
+				return finish.getName();
 			} else {
 				return null;
 			}

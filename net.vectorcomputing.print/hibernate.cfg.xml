@@ -42,15 +42,21 @@
 
 		<!-- Drop and re-create the database schema on startup -->
 		<!--property name="hbm2ddl.auto">create</property-->
-		<property name="hbm2ddl.auto">update</property>
+		<property name="hbm2ddl.auto">create</property>
 
 		<!-- Names the annotated entity class -->
-		<mapping class="net.vectorcomputing.print.accounting.InkCartridgeSpecification" />
-		<mapping class="net.vectorcomputing.print.accounting.InkCartridge" />
+		<mapping class="net.vectorcomputing.print.accounting.Cartridge" />
+		<mapping class="net.vectorcomputing.print.accounting.CartridgeSpecification" />
+		<mapping class="net.vectorcomputing.print.accounting.CartridgeUsage" />
+		<mapping class="net.vectorcomputing.print.accounting.Finish" />
 		<mapping class="net.vectorcomputing.print.accounting.Media" />
+		<mapping class="net.vectorcomputing.print.accounting.MediaUsage" />
 		<mapping class="net.vectorcomputing.print.accounting.Price" />
 		<mapping class="net.vectorcomputing.print.accounting.PriceHistory" />
-
+		<mapping class="net.vectorcomputing.print.accounting.Printer" />
+		<mapping class="net.vectorcomputing.print.accounting.PrinterSpecification" />
+		<mapping class="net.vectorcomputing.print.accounting.Size" />
+		
 	</session-factory>
 
 </hibernate-configuration>

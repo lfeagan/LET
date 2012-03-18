@@ -1,8 +1,8 @@
 package net.vectorcomputing.print.accounting;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
@@ -21,6 +21,7 @@ import javax.persistence.Transient;
 
 import net.vectorcomputing.base.number.DateRangeWithValue;
 import net.vectorcomputing.print.PrintPlugin;
+import net.vectorcomputing.print.preferences.PrintPreferences;
 
 import org.hibernate.Session;
 import org.hibernate.annotations.DynamicUpdate;
@@ -32,8 +33,6 @@ import org.hibernate.annotations.Table;
 @SelectBeforeUpdate
 @Table(appliesTo="PriceHistory")
 public class PriceHistory {
-	
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 	
 	/**
 	 * Default constuctor as required by Hibernate. Not for application use.
@@ -54,22 +53,18 @@ public class PriceHistory {
 	public static PriceHistory getPriceHistory(UUID uuid) {
 		Session session = PrintPlugin.getSessionFactory().openSession();
 		session.beginTransaction();
-		@SuppressWarnings("unchecked")
-		List<PriceHistory> result = (List<PriceHistory>) session.createQuery("from PriceHistory where uuid = :theuuid").setParameter("theuuid", uuid).list();
-		PriceHistory p = null;
-		for (PriceHistory priceHistory : result) {
-			p = priceHistory;
-			System.out.println(priceHistory.getUUID());
-		}
-		
-		if (p == null) {
-			p = new PriceHistory(uuid);
-			session.save(p);
+		Object result =  session.createQuery("from PriceHistory where uuid = :theuuid").setParameter("theuuid", uuid).uniqueResult();
+		PriceHistory ph;
+		if (result != null) {
+			ph = (PriceHistory) result;
+		} else {
+			ph = new PriceHistory(uuid);
+			session.save(ph);
 		}
 		
 		session.getTransaction().commit();
 		session.close();
-		return p;
+		return ph;
 	}
 	
 	public static List<PriceHistory> getAll() {
@@ -87,9 +82,15 @@ public class PriceHistory {
 	private Set<Price> prices = new HashSet<Price>();
 	public Set<Price> getPrices() { return prices; }
 	@SuppressWarnings("unused")
-	private void setPrices(Set<Price> prices) {
+	public void setPrices(Collection<Price> prices) {
 		System.err.println("setting prices");
-		this.prices = prices;
+		this.prices.clear();
+		this.prices.addAll(prices);
+		rebuildData();
+	}
+	
+	private void rebuildData() {
+		data.clear();
 		for (Price price : prices) {
 			data.put(price.getDate(), price.getPrice());
 		}
@@ -97,6 +98,14 @@ public class PriceHistory {
 	
 	@Transient
 	private TreeMap<Calendar, BigDecimal> data = new TreeMap<Calendar, BigDecimal>();
+
+//	public Set<Price> getPrices() {
+//		Set<Price> prices = new HashSet<Price>();
+//		for (Entry<Calendar, BigDecimal> entry : data.entrySet()) {
+//			prices.add(new Price(entry.getKey(), entry.getValue()));
+//		}
+//		return prices;
+//	}
 	
 	/**
 	 * Adds a new price at the current time.
@@ -122,9 +131,11 @@ public class PriceHistory {
 	}
 	
 	public BigDecimal getCost(Calendar when) {
+		rebuildData();
 		Entry<Calendar,BigDecimal> entry = data.floorEntry(when);
 		if (entry == null) {
-			throw new IllegalArgumentException("no data for date specified");
+			return BigDecimal.ZERO;
+//			throw new IllegalArgumentException("no data for date specified");
 		}
 		
 		return entry.getValue();
@@ -203,7 +214,7 @@ public class PriceHistory {
 				beforeFirst = true;
 			}
 			sb.append('[');
-			sb.append(dateFormat.format(calendar.getTime()));
+			sb.append(PrintPreferences.getDateFormat().format(calendar.getTime()));
 			sb.append(',');
 			BigDecimal price = data.get(calendar);
 			sb.append(price);

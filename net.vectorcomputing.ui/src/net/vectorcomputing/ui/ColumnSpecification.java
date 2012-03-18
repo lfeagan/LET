@@ -1,7 +1,6 @@
 package net.vectorcomputing.ui;
 
-
-public class ColumnSpecification {
+public class ColumnSpecification implements IColumnSpecification<ColumnSpecification> {
 
 	private static final int DEFAULT_WIDTH = 100;
 	private static final int DEFAULT_WIDTH_MINIMUM = 0;
@@ -22,19 +21,23 @@ public class ColumnSpecification {
 		this.name = name;
 	}
 	
+	@Override
 	public String getName() {
 		return name;
 	}
 	
+	@Override
 	public ColumnSpecification setName(String name) {
 		this.name = name;
 		return this;
 	}
 	
+	@Override
 	public int getWidth() {
 		return width;
 	}
 	
+	@Override
 	public ColumnSpecification setWidth(int width) {
 		if (width < width_minimum) {
 			throw new IllegalArgumentException("width is less than minimum");
@@ -46,28 +49,34 @@ public class ColumnSpecification {
 		return this;
 	}
 	
+	@Override
 	public boolean isHidden() {
 		return hidden;
 	}
 	
+	@Override
 	public ColumnSpecification setHidden(boolean hidden) {
 		this.hidden = hidden;
 		return this;
 	}
 	
+	@Override
 	public boolean isResizable() {
 		return resizable;
 	}
 	
+	@Override
 	public ColumnSpecification setResizable(boolean resizable) {
 		this.resizable = resizable;
 		return this;
 	}
 	
+	@Override
 	public boolean isMovable() {
 		return movable;
 	}
 	
+	@Override
 	public ColumnSpecification setMovable(boolean movable) {
 		this.movable = movable;
 		return this;

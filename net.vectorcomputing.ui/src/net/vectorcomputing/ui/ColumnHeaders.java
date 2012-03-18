@@ -15,34 +15,38 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
-public class ColumnHeaders {
+public class ColumnHeaders<CS extends IColumnSpecification> {
 
-	private final List<ColumnSpecification> specs = new ArrayList<ColumnSpecification>();
+	private final List<CS> specs = new ArrayList<CS>();
 
-	public void add(ColumnSpecification spec) {
+	public void add(CS spec) {
 		specs.add(spec);
 	}
 
-	public void addAll(Collection<ColumnSpecification> specs) {
+	public void addAll(Collection<CS> specs) {
 		this.specs.addAll(specs);
 	}
 
-	public void addAll(ColumnSpecification[] specs) {
-		for (ColumnSpecification spec : specs) {
+	public void addAll(CS[] specs) {
+		for (CS spec : specs) {
 			add(spec);
 		}
 	}
 	
+	public boolean isEmpty() {
+		return specs.isEmpty();
+	}
+	
 	public List<String> getNames() {
 		List<String> names = new ArrayList<String>(specs.size());
-		for (ColumnSpecification spec : specs) {
+		for (IColumnSpecification spec : specs) {
 			names.add(spec.getName());
 		}
 		return names;
 	}
 
 	public void configureTreeColumns(TreeViewer treeViewer) {
-		for (ColumnSpecification spec : specs) {
+		for (IColumnSpecification spec : specs) {
 			TreeViewerColumn viewerColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
 			TreeColumn treeColumn = viewerColumn.getColumn();
 			treeColumn.setText(spec.getName());
@@ -66,7 +70,7 @@ public class ColumnHeaders {
 		for (TreeColumn treeColumn : treeViewer.getTree().getColumns()) {
 			// Consider using the getData(String key) capability for finding the
 			// right mapping between columns and specifications
-			ColumnSpecification spec = getColumnSpecification(treeColumn.getText());
+			IColumnSpecification spec = getColumnSpecification(treeColumn.getText());
 			if (spec != null) {
 				treeColumn.setText(spec.getName());
 				treeColumn.setResizable(spec.isResizable());
@@ -82,8 +86,8 @@ public class ColumnHeaders {
 
 	}
 
-	public ColumnSpecification getColumnSpecification(String name) {
-		for (ColumnSpecification spec : specs) {
+	public IColumnSpecification getColumnSpecification(String name) {
+		for (IColumnSpecification spec : specs) {
 			if (spec.getName().equals(name)) {
 				return spec;
 			}
@@ -92,7 +96,7 @@ public class ColumnHeaders {
 	}
 
 	public void configureTableColumns(TableViewer tableViewer) {
-		for (ColumnSpecification spec : specs) {
+		for (IColumnSpecification spec : specs) {
 			TableViewerColumn viewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 			TableColumn tableColumn = viewerColumn.getColumn();
 			tableColumn.setText(spec.getName());
@@ -113,7 +117,7 @@ public class ColumnHeaders {
 
 	public void reconfigureTableColumns(TableViewer tableViewer) {
 		for (TableColumn tableColumn : tableViewer.getTable().getColumns()) {
-			ColumnSpecification spec = getColumnSpecification(tableColumn.getText());
+			IColumnSpecification spec = getColumnSpecification(tableColumn.getText());
 			if (spec != null) {
 				tableColumn.setText(spec.getName());
 				tableColumn.setResizable(spec.isResizable());

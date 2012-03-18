@@ -1,52 +1,96 @@
 package net.vectorcomputing.print.accounting;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import net.vectorcomputing.print.PrintPlugin;
+
+import org.hibernate.Session;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@DynamicUpdate
+@DynamicInsert
+@Table(name="Printer")
 public class Printer {
+	
+	@Id
+	@GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid2")
+	@Column(name = "uuid", unique = true, nullable=false)
+	private UUID uuid;
+	public UUID getUuid() { return uuid; }
+	@SuppressWarnings("unused")
+	private void setUuid(UUID uuid) { this.uuid = uuid; }
+	
+	@Column(name="name", length=128, nullable=false, unique=true)
+	private String name;
+	public String getName() { return name; }
+	@SuppressWarnings("unused")
+	private void setName(String name) { this.name = name; }
 
-	private static final List<Printer> printers = new ArrayList<Printer>();
-	
-	private final UUID uuid;
-	private final String name;
-	private final Set<InkCartridgeSpecification> cartridgeSpecifications = new HashSet<InkCartridgeSpecification>();
-	private final InkSet loadedCartridges = new InkSet();
-	
-	public Printer getPrinter(UUID uuid) {
-		for (Printer printer : printers) {
-			if (printer.getUUID().equals(uuid)) {
-				return printer;
-			}
-		}
-		return null;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="cartridge_fk")
+	private final Set<Cartridge> cartridges = new HashSet<Cartridge>();
+	public Set<Cartridge> getCartridges() {
+		return cartridges;
+	}
+	void addCartridge(Cartridge cartridge) {
+		cartridges.add(cartridge);
+	}
+	void setCartridges(Set<Cartridge> cartridges) {
+		cartridges.addAll(cartridges);
 	}
 	
-	public Printer(UUID uuid, String name, Collection<? extends InkCartridgeSpecification> cartridgeSpecifications, Collection<? extends InkCartridge> loadedCartridges) {
-		this.uuid = uuid;
+	@ManyToOne(optional=false)
+	@JoinColumn(name="specification_fk", updatable=false)
+	private PrinterSpecification specification;
+	public PrinterSpecification getSpecification() {
+		return specification;
+	}
+	void setSpecification(PrinterSpecification specification) {
+		this.specification = specification;
+	}
+	
+	public Printer(PrinterSpecification specification, String name, Collection<? extends Cartridge> loadedCartridges) {
+		this.specification = specification;
 		this.name = name;
-		this.cartridgeSpecifications.addAll(cartridgeSpecifications);
-//		this.loadedCartridges.addAll(loadedCartridges);
-	}
-	
-	public UUID getUUID() {
-		return uuid;
-	}
-	
-	public String getName() {
-		return this.name;
+		this.cartridges.addAll(loadedCartridges);
 	}
 
-	public Set<InkCartridgeSpecification> getCartridgeSpecifications() {
-		return Collections.unmodifiableSet(cartridgeSpecifications);
+	public static Printer get(UUID uuid) {
+		Session session = PrintPlugin.getSessionFactory().openSession();
+		session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		Printer result = (Printer) session.createQuery("from Printer where uuid = :theuuid").setParameter("theuuid", uuid).uniqueResult();
+		session.getTransaction().commit();
+		session.close();
+		return result;
 	}
 	
-//	public Set<InkCartridge> getLoadedCartridges() {
-//		return Collections.unmodifiableSet(loadedCartridges);
-//	}
-		
+	public static final List<Printer> getAll() {
+		Session session = PrintPlugin.getSessionFactory().openSession();
+		session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<Printer> result = (List<Printer>) session.createQuery("from Printer").list();
+		session.getTransaction().commit();
+		session.close();
+		return result;
+	}
+	
 }

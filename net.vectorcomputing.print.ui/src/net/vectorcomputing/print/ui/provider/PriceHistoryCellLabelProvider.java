@@ -1,18 +1,16 @@
 package net.vectorcomputing.print.ui.provider;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import net.vectorcomputing.print.accounting.Price;
 import net.vectorcomputing.print.accounting.PriceHistory;
+import net.vectorcomputing.print.preferences.PrintPreferences;
 
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ViewerCell;
 
 public class PriceHistoryCellLabelProvider extends CellLabelProvider {
 
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	
 	@Override
 	public void update(ViewerCell cell) {
 		Object element = cell.getElement();
@@ -24,7 +22,7 @@ public class PriceHistoryCellLabelProvider extends CellLabelProvider {
 			case 1: // Date
 				Calendar date = price.getDate();
 				if (date != null) {
-					cell.setText(dateFormat.format(date.getTime()));
+					cell.setText(PrintPreferences.getDateFormat().format(date.getTime()));
 				}
 				break;
 			case 2: // Price

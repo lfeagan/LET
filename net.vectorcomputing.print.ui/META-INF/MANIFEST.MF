@@ -23,3 +23,12 @@ Require-Bundle: org.eclipse.ui,
  net.vectorcomputing.ui;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
+Export-Package: net.vectorcomputing.print.ui,
+ net.vectorcomputing.print.ui.column,
+ net.vectorcomputing.print.ui.dialog,
+ net.vectorcomputing.print.ui.editor,
+ net.vectorcomputing.print.ui.handler,
+ net.vectorcomputing.print.ui.provider,
+ net.vectorcomputing.print.ui.viewers,
+ net.vectorcomputing.print.ui.widget,
+ net.vectorcomputing.print.ui.wizard

@@ -24,7 +24,7 @@ public class MediaNewWizard extends Wizard implements INewWizard {
 	@Override
 	public boolean performFinish() {
 		try {
-//			page.saveMedia();
+			page.save();
 			return true;
 		} catch (Exception e) {
 			return false;

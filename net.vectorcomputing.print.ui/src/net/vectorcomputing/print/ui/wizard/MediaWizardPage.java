@@ -29,5 +29,9 @@ public class MediaWizardPage extends WizardPage {
 		
 		setControl(container);
 	}
+	
+	public void save() {
+		
+	}
 
 }

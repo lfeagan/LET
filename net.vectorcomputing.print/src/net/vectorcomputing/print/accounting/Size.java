@@ -23,6 +23,10 @@ public class Size {
 	@SuppressWarnings("unused")
 	private void setLength(double length) { this.length = length; }
 	
+	/**
+	 * Default no-arg constructor for use by Hibernate/JPA. Initializes width
+	 * and length to zero.
+	 */
 	public Size() {
 		this.width = 0;
 		this.length = 0;

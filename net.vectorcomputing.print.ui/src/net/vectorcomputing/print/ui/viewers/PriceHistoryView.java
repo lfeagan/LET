@@ -34,7 +34,7 @@ public class PriceHistoryView extends ViewPart {
 		Composite container = new Composite(parent, SWT.NONE);
 		container.setLayout(new FillLayout(SWT.HORIZONTAL));
 
-		priceHistoryTree = new PriceHistoryComposite(container, SWT.NONE, uuid);		
+		priceHistoryTree = new PriceHistoryComposite(container, SWT.NONE, uuid);	
 
 		createActions();
 		initializeToolBar();

@@ -31,6 +31,8 @@ public class MediaTypeCombo extends ComboViewer {
 				Media.Type[] types = new Media.Type[1];
 				types[0] = ((Media.Type) inputElement);
 				return types;
+			} else if (inputElement instanceof Media.Type[]) {
+				return ((Media.Type[]) inputElement);
 			} else if (inputElement instanceof Collection) {
 				return ((Collection) inputElement).toArray();
 			} else {

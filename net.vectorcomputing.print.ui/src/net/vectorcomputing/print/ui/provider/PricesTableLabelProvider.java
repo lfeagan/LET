@@ -1,21 +1,15 @@
 package net.vectorcomputing.print.ui.provider;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import net.vectorcomputing.print.accounting.Price;
+import net.vectorcomputing.print.preferences.PrintPreferences;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 
 public class PricesTableLabelProvider implements ITableLabelProvider {
-
-	private final SimpleDateFormat dateFormat;
-
-	public PricesTableLabelProvider(SimpleDateFormat dateFormat) {
-		this.dateFormat = dateFormat;
-	}
 	
 	@Override
 	public void addListener(ILabelProviderListener listener) {
@@ -51,7 +45,7 @@ public class PricesTableLabelProvider implements ITableLabelProvider {
 			case 0: // Date
 				Calendar date = price.getDate();
 				if (date != null) {
-					return dateFormat.format(date.getTime());
+					return PrintPreferences.getDateFormat().format(date.getTime());
 				}
 				break;
 			case 1: // Price

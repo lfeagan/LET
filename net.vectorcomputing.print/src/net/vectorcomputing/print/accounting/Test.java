@@ -15,16 +15,16 @@ public class Test {
 		Session session = PrintPlugin.getSessionFactory().openSession();
 		session.beginTransaction();
 		
-		session.save(new InkCartridgeSpecification("Epson", "Cyan", 350));
-		session.save(new InkCartridgeSpecification("Epson", "Magenta", 350));
-		session.save(new InkCartridgeSpecification("Epson", "Yellow", 350));
-		session.save(new InkCartridgeSpecification("Epson", "Black", 350));
-		session.save(new InkCartridgeSpecification("Epson", "Foo", 351));
+		session.save(new CartridgeSpecification("Epson", "Cyan", 350));
+		session.save(new CartridgeSpecification("Epson", "Magenta", 350));
+		session.save(new CartridgeSpecification("Epson", "Yellow", 350));
+		session.save(new CartridgeSpecification("Epson", "Black", 350));
+		session.save(new CartridgeSpecification("Epson", "Foo", 351));
 		
-		InkCartridgeSpecification cs = new InkCartridgeSpecification("Epson", "Bar", 352);
+		CartridgeSpecification cs = new CartridgeSpecification("Epson", "Bar", 352);
 		session.save(cs);
 		
-		InkCartridge ic = new InkCartridge("my id", cs, Calendar.getInstance());
+		Cartridge ic = new Cartridge("my id", cs, Calendar.getInstance());
 		session.save(ic);
 		session.getTransaction().commit();
 		session.close();
@@ -32,10 +32,13 @@ public class Test {
 		// now lets pull events from the database and list them
 		session = PrintPlugin.getSessionFactory().openSession();
 		session.beginTransaction();
-		List result = session.createQuery("from InkCartridgeSpecification").list();
-		for (InkCartridgeSpecification ics : (List<InkCartridgeSpecification>) result) {
+		List result = session.createQuery("from CartridgeSpecification").list();
+		for (CartridgeSpecification ics : (List<CartridgeSpecification>) result) {
 			System.out.println(ics.toString());
+			
+			ics.getCartridges();
 		}
+		
 		session.getTransaction().commit();
 		session.close();
 	}
@@ -49,8 +52,8 @@ public class Test {
 		
 		// System.out.println(newUUID());
 //		try {
-//			InkCartridgeSpecification inkspec = InkCartridgeSpecifications.create("Epson Foo", 350);
-//			InkCartridgeSpecification foo = InkCartridgeSpecifications
+//			CartridgeSpecification inkspec = CartridgeSpecifications.create("Epson Foo", 350);
+//			CartridgeSpecification foo = CartridgeSpecifications
 //					.get(inkspec.getUUID());
 //			System.out.println(foo.getName());
 //		} catch (SQLException e) {

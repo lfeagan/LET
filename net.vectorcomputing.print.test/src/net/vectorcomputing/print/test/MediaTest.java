@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.vectorcomputing.print.PrintPlugin;
 import net.vectorcomputing.print.accounting.Media;
+import net.vectorcomputing.print.accounting.Finish;
 import net.vectorcomputing.print.accounting.PriceHistory;
 import net.vectorcomputing.print.accounting.Size;
 import net.vectorcomputing.print.internal.ORM;
@@ -19,7 +20,7 @@ public class MediaTest {
 	public void addMedia() {
 		Session session = PrintPlugin.getSessionFactory().openSession();
 		session.beginTransaction();
-		Media matte = new Media("Epson", "Enhanced Matte", Media.Type.SHEET, Media.Finish.MATTE, new Size(13, 19), 50);
+		Media matte = new Media("Epson", "Enhanced Matte", Media.Type.SHEET, Finish.getFinish("Matte"), new Size(13, 19), 50);
 		session.save(matte);
 		PriceHistory priceHistory = matte.getPriceHistory();
 		priceHistory.addCost(new GregorianCalendar(2000, 0, 1), BigDecimal.valueOf(1.00));
@@ -28,7 +29,7 @@ public class MediaTest {
 		priceHistory.addCost(new GregorianCalendar(2003, 0, 1), BigDecimal.valueOf(8.00));
 		session.save(priceHistory);
 		
-		Media glossy = new Media("Epson", "Glossy", Media.Type.SHEET, Media.Finish.MATTE, new Size(13, 19), 50);
+		Media glossy = new Media("Epson", "Glossy", Media.Type.SHEET, Finish.getFinish("Matte"), new Size(13, 19), 50);
 		session.save(glossy);
 		PriceHistory glossyPrices = glossy.getPriceHistory();
 		glossyPrices.addCost(BigDecimal.valueOf(1.23));
