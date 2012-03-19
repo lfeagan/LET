@@ -3,6 +3,13 @@ package net.vectorcomputing.print.accounting;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/**
+ * 
+ * 
+ * @author lfeagan
+ * @since 1.0
+ * @noextend This class is not intended to be subclassed by clients.
+ */
 @Embeddable
 public class CartridgeUsage {
 

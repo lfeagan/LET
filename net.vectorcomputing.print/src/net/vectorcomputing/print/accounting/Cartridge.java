@@ -11,15 +11,30 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * A cartridge represents an instance of a {@link CartridgeSpecification}. In addition to a reference to the parent specification, it has fields for:
+ * <ul>
+ * <li>name = a user-specified name to identify the cartridge, in combination with the specification this must be unique</li>
+ * <li>remaining volume = the amount of ink left in the cartridge</li>
+ * <li>install date = the date the cartridge was put into service, used to determine the price</li>
+ * <li>disposal date = the date the cartridge was taken out of service</li>
+ * </ul>
+ * 
+ * @author lfeagan
+ * @since 1.0
+ * 
+ * @noextend This interface is not intended to be extended by clients.
+ */
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@Table(name="Cartridge")
+@Table(name="Cartridge", uniqueConstraints=@UniqueConstraint(columnNames={"specification_fk", "name"}))
 public class Cartridge {
 	
 	@Id

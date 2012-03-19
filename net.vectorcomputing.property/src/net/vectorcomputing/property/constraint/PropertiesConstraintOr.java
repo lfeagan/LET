@@ -24,6 +24,9 @@ import net.vectorcomputing.property.Property;
 /**
  * A properties constraint that ORs multiple property constraints together
  * against multiple properties.
+ * 
+ * @since 1.0
+ * @noextend This class is not intended to be subclassed by clients.
  */
 public class PropertiesConstraintOr implements IPropertiesConstraint {
 

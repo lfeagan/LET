@@ -23,6 +23,13 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * Specification of a printer and the ink specifications it can use.
+ * 
+ * @author lfeagan
+ * @since 1.0
+ * @noextend This class is not intended to be subclassed by clients.
+ */
 @Entity
 @DynamicUpdate
 @DynamicInsert

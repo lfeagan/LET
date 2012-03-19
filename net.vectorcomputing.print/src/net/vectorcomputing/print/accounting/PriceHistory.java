@@ -28,6 +28,12 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SelectBeforeUpdate;
 import org.hibernate.annotations.Table;
 
+/**
+ * 
+ * @author lfeagan
+ * @since 1.0
+ * @noextend This class is not intended to be subclassed by clients.
+ */
 @Entity
 @DynamicUpdate
 @SelectBeforeUpdate

@@ -1,5 +1,8 @@
 package net.vectorcomputing.print;
 
+/**
+ * @since 1.0
+ */
 public class LineFormat {
 
 	private int minimumLength;

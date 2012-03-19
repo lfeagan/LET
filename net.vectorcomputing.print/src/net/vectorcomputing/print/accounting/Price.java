@@ -14,6 +14,15 @@ import net.vectorcomputing.print.PrintPlugin;
 
 import org.hibernate.Session;
 
+/**
+ * Describes the price of something at a particular date. Typically used as a
+ * collection in {@link PriceHistory}.
+ * 
+ * @author lfeagan
+ * @since 1.0
+ * @noextend This class is not intended to be subclassed by clients.
+ * @noinstantiate This class is not intended to be instantiated by clients.
+ */
 @Embeddable
 public class Price {
 

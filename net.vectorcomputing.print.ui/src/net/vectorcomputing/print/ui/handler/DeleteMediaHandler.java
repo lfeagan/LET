@@ -15,7 +15,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.hibernate.Session;
 
-public class DeleteCartridgeSpecificationHandler extends AbstractHandler {
+public class DeleteMediaHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -38,7 +38,7 @@ public class DeleteCartridgeSpecificationHandler extends AbstractHandler {
 						session.delete(element);
 					}
 					session.getTransaction().commit();
-					new RefreshCartridgesViewHandler().execute(event);
+					new RefreshMediaViewHandler().equals(event);
 				} finally {
 					if (session != null) {
 						session.close();
@@ -46,7 +46,7 @@ public class DeleteCartridgeSpecificationHandler extends AbstractHandler {
 				}
 			}
 		} catch (ExecutionException e) {
-			DialogUtil.openError("Execution Error", "Unable to delete ink cartridge specification", new Status(IStatus.ERROR, "foo", null, e)); 
+			DialogUtil.openError("Execution Error", "Unable to delete media", new Status(IStatus.ERROR, "foo", null, e)); 
 		}
 		
 		return null;

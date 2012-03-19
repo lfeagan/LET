@@ -22,6 +22,27 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * <p>
+ * Defines the important characteristics of a type of ink cartridge.
+ * </p>
+ * <p>
+ * The fields are:
+ * <ol>
+ * <li>maker = who manufactured the ink cartridge</li<>
+ * <li>model = the model of ink cartridge</li<>
+ * <li>abbreviation = a short name for the ink cartridge, typically used to
+ * reduce the display are taken to present information</li<>
+ * <li>fill volume = the amount of ink the cartridge is initially filled
+ * with</li<>
+ * <li>price history = the cost of this type of ink cartridge over time</li<>
+ * </ol>
+ * </p>
+ * 
+ * @author lfeagan
+ * @since 1.0
+ * @noextend This class is not intended to be subclassed by clients.
+ */
 @Entity
 @DynamicUpdate
 @DynamicInsert

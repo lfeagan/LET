@@ -24,6 +24,9 @@ import net.vectorcomputing.property.Property;
 /**
  * A properties constraint that determines if all elements in a list of
  * properties satisfy all elements of a list of properties constraints.
+ * 
+ * @since 1.0
+ * @noextend This class is not intended to be subclassed by clients.
  */
 public class PropertiesConstraintAnd implements IPropertiesConstraint {
 

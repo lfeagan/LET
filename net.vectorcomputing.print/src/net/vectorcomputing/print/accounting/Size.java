@@ -3,6 +3,12 @@ package net.vectorcomputing.print.accounting;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/**
+ * Describes a length and width.
+ * 
+ * @author lfeagan
+ * @since 1.0
+ */
 @Embeddable
 public class Size {
 	

@@ -38,8 +38,8 @@ public class DeleteCartridgeHandler extends AbstractHandler {
 						session.delete(element);
 					}
 					session.getTransaction().commit();
-					new RefreshCartridgeSpecificationsViewHandler().execute(null);
-					new RefreshCartridgesViewHandler().execute(null);
+					new RefreshCartridgeSpecificationsViewHandler().execute(event);
+					new RefreshCartridgesViewHandler().execute(event);
 				} finally {
 					if (session != null) {
 						session.close();

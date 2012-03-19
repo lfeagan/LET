@@ -6,6 +6,9 @@ import java.util.List;
 
 import net.vectorcomputing.print.internal.FormattedRow;
 
+/**
+ * @since 1.0
+ */
 public class FormattedPrinter {
 
 	private final PrintFormat printFormat;

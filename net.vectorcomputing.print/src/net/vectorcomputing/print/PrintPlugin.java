@@ -16,6 +16,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.osgi.framework.BundleContext;
 
+/**
+ * @author lfeagan
+ * @since 1.0
+ * @noextend This class is not intended to be subclassed by clients.
+ * @noinstantiate This class is not intended to be instantiated by clients.
+ */
 public class PrintPlugin extends Plugin {
 
 	public static final String PLUGIN_ID = "net.vectorcomputing.photo"; //$NON-NLS-1$
@@ -63,7 +69,7 @@ public class PrintPlugin extends Plugin {
 	
 	public void populateWithDefaults() {
 		CartridgeSpecification.createBuiltins();
-//		Finish.createBuiltins();
+		Finish.createBuiltins();
 		Media.createBuiltins();
 	}
 	

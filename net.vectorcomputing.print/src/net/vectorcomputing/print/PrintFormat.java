@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @since 1.0
+ */
 public class PrintFormat {
 
 	private final LineFormat lineFormat = new LineFormat();

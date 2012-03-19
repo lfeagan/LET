@@ -3,6 +3,14 @@ package net.vectorcomputing.print.accounting;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/**
+ * Describes how much media was consumed; typically used as an embedded element
+ * in a print job.
+ * 
+ * @author lfeagan
+ * @since 1.0
+ * @noextend This class is not intended to be subclassed by clients.
+ */
 @Embeddable
 public class MediaUsage {
 

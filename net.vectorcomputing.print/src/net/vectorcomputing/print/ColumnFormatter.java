@@ -3,6 +3,9 @@ package net.vectorcomputing.print;
 import net.vectorcomputing.print.internal.EmptyStringCache;
 import net.vectorcomputing.print.internal.FormattedColumn;
 
+/**
+ * @since 1.0
+ */
 public class ColumnFormatter implements IColumnFormatter {
 
 	private static final TextJustification DEFAULT_TEXT_JUSTIFICATION = TextJustification.LEFT;

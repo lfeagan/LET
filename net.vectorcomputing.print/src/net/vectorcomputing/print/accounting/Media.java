@@ -20,6 +20,13 @@ import org.hibernate.Session;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * 
+ * 
+ * @author lfeagan
+ * @since 1.0
+ * @noextend This class is not intended to be subclassed by clients.
+ */
 @Entity
 @DynamicUpdate
 @Table(name="Media", uniqueConstraints=@UniqueConstraint(columnNames={"maker", "model"}))

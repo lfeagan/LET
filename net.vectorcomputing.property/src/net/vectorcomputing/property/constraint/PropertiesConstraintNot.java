@@ -25,6 +25,9 @@ import net.vectorcomputing.property.Property;
  * A properties constraint that returns the inverse (logical 'NOT') of the value
  * returned by the underlying properties constraint's
  * {@link IPropertiesConstraint#satisfiedBy(Collection)} method.
+ * 
+ * @since 1.0
+ * @noextend This class is not intended to be subclassed by clients.
  */
 public class PropertiesConstraintNot implements IPropertiesConstraint {
 

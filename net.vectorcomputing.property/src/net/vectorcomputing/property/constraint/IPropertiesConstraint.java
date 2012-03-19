@@ -21,6 +21,9 @@ import net.vectorcomputing.property.Property;
 
 /**
  * Interface for testing if a list of properties satisfy a constraint.
+ * 
+ * @author lfeagan
+ * @since 1.0
  */
 public interface IPropertiesConstraint {
 
@@ -32,5 +35,5 @@ public interface IPropertiesConstraint {
 	 * @return <code>true</code> if the properties satisfy the constraint
 	 */
 	public boolean satisfiedBy(Collection<Property> properties);
-
+	
 }
